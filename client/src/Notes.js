@@ -59,3 +59,8 @@ Quadratic time
             print x * y 
 
 Time = O(1) + O(n) + O(n^2) = O(n^2) -> because O(n^2) dominates the lower order terms
+
+
+What is a permutation? 
+- When order DOESN'T matter, it is called a combination 
+- When order DOES matter, it is called a permutation
