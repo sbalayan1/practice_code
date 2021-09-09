@@ -146,3 +146,28 @@ def dirReduc(arr)
   end
   stack
 end
+
+4. A pangram is a sentence that contains every single letter of the alphabet at least once. For example, the sentence "The quick brown fox jumps over the lazy dog" is a pangram, because it uses the letters A-Z at least once (case is irrelevant).
+
+Given a string, detect whether or not it is a pangram. Return True if it is, False if not. Ignore numbers and punctuation.
+
+Solution: 
+
+def pangram? string
+  alphabet = [*'a'..'z']
+  split_string = string.scan /\w/
+  split_string = split_string.map {|x| x.downcase}
+  pangram_array = []
+  
+  alphabet.map do |letter|
+    split_string.find {|x| x === letter} != nil ? pangram_array.push(true) : pangram_array.push(false)
+  end 
+  
+  pangram_array.find{|x| x === false} != nil ? false : true
+   
+end
+
+Best Solution: 
+def panagram?(string)
+  ('a'..'z').all? { |x| string.downcase.include? (x) } 
+end
