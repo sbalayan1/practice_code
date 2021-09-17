@@ -80,3 +80,80 @@ Redux Flow
     1. We hold our application's state in one plain old JavaScript object, and we update that state by passing both an action and the old state to our reducer. Our reducer returns to us our new state.
     2. So to change our state we (1) create an action (an action is just a plain object with a type key); and (2) and pass the action as an argument when we call the reducer (which is just a function with a switch/case statement). This produces a new state.
     3. Our reducer is a pure function which means that given the same arguments of state and action, it will always produce the same new state. Also it means that our reducer never updates the previous state, but rather creates a new state object.
+
+Dispatch
+-> Dispatch solves two problems. 
+    First it persists changes to state. The dispatch function does this by first calling the reducer, and then takes the return value and assigns it to state 
+    Secon it ensures that each time state updates, HTML updates to reflect the changes. It does this by simply calling the render function. Each time we call dispatch it's as if we are then calling render. Don't worry about re-rendering too much. Remember that when we integrate with React, React will only be virtually re-rendering the DOM, and then updating the DOM with the smallest number of changes to ensure a performant application.
+
+    function changeState(state, action) {
+        switch (action.type) {
+          case "counter/increment":
+            return { count: state.count + 1 };
+          default:
+            return state;
+        }
+      }
+      
+      let state = { count: 0 };
+      let action = { type: "counter/increment" };
+      
+      changeState(state, action)
+      
+      
+      // How dispatch works 
+      
+      state = changeState(state, { type: "counter/increment" });
+      state;
+      //  => {count: 1}
+      state = changeState(state, { type: "counter/increment" });
+      //  => {count: 2} 
+      
+      
+      
+      function dispatch(action) {
+        state = changeState(state, action)
+        return state
+      }
+      
+      dispatch({ type: 'counter/increment' })
+      // => {count: 1}
+      
+      dispatch({ type: 'counter/increment' })
+      // => {count: 2}
+
+Rendering State 
+-> To render the above^^^ on the page we can write a render function that changes our HTML:
+
+    function render() {
+        document.body.textContent = state.count;
+    } 
+
+    render();
+
+Full example of using the reducer, dispatch, and render functions with redux 
+
+let state = { count: 0 }
+
+function changeState(state, action) { 
+    switch (action.type) {
+        case 'counter/increment': 
+            return { count: state.count + 1 }
+        default:
+            return state
+    }
+}
+
+function render() {
+    document.body.textContent = state.count
+}
+
+function dispatch(action) {
+    state = changeState(state,action)
+    render()
+}
+
+render()
+
+
+
