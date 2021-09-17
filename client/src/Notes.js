@@ -157,6 +157,14 @@ function dispatch(action) {
 }
 
 render()
+dispatch({type: '@@INIT'})
 
+
+// adding event listeners to execute dispatch when a button is clicked. 
+let button = document.getElementById('button')
+
+button.addEventListener('click', () => {
+    dispatch({type: 'counter/increment'})
+}
 
 
