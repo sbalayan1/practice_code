@@ -82,6 +82,9 @@ Redux Flow
     3. Our reducer is a pure function which means that given the same arguments of state and action, it will always produce the same new state. Also it means that our reducer never updates the previous state, but rather creates a new state object.
 
 Dispatch
+-> dispatch({ type: "@@INIT" }); -> returns the existing state. Could be any kind of string 'beef', 'cat', etc. Essentially what you're doing is passing a meaningless action. This gets passed into the changeState function which renders the existing state because in this case, the default case gets hit. 
+Note this can be placed at the end of a file to display the current/initial state. Initial render of HTML. 
+
 -> Dispatch solves two problems. 
     First it persists changes to state. The dispatch function does this by first calling the reducer, and then takes the return value and assigns it to state 
     Secon it ensures that each time state updates, HTML updates to reflect the changes. It does this by simply calling the render function. Each time we call dispatch it's as if we are then calling render. Don't worry about re-rendering too much. Remember that when we integrate with React, React will only be virtually re-rendering the DOM, and then updating the DOM with the smallest number of changes to ensure a performant application.
