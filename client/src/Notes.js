@@ -167,4 +167,119 @@ button.addEventListener('click', () => {
     dispatch({type: 'counter/increment'})
 }
 
+// Refactoring redux code into a library that can be used across JS applications. 
+    // 1. Encapsulate application state by wrapping code in a function 
+    // 2. Move Code Common to Every JavaScript Application Inside Our New Function
+    // 3. Abstract away the reducer 
 
+    // With this set up, we've got a fully functional store, that encapsulates our state and provides a controlled way to write (dispatch) and retrieve (getState) information.
+
+    // Every piece of code that would be common to any JavaScript application following this pattern is wrapped inside of the createStore function. Any code that is particular to our application is outside that function.
+    
+    // What's particular to a specific application?
+    //     1. How the DOM is updated in our render function
+    //     2. What events trigger a dispatch method
+    //     3. How our state should change in response to different actions being dispatched.
+
+    //     ***These are all implemented outside of our createStore function.***
+    
+    // What is generic to each application following this pattern?
+    //     1. That a call to dispatch should call a reducer, reassign the state, and render a change.
+    //     2. This is implemented inside the createStore function.
+
+1. 
+    function createStore() {
+        // state initially is a global variable that can be mistakenly changed. wrap this stat into a function to avoid this. 
+        let state;
+    }
+
+2. 
+    function createStore() {
+        let state; 
+
+
+        // moving dispatch into the createStore function makes state accessible. 
+        function dispatch(action) {
+            state = reducer(state,action)
+            render();
+        }
+
+        // is used to retrieve data from the store function. This method simply returns the state so we can use it elsewhere in our application. Note you also need to add the getState function to the object the createStore returns
+        function getState() {
+            return state
+        }
+
+        return {
+            dispatch, 
+            getState
+        }
+
+    }
+
+    function reducer(state = {count: 0}, action) {
+        switch(action.type) {
+            case 'INCREASE_COUNT': 
+                return {count: state.count + 1}
+            default: 
+                return state
+        }
+    }
+
+    function render() {
+        let container = document.getElementById('container')
+        container.textContent = store.getState().count
+    }
+
+    // in order to access the dispatch method, we will create a variable called store and set it equal to the result of calling createStore. Because createStore returns an object that contains the dispatch method, we can now access the method from store. 
+    let store = createStore()
+    store.dispatch({ type: '@@INIT' })
+
+    let button = document.getElementById('button')
+
+    button.addEventListener('click', () => {
+        store.dispatch({ type: 'INCREASE_COUNT' })
+    })
+
+// 3. Abstract away the reducer ??so that createStore is generic for any JS application?? <- unsure what this means. As you can see below, createStore takes the reducer as the argument. This sets the new store's reducer as reducer. When an action is dispatched, it calls the reducer that we passed through when creating the store.
+
+function createStore(reducer) {
+    let state;
+  
+    function dispatch(action) {
+      state = reducer(state, action);
+      render();
+    }
+  
+    function getState() {
+      return state;
+    };
+  
+    return {
+      dispatch,
+      getState
+    };
+  };
+  
+  function reducer(state = { count: 0 }, action) {
+    switch (action.type) {
+      case 'INCREASE_COUNT':
+        return { count: state.count + 1 };
+  
+      default:
+        return state;
+    }
+  }
+  
+  
+  function render() {
+    let container = document.getElementById('container');
+    container.textContent = store.getState().count;
+  };
+  
+  let store = createStore(reducer) // createStore takes the reducer as an argument
+  store.dispatch({ type: '@@INIT' });
+  let button = document.getElementById('button');
+  
+  button.addEventListener('click', () => {
+    store.dispatch({ type: 'INCREASE_COUNT' });
+  });
