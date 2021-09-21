@@ -283,3 +283,22 @@ function createStore(reducer) {
   button.addEventListener('click', () => {
     store.dispatch({ type: 'INCREASE_COUNT' });
   });
+
+
+// Implementing Redux in React. 
+    //1.  import our createStore() function from the official Redux library. Normally, to install Redux into a React application, you need to install two packages, redux and react-redux by running npm install redux react-redux
+    //2. Redux provides a function, createStore(), that, when invoked, returns an instance of the Redux store for us. So we can use that function to create a store. We want to import createStore() in our src/index.js file, where ReactDOM renders our application.
+    //3.  To avoid passing store as a prop, we use the Provider component, which is imported from react-redux. The Provider component wraps the top level component, App, in this case, and is the only component where store is passed in. By including the Provider, we'll be able to access our Redux store and/or dispatch actions from any component we want, regardless of where it is on the component tree.
+    // 4. To gain access to the store somewhere in our app, we use two hooks provided by react-redux: the useDispatch hook (for dispatching actions to the store), and the useSelector hook (for selecting parts of state to access within our components).
+
+
+// More about the useDispatch and useSelector hooks. 
+    // 1. useDispatch: The Redux store has a special dispatch method that we must call any time we want to create a new state. The useDispatch hook gives us access to that dispatch method so we can use it from any of our components!
+    // 2. useSelector: Is the way we can interact with the getState method via the Redux store. This hook takes a callback function as an argument that will get called with the state object from our Redux store. Whatever the callback function returns will be returned by the hook. Another effect of using the useSelector hook is that it effectively 'subscribes' our components to changes in the Redux store state. Whenever the value returned by our useSelector hook changes, the useSelector hook will cause our component to re-render. So as the store's items property increases, Counter will display a different number!
+
+
+// The below lets your redux store communicate with the redux devtools extension in your browser 
+    const store = createStore(
+        counterReducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
