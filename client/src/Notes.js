@@ -302,3 +302,26 @@ function createStore(reducer) {
         counterReducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
+
+// The properties of Actions and how to use action creators to create an action 
+
+Actions are just Plain Old JavaScript Objects (POJOs) with at least one property called type. 
+
+// Example of an action creator 
+    function addTodo(todo) {
+        return {
+        type: 'ADD_TODO',
+        todo: todo
+        }
+    }
+
+//   Notice how in the above we can generate different payload properties depending on what we pass to the addTodo function. 
+// example 
+    addTodo('buy groceries');
+    // -> { type: 'ADD_TODO', todo: 'buy groceries' }
+
+    addTodo('watch netflix');
+    // -> { type: 'ADD_TODO', todo: 'watch netflix' }
+
+// example of dispatching an action creator 
+    store.dispatch(addTodo('buy groceries'));
