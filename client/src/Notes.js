@@ -241,7 +241,6 @@ button.addEventListener('click', () => {
     })
 
 // 3. Abstract away the reducer ??so that createStore is generic for any JS application?? <- unsure what this means. As you can see below, createStore takes the reducer as the argument. This sets the new store's reducer as reducer. When an action is dispatched, it calls the reducer that we passed through when creating the store.
-
 function createStore(reducer) {
     let state;
   
@@ -304,24 +303,56 @@ function createStore(reducer) {
     )
 
 // The properties of Actions and how to use action creators to create an action 
+    Actions are just Plain Old JavaScript Objects (POJOs) with at least one property called type. 
 
-Actions are just Plain Old JavaScript Objects (POJOs) with at least one property called type. 
-
-// Example of an action creator 
-    function addTodo(todo) {
-        return {
-        type: 'ADD_TODO',
-        todo: todo
+    // Example of an action creator 
+        function addTodo(todo) {
+            return {
+            type: 'ADD_TODO',
+            todo: todo
+            }
         }
-    }
 
-//   Notice how in the above we can generate different payload properties depending on what we pass to the addTodo function. 
-// example 
-    addTodo('buy groceries');
-    // -> { type: 'ADD_TODO', todo: 'buy groceries' }
+    //   Notice how in the above we can generate different payload properties depending on what we pass to the addTodo function. 
+    // example 
+        addTodo('buy groceries');
+        // -> { type: 'ADD_TODO', todo: 'buy groceries' }
 
-    addTodo('watch netflix');
-    // -> { type: 'ADD_TODO', todo: 'watch netflix' }
+        addTodo('watch netflix');
+        // -> { type: 'ADD_TODO', todo: 'watch netflix' }
 
-// example of dispatching an action creator 
-    store.dispatch(addTodo('buy groceries'));
+    // example of dispatching an action creator 
+        store.dispatch(addTodo('buy groceries'));
+
+    // Action creators basically let us separate redux specific code and our react components by storing a changeable action object inside of a function. This keeps us from having to rewrite the action object everytime we need to dispatch an action. 
+
+// Exploring useDispatch in more detail and organizing Redux dispatching logic using action creators 
+    // -> look at react-hooks-redux-use-dispatch-lab and prior repos in Mod4 for more information
+
+
+// Combining redux reducers using combineReducers()
+    // The combineReducers() function allows us to write two or more separate reducers, then pass each reducer to the combineReducers() function to produce the reducer we wrote above. Then we pass that combined reducer to the store in src/index.js.
+
+    // Through combineReducer, we're telling Redux to produce a reducer which will return a state that has both a key of books with a value equal to the return value of the booksReducer() and a key of authors with a value equal to the return value of the authorsReducer(). 
+    
+    // We'll also need to import our new root reducer in the src/index.js file:
+
+    // Dispatching Actions
+        // The combineReducer() function returns to us one large reducer that looks like the following:
+
+const initialState = {
+  authors: [], //array of authors
+  books: [], // array of books
+};
+
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case "books/add":
+      return; // ...
+    case "books/remove":
+      const newBooks = state.books.filter((book) => book.id !== action.payload);
+      return; // ...
+    // ...
+  }
+} 
+        // Because of this, we can dispatch actions the same way we always did. store.dispatch({ type: 'books/add', { title: 'Snow Crash', author: 'Neal Stephenson' } }); will hit our switch statement in the reducer and add a new author.
