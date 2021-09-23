@@ -356,3 +356,72 @@ export default function reducer(state = initialState, action) {
   }
 } 
         // Because of this, we can dispatch actions the same way we always did. store.dispatch({ type: 'books/add', { title: 'Snow Crash', author: 'Neal Stephenson' } }); will hit our switch statement in the reducer and add a new author.
+
+
+        String Challenge
+
+        Have the function StringChallenge(str) read the str parameter being passed which will be a string of HTML DOM elements and plain text. The elements that will be used are: b, i, em, div, p. For example: if str is "<div><b><p>hello world</p></b></div>" then this string of DOM elements is nested correctly so your program should return the string true.
+        
+        If a string is not nested correctly, return the first element encountered where, if changed into a different element, would result in a properly formatted string. If the string is not formatted properly, then it will only be one element that needs to be changed. For example: if str is "<div><i>hello</i>world</b>" then your program should return the string div because if the first <div> element were changed into a <b>, the string would be properly formatted.
+
+        Examples
+        Input: "<div><div><b></b></div></p>"
+        Output: div
+        Input: "<div>abc</div><p><em><i>test test test</b></em></p>"
+        Output: i
+
+        function StringChallenge(str) { 
+
+            // code goes here 
+            // turn string into an array 
+            // first element in the array should be equal to the last element of the array and so on. 
+            let array = str.split('><')
+          
+          
+            // iterate through the array from the first and last index. 
+            for (let i=0; i<array.length; i++) {
+              
+              // continue to iterate through if the two are the same. 
+              for (let j=i+1; j<array.length; j++)
+                if ('/' + array[i].split('<').join('') === array[array.length - j].split('>').join('')) {
+                  i++
+                  j++
+                  return true
+          
+              // return the invalid element if the two are not equal
+                } else {
+                  return array[i].split('<').join('')
+                }
+            }
+          }
+             
+          // keep this function call here 
+          console.log(StringChallenge(readline()));
+
+        let str = "<div>word</div>"
+
+  function StringChallenge(str) {
+    let stringArray = str.split('')
+    let updatedArray = []
+    let j = 0 
+
+    for (let i = 0; i < stringArray.length; i++) { 
+
+      if (stringArray[i] === '<') {
+        j = i
+        i++
+      } else if (stringArray[i] === '>') {
+        let word = stringArray.slice(j,i+1)
+        updatedArray.push(word.join(''))
+        i++
+
+      } else {
+        i++
+      }
+    }
+
+    return updatedArray
+
+  }
+
+  console.log(StringChallenge(str))
