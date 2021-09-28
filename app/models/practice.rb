@@ -328,25 +328,16 @@ Best Solution:
   Empty list is considered to have zero greatest sum. Note that the empty list or array is also a valid sublist/subarray.
 
 Solution: 
-
-let maxSequence = (arr) => {
-  let allCombinations = []
-  
-  if (arr.length === 0 || arr.find(num => num>0) === undefined) {
-    return 0
+  let maxSequence = (arr) => {
+    let allCombinations = []
     
-  } else if (arr.find(num => num<0) === undefined) {
-    return arr.reduce((a,b) => a+b, 0)
-    
-    
-  } else {
-    for (let i = 0; i<arr.length; i++) {
-      for (let j = i+1; j<arr.length; j++) {
-        let comboArr = arr.slice(i,j)      
-        allCombinations.push(comboArr.reduce((a,b) => a+b,0))
+    for (let i = 0; i<=arr.length; i++) {
+        for (let j = i+1; j<=arr.length; j++) {
+          let comboArr = arr.slice(i,j)      
+          allCombinations.push(comboArr.reduce((a,b) => a+b,0))
+        }
       }
-    }
-  }
+
+  return allCombinations.length === 0 || allCombinations.find(val => val>0) === undefined ? 0 : Math.max(...allCombinations)
     
-  return Math.max(...allCombinations)  
-}
+  }
