@@ -341,3 +341,15 @@ Solution:
   return allCombinations.length === 0 || allCombinations.find(val => val>0) === undefined ? 0 : Math.max(...allCombinations)
     
   }
+
+  Best Solution: 
+
+  var maxSequence = function(arr){
+  var min = 0, ans = 0, i, sum = 0;
+  for (i = 0; i < arr.length; ++i) {
+    sum += arr[i];
+    min = Math.min(sum, min);
+    ans = Math.max(ans, sum - min);
+  }
+  return ans;
+  }
