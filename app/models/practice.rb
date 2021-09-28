@@ -375,7 +375,5 @@ songDecoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB")
 
 Solution: 
 function songDecoder(song){
-  song = song.replace(/WUB/gi,'')
-  
-  return song.split('').join(' ')
+  return song.replace(/(WUB)+/g,' ').trim()
 }
