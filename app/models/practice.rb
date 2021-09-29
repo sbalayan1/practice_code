@@ -437,3 +437,66 @@ let productFib = (prod) => {
   
   return [n, nPlus, n*nPlus === prod]
 }
+
+11. Build Tower by the following given argument:
+number of floors (integer and always greater than 0).
+
+Tower block is represented as *
+
+Python: return a list;
+JavaScript: returns an Array;
+C#: returns a string[];
+PHP: returns an array;
+C++: returns a vector<string>;
+Haskell: returns a [String];
+Ruby: returns an Array;
+Lua: returns a Table;
+Have fun!
+
+for example, a tower of 3 floors looks like below
+
+[
+  '  *  ', 
+  ' *** ', 
+  '*****'
+]
+and a tower of 6 floors looks like below
+
+[
+  '     *     ', 
+  '    ***    ', 
+  '   *****   ', 
+  '  *******  ', 
+  ' ********* ', 
+  '***********'
+]
+
+Solution: 
+function towerBuilder(nFloors) {
+  let tower = []
+  let addedStars = 1
+  
+  while (nFloors > 0) {
+    tower.push('*'.repeat(addedStars))
+    addedStars += 2
+    nFloors--
+  }
+
+  for (let i = 0; i< tower.length; i++) {
+    let addSpace = ' '.repeat((tower[tower.length-1].length - tower[i].length)/2)
+    i !== tower.length - 1 ? tower[i] = addSpace + tower[i] + addSpace : null
+  }
+
+  return tower
+}
+
+Best Solution: 
+function towerBuilder(nFloors) {
+  var tower = [];
+  for (var i = 0; i < nFloors; i++) {
+    tower.push(" ".repeat(nFloors - i - 1)
+             + "*".repeat((i * 2)+ 1)
+             + " ".repeat(nFloors - i - 1));
+  }
+  return tower;
+}
