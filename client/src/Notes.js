@@ -19,47 +19,78 @@
 
 // O(1) < O(logn) < O(n) < O(nlogn) < O(n^2) < O(2^n) < O(n!)
 
+- big O notation is used to express runtime in terms of "HOW QUICKLY IT GROWS RELATIVE TO THE INPUT, AS THE INPUT GETS ARBITRARILY LARGE"
+  - Note that n can be the actual input or the size of the input because n is somtimes an actual number that's an input to the method or n is the number of items in an input array/object/map/etc. 
+
+  O(1) = constant time relative to its input
+    -> The input array could be 1 item or 1,000 items, but this method would still just require one "step."
+  O(n) = linear time where n is the number of items in the array. 
+    -> if the array has 10 itesm, we have to print 10 times. 
+  O(n^2) = quadratic time 
+  -> Example: nesting two loops
+  If our array has nn items, our outer loop runs nn times and our inner loop runs nn times for each iteration of the outer loop, giving us n^2 total prints. If the array (n) has 10 items, we have to print 100 times. If it has 1,000 items, we have to print 1,000,000 times.
+
 
 Example
 
-Constant Time
-1. x = 5 + (15 * 20) -> independent of input size N -> O(1)
-2. x = 5 + (15 * 20)
-    y = 15 -2 
-    print x + y 
-    Total time = O(1) + O(1) + O(1) = O(1)
+  Constant Time
+  1. x = 5 + (15 * 20) -> independent of input size N -> O(1)
+  2. x = 5 + (15 * 20)
+      y = 15 -2 
+      print x + y 
+      Total time = O(1) + O(1) + O(1) = O(1)
 
-Linear Time 
+  Linear Time 
 
-1. for x in range (0, n) -> N
-    print x -> O(1)
+  1. for x in range (0, n) -> N
+      print x -> O(1)
 
-    Time = N * O(1) = O(n)
+      Time = N * O(1) = O(n)
 
-2. y = 5 + (15 * 20)
-    for x in range (0, n):
-        print x 
+  2. y = 5 + (15 * 20)
+      for x in range (0, n):
+          print x 
 
-    Time = O(1) + O(n) = O(n)
+      Time = O(1) + O(n) = O(n)
 
 
-Quadratic time
-1. for x in range (0,n): -> N
-    for y in range (0,n): -> N
-        print x * y -> O(1)
+  Quadratic time
+  1. for x in range (0,n): -> N
+      for y in range (0,n): -> N
+          print x * y -> O(1)
 
-    Time = N * N * O(1) = O(n^2)
+      Time = N * N * O(1) = O(n^2)
 
-2. x = 5 + (15*20) -> O(1)
-    for x in range (0,n): -> O(n)
-        print x
+  2. x = 5 + (15*20) -> O(1)
+      for x in range (0,n): -> O(n)
+          print x
 
-    for x in range (0, n) -> O(n^2)
-        for y in range (0,n)
-            print x * y 
+      for x in range (0, n) -> O(n^2)
+          for y in range (0,n)
+              print x * y 
 
-Time = O(1) + O(n) + O(n^2) = O(n^2) -> because O(n^2) dominates the lower order terms
+  Time = O(1) + O(n) + O(n^2) = O(n^2) -> because O(n^2) dominates the lower order terms
 
+Space Complexity 
+
+  Sometimes we want to optimize for using less memory instead of (or in addition to) using less time. Talking about memory cost (or "space complexity") is very similar to talking about time cost. We simply look at the total size (relative to the size of the input) of any new variables we're allocating.
+
+
+    This function takes O(1)O(1) space (we use a fixed number of variables):
+      function sayHiNTimes(n) {
+        for (let i = 0; i < n; i++) {
+          console.log('hi');
+        }
+      }
+
+    This function takes O(n)O(n) space (the size of hiArray scales with the size of the input):
+      function arrayOfHiNTimes(n) {
+        const hiArray = [];
+        for (let i = 0; i < n; i++) {
+          hiArray[i] = 'hi';
+        }
+        return hiArray;
+      }
 
 What is a permutation? 
 - When order DOESN'T matter, it is called a combination 
