@@ -1,23 +1,24 @@
 // 9/7/21
 
-// Big O Notation - https://www.youtube.com/watch?v=__vX2sjlpXU
+import { supported } from "turbolinks"
 
-// - is simplified analysis of an algorithm's efficiency
-// - gives us an algorithm's complexity in terms of input size, N 
-// - gives us a way to extract the efficiency of our algorithms from the machines they run on. 
-// - Do not care about the status of the machine. 
-// - Analyzes both time and space 
-
-
-// - generally measured on a worst case scenario though the others are still important. 
+Big O Notation - https://www.youtube.com/watch?v=__vX2sjlpXU
+  - is simplified analysis of an algorithm's efficiency
+  - gives us an algorithm's complexity in terms of input size, N 
+  - gives us a way to extract the efficiency of our algorithms from the machines they run on. 
+  - Do not care about the status of the machine. 
+  - Analyzes both time and space 
 
 
-// General Rules
+  - generally measured on a worst case scenario though the others are still important. 
 
-// 1. Ignores constants 
-// 2. Certain terms dominate others 
 
-// O(1) < O(logn) < O(n) < O(nlogn) < O(n^2) < O(2^n) < O(n!)
+  General Rules
+
+    1. Ignores constants 
+    2. Certain terms dominate others 
+
+    O(1) < O(logn) < O(n) < O(nlogn) < O(n^2) < O(2^n) < O(n!)
 
 - big O notation is used to express runtime in terms of "HOW QUICKLY IT GROWS RELATIVE TO THE INPUT, AS THE INPUT GETS ARBITRARILY LARGE"
   - Note that n can be the actual input or the size of the input because n is somtimes an actual number that's an input to the method or n is the number of items in an input array/object/map/etc. 
@@ -456,3 +457,110 @@ export default function reducer(state = initialState, action) {
   }
 
   console.log(StringChallenge(str))
+
+  Question: You are given an unordered array consisting of consecutive integers [1,2,3,..., n] without any duplicats. You are allowed to swap any two elements. You need to find the minimum number of swaps required to sort the array in ascending order. 
+
+  In: [7,1,3,2,4,5,6]
+  Out: 5
+  
+  Questions to ask your interviewer in this case? 
+  - Can I use the sort method? 
+  - Check to make sure consecutive means 1,2,3,4,5,6
+  - Can I mutate my original array?
+  - Will the array always start at 1? What is the minimum number? 
+
+  Notes: 
+  - In this case you would use the index of each element in the array. If the index does not match the element in the array, find the element that matches and swap the two elements. Make sure to keep track of your swaps. 
+
+  Solution: 
+  function minimumSwaps(arr) {
+    let unsorted = [...arr]
+    let min = Math.min(...arr)
+    let swaps = 0
+  
+    for (let i = 0; i < unsorted.length; i++) {
+      if (unsorted[i] !== i + min) {
+        
+        // finds the correct element
+        let idx = unsorted.indexOf(i+min, i)
+        let temp = unsorted[i]
+  
+        // swaps the current element in the unsorted array with the correct element
+        unsorted[i] = unsorted[idx]
+  
+        // swaps the correct element with the incorrect element. 
+        unsorted[idx] = temp
+  
+        // increase swaps by 1 if the condition is hit
+        swaps++
+      }
+    }
+    return swaps
+  }
+  
+  console.log(minimumSwaps([7,1,3,2,4,5,6]))//5
+  console.log(minimumSwaps([-7, 1, -3, 2, 4, 5, 6])) //6
+
+  remember to ask about edge cases:
+  - array that is already sorted
+  - array with any negative values 
+  - etc. 
+
+
+Odd or Even: 
+function isEvenOrOdd(n) {
+  return n % 2 ? 'Odd' : 'Even';
+}
+
+console.log(isEvenOrOdd(10)); // => Even
+console.log(isEvenOrOdd(10001)); // => Odd
+
+Find Max
+
+function findMax(n) {
+  let max; 
+
+  for (let i = 0; i < n.length; i++) {
+    if (n[i] > max || max === undefined) {
+      max = n[i]
+    }
+  }
+
+  return max
+}
+
+Bubble Sort: 
+  function sort(n) {
+    for (let outer = 0; outer < n.length; outer++) {
+      let outerElement = n[outer];
+
+      for (let inner = outer + 1; inner < n.length; inner++) {
+        let innerElement = n[inner];
+
+        if(outerElement > innerElement) {
+          // swap
+          n[outer] = innerElement;
+          n[inner] = outerElement;
+          
+          // update references
+          outerElement = n[outer];
+          innerElement = n[inner];
+
+        }
+      }
+    }
+    return n;
+  }
+
+  console.log(sort([3,2,1]))
+  //outer = 0 && inner = 1
+  //outer element = 2 && inner element = 3 
+  //[2,3,1]
+
+  // outer = 0 && inner = 2 
+  // oe = 2 && ie = 1 -> swap to oe = 1 && ie = 2
+  // n = [1,3,2]
+
+  // outer = 1 && inner = 2
+  // oe = 3 && ie = 2 -> swap to oe = 2 && ie = 3
+  // n = [1,2,3]
