@@ -27,6 +27,8 @@ Big O Notation - https://www.youtube.com/watch?v=__vX2sjlpXU
     -> The input array could be 1 item or 1,000 items, but this method would still just require one "step."
   O(n) = linear time where n is the number of items in the array. 
     -> if the array has 10 itesm, we have to print 10 times. 
+  O(n log n) = linearithmic time 
+    -> 
   O(n^2) = quadratic time 
   -> Example: nesting two loops
   If our array has nn items, our outer loop runs nn times and our inner loop runs nn times for each iteration of the outer loop, giving us n^2 total prints. If the array (n) has 10 items, we have to print 100 times. If it has 1,000 items, we have to print 1,000,000 times.
@@ -515,8 +517,7 @@ function isEvenOrOdd(n) {
 console.log(isEvenOrOdd(10)); // => Even
 console.log(isEvenOrOdd(10001)); // => Odd
 
-Find Max
-
+Find Max:
 function findMax(n) {
   let max; 
 
@@ -564,3 +565,152 @@ Bubble Sort:
   // outer = 1 && inner = 2
   // oe = 3 && ie = 2 -> swap to oe = 2 && ie = 3
   // n = [1,2,3]
+
+Merge Sort: 
+  How it works: 
+    1. Divide the array recursively until the elements are two or less. 
+    2. Sort the two items in the array iteratively 
+    3. Merge by taking one by one from each array such that they are in ascending order. 
+  
+  // Sort array in asc order using merge-sort 
+  // Example 
+  // sort([3,2,1]) => [1,2,3]
+  // sort([3]) => [3]
+  // sort([3,2]) => [2,3]
+  
+  // function sort(array = []) {
+  //   // handles arrays with lengths equal to or less than 2. base case scenario
+  //   if (array.length < 2) {
+  //     return array
+  //   }
+
+  //   // sort the array. 
+  //   if (array.length === 2) {
+  //     return array[0] > array[1] ? [array[1], array[0]] : array
+  //   }
+
+  //   // cuts the array in half. Also maybe handles cases where you receive a string of integers? 
+  //   let mid = parseInt(array.length/2, 10)
+
+  //   // sort(array.slice(0,mid)) creates a copy of the original array and slices from index 0 to mid and sorts. sort(array.slice(mid)) does the same but from index mid to the end of the array. 
+  //   return merge(sort(array.slice(0,mid), sort(array.slice(mid))))
+  // }
+
+  // function merge(array1 = [], array2 = []) {
+  //   const merged = []
+  //   let array1Index = 0 
+  //   let array2Index = 0
+
+  //   // execute the loop until we complete each array
+  //   while (array1Index < array1.length || array2Index < array2.length)
+  //     if (array1Index >= array1.length || array1[array1Index] > array2[array2Index]) {
+  //       merged.push(array2[array2Index])
+  //       array2Index++
+  //     } else {
+  //       merged.push(array1[array1Index])
+  //       array1Index++
+  //     }
+  // }
+
+  function sort(array) {
+    if (array.length <= 1){
+      return array
+    }
+  
+    let mid = parseInt(array.length/2, 10)
+    return merge(sort(array.slice(0,mid)), sort(array.slice(mid)))
+  }
+  
+  function merge(array1, array2) {
+    let merged = [], arrayIndex1=0, arrayIndex2=0
+  
+    while (arrayIndex1 < array1.length && arrayIndex2 < array2.length) {
+      if (array1[arrayIndex1].length > array2[arrayIndex2].length) {
+        merged.push(array2[arrayIndex2])
+        arrayIndex2 ++
+      } else {
+        merged.push(array1[arrayIndex1])
+        arrayIndex1 ++
+      }
+    }
+  
+    return merged.concat(array1.slice(arrayIndex1), array2.slice(arrayIndex2))
+  }
+  
+  
+  sort(['beg','life','i','to','james brown'])
+
+
+Recursive Binary Search: 
+function indexOf(array, element, offset = 0) {
+  // split array in half
+  const half = parseInt(array.length / 2);
+  const current = array[half];
+
+  if(current === element) {
+    return offset + half;
+  } else if(element > current) {
+    const right = array.slice(half);
+    return indexOf(right, element, offset + half);
+  } else {
+    const left = array.slice(0, half)
+    return indexOf(left, element, offset);
+  }
+}
+
+// Usage example with a list of names in ascending order:
+const directory = ["Adrian", "Bella", "Charlotte", "Daniel", "Emma", "Hanna", "Isabella", "Jayden", "Kaylee", "Luke", "Mia", "Nora", "Olivia", "Paisley", "Riley", "Thomas", "Wyatt", "Xander", "Zoe"];
+console.log(indexOf(directory, 'Hanna'));   // => 5
+console.log(indexOf(directory, 'Adrian'));  // => 0
+console.log(indexOf(directory, 'Zoe'));     // => 18
+
+What does a binary search do: 
+
+  Open the book in the middle and check the first word on it.
+  If the word you are looking for is alphabetically more significant, then look to the right. Otherwise, look in the left half.
+  Divide the remainder in half again, and repeat step #2 until you find the word you are looking for.
+
+
+10/13/21 CodeWars 
+
+  1. Write a function that takes an array of strings as an argument and returns a sorted array containing the same strings, ordered from shortest to longest.
+
+  For example, if this array were passed as an argument:
+
+  ["Telescopes", "Glasses", "Eyes", "Monocles"]
+
+  Your function would return the following array:
+
+  ["Eyes", "Glasses", "Monocles", "Telescopes"]
+
+  All of the strings in the array passed to your function will be different lengths, so you will not have to decide how to order multiple strings of the same length.
+
+Solution: 
+  1. Bubble Sort 
+    function sortByLength (array) {
+      for (let i = 0; i<array.length; i++) {
+        let outerElement = array[i]
+        
+        for (let j= i+1; j<array.length; j++) {
+          let innerElement = array[j]
+          
+          if (outerElement.length > innerElement.length) {
+            array[i] = innerElement
+            array[j] = outerElement
+            
+            outerElement = array[i]
+            innerElement = array[j]
+    
+          }
+        }
+      }
+      
+      return array
+    };
+
+  -> Time complexity of O(n^2)
+
+Easy Solution: 
+  function sortByLength (array) {
+    array.sort((a,b) => a.length - b.length)
+  }
