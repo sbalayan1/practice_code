@@ -714,3 +714,85 @@ Easy Solution:
   function sortByLength (array) {
     array.sort((a,b) => a.length - b.length)
   }
+
+  2. All Star Code Challenge #22
+
+  Create a function that takes an integer argument of seconds and converts the value into a string describing how many hours and minutes comprise that many seconds.
+
+  Any remaining seconds left over are ignored.
+
+  Note:
+  The string output needs to be in the specific form - "X hour(s) and X minute(s)"
+
+  For example:
+
+  3600 --> "1 hour(s) and 0 minute(s)"
+  3601 --> "1 hour(s) and 0 minute(s)"
+  3500 --> "0 hour(s) and 58 minute(s)"
+  323500 --> "89 hour(s) and 51 minute(s)
+
+  Solution: 
+    function toTime(seconds) {
+      let hours = Math.floor(seconds/3600)
+      let minutes = Math.floor((seconds - hours * 3600)/60)
+      
+      seconds >= 3600 ? null : hours = 0
+      
+      return `${hours} hour(s) and ${minutes} minute(s)` 
+    }
+
+  3. Return the number (count) of vowels in the given string.
+
+    We will consider a, e, i, o, u as vowels for this Kata (but not y).
+  
+    The input string will only consist of lower case letters and/or spaces.
+
+    Solution: 
+
+    function getCount(str) {
+      var vowelsCount = 0;
+      let copyOfString = str.split('')
+      
+      for(let i = 0; i<copyOfString.length; i++) {
+        if (copyOfString[i].match(/[aeiou]/gi)){
+          vowelsCount ++
+        }
+      }
+    
+      return vowelsCount;
+    }
+
+    Best Solution: 
+
+    function getCount(str) {
+      return (str.match(/[aeiou]/ig)||[]).length;
+    }
+
+
+3. In the following 6 digit number:
+
+  283910
+  91 is the greatest sequence of 2 consecutive digits.
+
+In the following 10 digit number:
+
+  1234567890
+  67890 is the greatest sequence of 5 consecutive digits.
+
+Complete the solution so that it returns the greatest sequence of five consecutive digits found within the number given. The number will be passed in as a string of only digits. It should return a five digit integer. The number passed may be as large as 1000 digits.
+
+Solution: 
+
+function solution(digits){
+  let copyOfDigits = digits.split('')
+  let max = 0
+  
+  for (let i = 0; i<copyOfDigits.length; i++) {
+    let series = parseInt(copyOfDigits.slice(i,i+5).join(''),10)
+    
+    if (series !== undefined) {      
+      series > max ? max = series : null
+    }    
+  }
+  return max
+}
