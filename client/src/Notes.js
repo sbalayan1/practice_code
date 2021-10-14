@@ -934,9 +934,9 @@ anagrams('laser', ['lazing', 'lazy',  'lacer']) => []
 
   function anagrams(word, words) {
     let anagramArray = []
+    let sortedWord = word.split('').sort().join('')
     
     for (let i = 0; i<words.length; i++) {
-      let sortedWord = word.split('').sort().join('')
       let sortedArrayWord = words[i].split('').sort().join('')
   
       if (sortedWord === sortedArrayWord) {
@@ -947,9 +947,47 @@ anagrams('laser', ['lazing', 'lazy',  'lacer']) => []
     return anagramArray
   }
 
-  Best Solution: 
+    Better Solution: 
+    function anagrams(word, words) {
+      word = word.split('').sort().join('');
+      return words.filter(function(v) {return word == v.split('').sort().join('');});
+    }
 
-  function anagrams(word, words) {
-    word = word.split('').sort().join('');
-    return words.filter(function(v) {return word == v.split('').sort().join('');});
-  }
+  Best Solution (O(n) time complexity): 
+
+    let anagrams = (word, words) => {
+      let anagramsArray = []
+      words.map(w => {
+        if (anagram(word, w) === true) {
+          anagramsArray.push(w)
+        }
+      })
+    
+      return anagramsArray
+    }
+    
+    let anagram = (stringA, stringB) => {
+      let charMapA = getCharMap(stringA)
+      let charMapB = getCharMap(stringB)
+    
+      if(stringA.length !== stringB.length) {
+        return false
+      }
+    
+      for (let i in charMapA) {
+        if (charMapA[i] !== charMapB[i]) {
+          return false
+        } 
+      }
+      return true
+    }
+    
+    let getCharMap = (string) => {
+      let charMap = {}
+      for (let i = 0; i<string.length; i++) {
+        charMap[string[i]] !== undefined ? charMap[string[i]] ++ : charMap[string[i]] = 1
+      }
+    
+      return charMap
+    }
+
