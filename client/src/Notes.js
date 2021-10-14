@@ -865,25 +865,91 @@ The order of the permutations doesn't matter.
 
 Solution: 
 
+https://levelup.gitconnected.com/find-all-permutations-of-a-string-in-javascript-af41bfe072d2
+
+
+  Master Theorem
+
+    procedure p( input x of size n ):
+      if n < some constant k:
+        Solve x directly without recursion
+      else:
+        Create a subproblems of x, each having size n/b
+        Call procedure p recursively on each subproblem
+        Combine the results from the subproblems
+
 let permutations = (string) => {
+
+  // 1: a conditional checks if the size of the input is smaller than a constant.
   if (string.length <= 1) {
     return [string]
   }
   
+  // : Make an empty array. If my final solution may return more than one “correct” element (in this case, permutations), I’ll need a place to store them before I return the complete solution
   let permutationsArray = []
+
+  // Iterate! If I need to find all the ordered combinations of characters in a string, creating a loop to iterate through all the characters in a string seems like a decent place to start.
   for (let i = 0; i<string.length; i++) {
     let char = string[i]
+
+    // collect and assign remaining chars to variable. slice the characters from index 0 (the first character in the string) to index i (our current character, char). Then, we’ll join the characters from index i + 1 (the next character after char) to index string.length (the last character in string).
+    let remainingChars = string.slice(0,i) + string.slice(i+1, string.length)
     
+
+    //     use Javascript’s indexOf method to identify if the current character has already been run through our findPermutations method. indexOf returns the first index of a character, so if we’ve already run findPermutations for an “a”, for example, the indexOf(“a”) will be different than the index of char, the current, later “a”. If this is true, we can continue, which will essentially skip the current iterative loop and move on to the next.
     if (string.indexOf(char) !== i) {
       continue
     }
     
-    let remainingChars = string.slice(0, i) + string.slice(i+1, string.length)
-    
+
+    // 2: if the input is larger than said constant, the input is broken down into smaller pieces until they are all small enough to run the procedure on directly
     for (let p of permutations(remainingChars)) {
+
+    // 3: when this is done, the results of all the pieces post-procedure can be combined and returned as a single large bit of data.
       permutationsArray.push(char + p)
     }
   }
-    
+  
   return permutationsArray
 }
+
+8. What is an anagram? Well, two words are anagrams of each other if they both contain the same letters. For example:
+
+'abba' & 'baab' == true
+
+'abba' & 'bbaa' == true
+
+'abba' & 'abbba' == false
+
+'abba' & 'abca' == false
+Write a function that will find all the anagrams of a word from a list. You will be given two inputs a word and an array with words. You should return an array of all the anagrams or an empty array if there are none. For example:
+
+anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) => ['aabb', 'bbaa']
+
+anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']) => ['carer', 'racer']
+
+anagrams('laser', ['lazing', 'lazy',  'lacer']) => []
+
+  Solution: 
+
+  function anagrams(word, words) {
+    let anagramArray = []
+    
+    for (let i = 0; i<words.length; i++) {
+      let sortedWord = word.split('').sort().join('')
+      let sortedArrayWord = words[i].split('').sort().join('')
+  
+      if (sortedWord === sortedArrayWord) {
+        anagramArray.push(words[i])
+      }
+    }
+    
+    return anagramArray
+  }
+
+  Best Solution: 
+
+  function anagrams(word, words) {
+    word = word.split('').sort().join('');
+    return words.filter(function(v) {return word == v.split('').sort().join('');});
+  }
