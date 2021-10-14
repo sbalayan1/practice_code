@@ -830,3 +830,60 @@ Best Solution:
 function isPangram(string){
   return 'abcdefghijklmnopqrstuvwxyz'.split('').every((x) => string.toLowerCase().includes(x));
 }
+
+
+5. Implement a function that returns the minimal and the maximal value of a list (in this order).
+
+Solution: 
+  function getMinMax(arr){
+    let sortArray = arr.sort((a,b) => a-b)
+    
+    return [sortArray[0], sortArray[sortArray.length-1]]
+  };
+
+6. Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
+
+Example
+  createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) // => returns "(123) 456-7890"
+
+The returned format must be correct in order to complete this challenge.
+Don't forget the space after the closing parentheses!
+
+Solution: 
+  function createPhoneNumber(numbers){
+    return `(${numbers.slice(0,3).join('')}) ${numbers.slice(3,6).join('')}-${numbers.slice(6,10).join('')}`
+  }
+
+7. In this kata you have to create all permutations of an input string and remove duplicates, if present. This means, you have to shuffle all letters from the input in all possible orders.
+
+Examples:
+
+permutations('a'); // ['a']
+permutations('ab'); // ['ab', 'ba']
+permutations('aabb'); // ['aabb', 'abab', 'abba', 'baab', 'baba', 'bbaa']
+The order of the permutations doesn't matter.
+
+Solution: 
+
+let permutations = (string) => {
+  if (string.length <= 1) {
+    return [string]
+  }
+  
+  let permutationsArray = []
+  for (let i = 0; i<string.length; i++) {
+    let char = string[i]
+    
+    if (string.indexOf(char) !== i) {
+      continue
+    }
+    
+    let remainingChars = string.slice(0, i) + string.slice(i+1, string.length)
+    
+    for (let p of permutations(remainingChars)) {
+      permutationsArray.push(char + p)
+    }
+  }
+    
+  return permutationsArray
+}
