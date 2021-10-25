@@ -1120,3 +1120,32 @@ Solution (recursively):
     
     return reversed
   }
+
+// 13. Find an element in array such that sum of left array is equal to sum of right array
+
+Solution: 
+
+  let findEvenIndex = (arr) => {
+    let left = []
+    let right = []
+    let leftSum = 0
+    let rightSum = 0
+
+    for (let i = 0; i<arr.length; i++) {
+      leftSum = leftSum + arr[i]
+      left.push(leftSum)
+    }
+
+    for (let j = arr.length-1; j>-1; j--) {
+      rightSum = rightSum + arr[j]
+      right.push(rightSum)
+    }
+
+    right = right.reverse()
+
+    for (let k = 0; k<left.length; k++) {
+      if (left[k] === right[k]) {
+        return k
+      }
+    }
+  }
