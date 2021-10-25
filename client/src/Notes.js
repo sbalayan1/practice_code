@@ -1106,3 +1106,17 @@ Solution (recursively):
 
       return product
     }
+
+
+  //  12. Build a function that returns an array of integers from n to 1 where n>0.
+  Solution: 
+
+  let reverseSeq = (n) => {
+    let reversed = []
+    while (n>0) {
+      reversed.push(n)
+      n--
+    }
+    
+    return reversed
+  }
