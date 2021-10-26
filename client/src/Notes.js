@@ -1172,3 +1172,34 @@ Best Solution:
   function lovefunc(flower1, flower2){
     return flower1 % 2 !== flower2 % 2;
   }
+
+15. Move all exclamation marks to the end of the sentence
+
+Examples
+  remove("Hi!") === "Hi!"
+  remove("Hi! Hi!") === "Hi Hi!!"
+  remove("Hi! Hi! Hi!") === "Hi Hi Hi!!!"
+  remove("Hi! !Hi Hi!") === "Hi Hi Hi!!!"
+  remove("Hi! Hi!! Hi!") === "Hi Hi Hi!!!!"
+
+Solution: 
+  function remove(s){ 
+    let sentence = []
+    let count = 0
+    
+    for (let i = 0; i<s.length; i++) {
+      if (s[i] !== '!') {
+        sentence.push(s[i])
+      }
+      
+      if (s[i] === '!') {
+        count ++
+      }
+    }
+    
+    for (let j = 0; j<count ; j++) {
+      sentence.push('!')
+    }
+    
+    return sentence.join('')
+  }
