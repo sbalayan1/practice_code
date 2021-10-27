@@ -106,16 +106,113 @@ class LinkedList {
 
     // insert first node
 
+    insertFirst(data) {
+        // this.head is passed as the NEXT value so that  if the head value already exists, that value gets pushed forward and the new head is inserted. 
+        this.head = new Node(data, this.head)
+        this.size ++
+    }
+
     // insert last node
 
-    // insert at index 
+    insertLast(data) {
+        let node = new Node(data)
+        let current;
+        
+        // could also do !this.head
+        // handles the case where there is no node. basically if empty, make head 
+        if (this.head === null) {
+            this.head = node
+        } else {
+            current = this.head
+
+            // current.next ensures that there is a next value and you are not at the end of the list
+            while(current.next) {
+                // allows us to traverse the list 
+                current = current.next
+            }
+
+            // adds the end node 
+            current.next = node
+        }
+        this.size ++
+    }
+
+    // insert at index
+
+    insertAt(data, index) {
+        // handles edge cases where the index doesn't exist or the index is too big. Basically if index is out of range. 
+        if (index>0 && index>this.size) {
+            return;
+        }
+
+        // handles case where the index is the head
+        if (index === 0) {
+            this.head = new Node(data, this.head)
+            return;
+            // you could also do this.insertFirst(data)
+        }
+
+        // handles all other cases
+        const node = new Node(data)
+        let current, previous; 
+
+        // set current to first
+        current = this.head 
+        let count = 0
+        
+        // basically makes room for new element/node
+        while (count < index) {
+            previous = current //Node before index that we want to insert
+            count ++ 
+            current = current.next //Node after index that we want to insert 
+        }
+
+        node.next = current 
+        previous.next = node;
+
+        this.size ++
+    }
 
     // get at index 
+    getAt(index) {
+        let current = this.head
+        let count = 0
+
+        while (current) {
+            if (count == index) {
+                console.log(current.data)
+            }
+
+            count ++ 
+            current = current.next
+        }
+
+        return null
+    }
 
     // remove at index
 
     // clear list 
 
-    // print list data 
+    // print list data
+    printListData() {
+        let current = this.head
+
+        while(current) {
+            console.log(current.data)
+            current = current.next
+        }
+    }
 }
+
+// testing
+const ll = new LinkedList()
+ll.insertFirst(100)
+ll.insertFirst(200)
+ll.insertFirst(300)
+ll.insertLast(400)
+ll.insertAt(500, 2)
+ll.getAt(2)
+
+ll.printListData();
 
