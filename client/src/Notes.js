@@ -1339,3 +1339,128 @@ function solve(s){
   }
   return lowerC >= upperC ? s.toLowerCase() : s.toUpperCase()
 }
+
+19. Write a function called repeatStr which repeats the given string string exactly n times.
+
+repeatStr(6, "I") // "IIIIII"
+repeatStr(5, "Hello") // "HelloHelloHelloHelloHello"
+
+Solution: 
+  function repeatStr (n, s) {
+    let count = 0 
+    let string = []
+    while (count < n) {
+      string.push(s)
+      count ++
+    }
+    return string.join('');
+  }
+
+Best Solution: 
+
+  function repeatStr (n, s) {
+    return s.repeat(n);
+  }
+
+20. Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence, which is the number of times you must multiply the digits in num until you reach a single digit.
+
+For example:
+
+ persistence(39) === 3 // because 3*9 = 27, 2*7 = 14, 1*4=4
+                       // and 4 has only one digit
+                 
+ persistence(999) === 4 // because 9*9*9 = 729, 7*2*9 = 126,
+                        // 1*2*6 = 12, and finally 1*2 = 2
+                  
+ persistence(4) === 0 // because 4 is already a one-digit number
+
+
+Solution: 
+  function persistence(num) {
+    let count = 0 
+    let numArray = num.toString().split('')
+    
+    if (numArray.length <= 1) {
+      return count
+    }
+    
+    while (numArray.length > 1) { 
+      let digits = numArray.reduce((a,b) => parseInt(a) * parseInt(b)) 
+      numArray = digits.toString().split('')
+      count ++
+    }
+    
+    return count
+  }
+
+Alternate Solution: 
+
+function persistence(num) {
+  var times = 0;
+  
+  num = num.toString();
+  
+  while (num.length > 1) {
+    times++;
+    num = num.split('').map(Number).reduce((a, b) => a * b).toString();
+  }
+  
+  return times;
+}
+
+21. As you probably know, Fibonacci sequence are the numbers in the following integer sequence: 1, 1, 2, 3, 5, 8, 13... Write a method that takes the index as an argument and returns last digit from fibonacci number. Example: getLastDigit(15) - 610. Your method must return 0 because the last digit of 610 is 0. Fibonacci sequence grows very fast and value can take very big numbers (bigger than integer type can contain), so, please, be careful with overflow.
+
+Best Solution: 
+
+  let getLastDigit = (n) => {
+    let [a,b] = [0,1]
+
+    for (let i = 0; i<n; i++) {
+      [a,b] = [b, (a+b) % 10]
+    }
+
+    return a
+  }
+
+Time complexity: O(n)
+Note it's possible to do this in O(log n) but it's probably better to do this in O(1) if you're going to do O(log n) since you can. 
+
+22. Just like in the "father" kata, you will have to return the last digit of the nth element in the Fibonacci sequence (starting with 1,1, to be extra clear, not with 0,1 or other numbers).
+
+You will just get much bigger numbers, so good luck bruteforcing your way through it ;)
+
+Solution:     
+  function fib(f) {
+    f[0] = 0
+    f[1] = 1
+    
+    for (let i=2; i<= 59; i++) {
+      f[i] = ((f[i-1] + f[i-2]) % 10)
+    }
+  }
+
+  function lastFibDigit(n){
+    let f = []
+    fib(f)
+    let index = n % 60
+    return f[index]
+  }
+
+Alternative Solutions: 
+
+  const lastFibDigit = (function() {
+    const LAST_DIGIT = [
+      0, 1, 1, 2, 3, 5, 8, 3, 1, 4, 
+      5, 9, 4, 3, 7, 0, 7, 7, 4, 1, 
+      5, 6, 1, 7, 8, 5, 3, 8, 1, 9, 
+      0, 9, 9, 8, 7, 5, 2, 7, 9, 6, 
+      5, 1, 6, 7, 3, 0, 3, 3, 6, 9, 
+      5, 4, 9, 3, 2, 5, 7, 2, 9, 1,
+    ]
+
+    // The sequence of final digits in Fibonacci numbers repeats in cycles of 60.
+    return index => LAST_DIGIT[index % 60]
+  })()
+
+
+Time Complexity: O(1)
