@@ -44,6 +44,68 @@ Strategies for resolving hash collisions
     https://dev.to/wdiep10/what-are-hashmaps-part-2-4eoh
 
 
+// Hash Table -> https://www.youtube.com/watch?v=UOxTMOCTEZk
+
+// turns string into an integer between 0 and 65535 representing the UTF-16 code unit at the given index. This int is used as the index for our hashTable. 
+let hashStringToInt = (s, tableSize) => {
+    let hash = 13
+    for (let i = 0; i<s.length; s++) {
+        hash = (17*hash*s.charCodeAt(i)) % tableSize
+    }
+
+    return hash
+}
+
+class HashTable {
+    table = new Array(3)
+    numItems = 0
+
+    resize = () => {
+        let newTable = new Array(this.table.length * 2)
+
+        this.table.forEach(i => {
+            if(i) {
+                i.forEach(([key,value]) => {
+                    let index = hashStringToInt(key, newTable.length)
+                    if (newTable[index]) {
+                        newTable[index].push([key,value])
+                    } else {
+                        newTable[index] = [[key, value]]
+                    }
+                })
+            }
+        })
+
+        this.table = newTable
+    }
+
+    setItem = (key, value) => {
+        this.numItems ++
+        let loadFactor = this.numItems/this.table.length
+
+        if (loadFactor > 0.8) {
+            this.resize()
+        }
+        
+        let index = hashStringToInt(key, this.table.length)
+
+        if (this.table[index]) {
+            this.table[index].push([key,value])
+        } else {
+            this.table[index] = [[key,value]]
+        }
+    }
+
+    getItem = (key) => {
+        let index = hashStringToInt(key, this.table.length)
+        if (!this.table[index]) {
+            return null
+        } else {
+            return this.table[index].find(x => x[0] === key)[1]
+        }
+    }
+}
+
 Linked lists
     -> sequence of elements where each element links the next element which links the next element
     -> can contain any type of data, sorted/unsorted, duplicates/unique
