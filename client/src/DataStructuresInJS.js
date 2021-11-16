@@ -261,3 +261,189 @@ let maximumSlidingWindow = (arr, window_size) => {
     console.log(`${cyclic_sort([3, 1, 5, 4, 2])}`)
     console.log(`${cyclic_sort([2, 6, 4, 3, 1, 5])}`)
     console.log(`${cyclic_sort([1, 5, 6, 4, 3, 2])}`)
+
+//Rotate an Array by N Elements
+
+// Given an array of integers, rotate the array by NN elements where NN is an integer:
+
+// For positive values of NN, perform a right rotation.
+// For negative values of NN, perform a left rotation.
+// Make sure you make changes to the original array.
+
+// Questions: 
+// -> can n be 0? 
+// -> are array functions such as pop, shift, unshift, and push allowed? What about reverse? 
+
+let rotateArray = (arr,n) => {
+    if (n === 0) {
+        return arr
+    }
+
+    // rotate left
+    if (n<0) {
+        while (n<0) {
+            // grab first element and put it at the end 
+            let firstElement = arr[0]
+            arr.push(firstElement)
+
+            // remove first element
+            arr.shift()
+            n++
+        }
+    }
+
+    // rotate right 
+    if (n>0) {
+        while (n>0) {
+            let lastElement = arr[arr.length -1]
+            arr.pop()
+            arr.unshift(lastElement)
+            n--
+        }
+    }
+}
+
+// Other Solutions: 
+// solution 1
+let reverseArray = function(arr, start, end) {
+    while (start < end) {
+      let temp = arr[start];
+      arr[start] = arr[end];
+      arr[end] = temp;
+      start++;
+      end--;
+    }
+  };
+  
+  let rotateArray = function(arr, n) {
+    let len = arr.length;
+  
+    // Let's normalize rotations
+    // if n > array size or n is negative.
+    n = n % len;
+    if (n < 0) {
+      // calculate the positive rotations needed.
+      n = n + len;
+    }
+    // Let's partition the array based on rotations 'n'.
+    // For example: 1, 2, 3, 4, 5 where n = 2.
+    // -> 5, 4, 3, 2, 1
+    // -> 4, 5, 3, 2, 1
+    // -> 4, 5, 1, 2, 3
+  
+    reverseArray(arr, 0, len - 1);
+    reverseArray(arr, 0, n - 1);
+    reverseArray(arr, n, len - 1);
+  };
+
+
+
+//   solution 2
+let rotateArray = function(arr, n) {
+    let len = arr.length;
+  
+    // Let's normalize rotations
+    // if n > array size or n is negative.
+    n = n % len;
+    if (n < 0) {
+      // calculate the positive rotations needed.
+      n = n + len;
+    }
+  
+    let temp = [];
+  
+    // copy last N elements of array into temp
+    for (let i = 0; i < n; i++) {
+      temp[i] = arr[len - n + i];
+    }
+  
+    // shift original array
+    for (let i = len - 1; i >= n; i--) {
+      arr[i] = arr[i - n];
+    }
+  
+    // copy temp into original array
+    for (let i = 0; i < n; i++) {
+      arr[i] = temp[i];
+    }
+  };
+
+
+
+Time complexity: O(n)
+Space Complexity: O(1) - O(n)
+
+
+
+// Find Low/High Index of a Key in a Sorted Array
+// Given a sorted array of integers, return the low and high index of the given key. You must return -1 if the indexes are not found.
+
+// The array length can be in the millions with many duplicates.
+
+// In the following example, according to the the key, the low and high indices would be:
+
+// key: 1, low = 0 and high = 0
+
+// key: 2, low = 1 and high = 1
+
+// key: 5, low = 2 and high = 9
+
+// key: 20, low = 10 and high = 10
+
+Example Array: [1,2,5,5,5,5,5,5,5,5,20]
+
+
+Hint: Use Binary Search 
+
+let findLowIndex = (arr, key) => {
+    let low = 0
+    let high = arr.length - 1
+    let mid = Math.floor(high/2)
+
+    while (low <= high) {
+        if (arr[mid] >= key) {
+            high = mid - 1
+        } else {
+            low = mid + 1
+        }
+
+        mid = low + Math.floor((high - low)/2)
+    }
+
+    if (low < arr.length && arr[low] === key) {
+        return low
+    }
+
+    return -1
+}
+
+let findHighIndex = (arr,key) => {
+    let low = 0
+    let high = arr.length - 1
+    let mid = Math.floor(high/2)
+
+    while (low <= high) {
+        if (arr[mid] > key) {
+            high = mid - 1
+        } else {
+            low = mid + 1
+        }
+
+        mid = low + Math.floor((high - low)/2)
+    }
+
+
+    if (high === -1) {
+        return high
+    }
+
+    if (high < arr.length && arr[high] === key) {
+        return high
+    }
+
+    return -1
+}
+
+Linear Binary Search
+Time Complexity: O(log n)
+Space Complexity: O(1)

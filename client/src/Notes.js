@@ -1464,3 +1464,20 @@ Alternative Solutions:
 
 
 Time Complexity: O(1)
+
+// twoSum improved
+
+let twoSumImproved = (arr, target) => {
+  let hash = {}
+  for (let i=0; i<arr.length; i++) {
+    let num = arr[i]
+    hash[num] = i
+  }
+
+  for (let i = 0; i<arr.length; i++) {
+    let diff = target - arr[i]
+    if(hash[diff] && hash[diff] !== i) {
+      return [i, hash[diff]]
+    }
+  }
+}
