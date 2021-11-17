@@ -1511,3 +1511,21 @@ let merge = (arr1, arr2) => {
 
   return merged.concat(arr1.slice(index1), arr2.slice(index2))
 }
+
+
+// peak mountain index using recursive binary search 
+let binarySearch = (arr, start, end) => {
+  let mid = start + Math.floor((end-start)/2)
+  
+  if (arr[mid]>arr[mid-1] && arr[mid]>arr[mid+1]) {
+      return mid
+  } else if (arr[mid] < arr[mid+1]) {
+      return binarySearch(arr, mid+1, end)
+  } else if (arr[mid] < arr[mid-1]) {
+      return binarySearch(arr, start, mid-1)
+  }
+}   
+
+let peakIndexInMountainArray = (arr) => {
+  return binarySearch(arr, 0, arr.length-1)
+}

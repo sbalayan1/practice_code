@@ -126,7 +126,7 @@ let maximumSlidingWindow = (arr, window_size) => {
         // handles the case when the key is not in the sorted side of the array. 
         } else if (arr[mid] >= arr[end]) {
             return binarySearch(arr, mid + 1, end, key)
-            
+
         } else if (arr[mid] <= arr[start]) {
             return binarySearch(arr, start, mid-1, end)
         }
@@ -450,3 +450,5 @@ let findHighIndex = (arr,key) => {
 Linear Binary Search
 Time Complexity: O(log n)
 Space Complexity: O(1)
+
+
