@@ -452,3 +452,62 @@ Time Complexity: O(log n)
 Space Complexity: O(1)
 
 
+// Move All Zeros to the Beginning of the Array
+    // Move all zeros to the left of an array while maintaining its order.
+
+    // Given an integer array, move all elements that are 0 to the left while maintaining the order of other elements in the array. The array has to be modified in-place.
+    //Use counting.
+    // Use the concept of reader/writer indexes.
+
+    let moveZerosToLeft = (arr) => {
+        if (arr.length < 1) {
+          return 
+        }
+      
+        let writeIndex = arr.length - 1
+        let readIndex = arr.length - 1
+      
+        while (readIndex >= 0) {
+          if (arr[readIndex] !== 0) {
+            arr[writeIndex] = arr[readIndex]
+            writeIndex --
+          }
+      
+          readIndex --
+        }
+      
+        while (writeIndex >=0) {
+          arr[writeIndex] = 0
+          writeIndex --
+        }
+      
+        return arr
+    }
+
+    let moveZerosToRight = (arr) => {
+        if (arr.length < 1) {
+            return arr
+        }
+        
+        let readIndex = arr[0]
+        let writeIndex = arr[0]
+        
+        while (readIndex<= arr.length-1) {
+            if (arr[readIndex] !== 0) {
+                arr[writeIndex] = arr[readIndex]
+                writeIndex ++
+            }
+            
+            readIndex ++
+        }
+        
+        while (writeIndex<=arr.length-1) {
+            arr[writeIndex] = 0
+            writeIndex ++
+        }
+        
+        return arr
+    }
+
+    Time Complexity: O(n)
+    Space Complexity: O(1)
