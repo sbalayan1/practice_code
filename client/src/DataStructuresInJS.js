@@ -511,3 +511,84 @@ Space Complexity: O(1)
 
     Time Complexity: O(n)
     Space Complexity: O(1)
+
+
+// Stock Buy Sell to Maximize Profit 
+// Given a list of daily stock prices (integers for simplicity), return the buy and sell prices for making the maximum profit.
+
+// We need to maximize the single buy/sell profit. If we can’t make any profit, we’ll try to minimize the loss. For the below examples, buy and sell prices for making a maximum profit are highlighted.
+
+
+let findBuySellStockPrices = (arr) => {
+    let buy = arr[0]
+    let sell = arr[1]
+    let currentProfit = 0 
+    let globalProfit = sell - buy
+
+    for (let i = 1; i<arr.length; i++) {
+        currentProfit = arr[i] - buy
+
+        if (currentProfit>globalProfit) {
+            globalProfit = currentProfit
+            sell = arr[i]
+        }
+
+        if (arr[i] < buy) {
+            buy = arr[i]
+        }
+    }
+
+    return [sell - globalProfit, sell]
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+// The values in the array represent the cost of a stock each day. As we can buy and sell the stock only once, we need to find the best buy and sell prices for which our profit is maximized (or loss is minimized) over a given span of time.
+
+// A naive solution, with runtime complexity of O(n^2), is to find the maximum gain between each element and its succeeding elements.
+
+// There is a tricky linear solution to this problem that requires maintaining current_buy_price (which is the smallest number seen so far), current_profit, and global_profit as we iterate through the entire array of stock prices. At each iteration, we will compare the current_profit with the global_profit and update the global_profit accordingly.
+
+
+// Merge an Array with overlapping intervals
+// You are given an array (list) of interval pairs as input where each interval has a start and end timestamp. The input array is sorted by starting timestamps. You are required to merge overlapping intervals and return a new output array.
+
+// Consider the input array below. Intervals (1, 5), (3, 7), (4, 6), (6, 8) are overlapping so they should be merged to one big interval (1, 8). Similarly, intervals (10, 12) and (12, 15) are also overlapping and should be merged to (10, 15).
+
+// Hints: 
+
+// Try the linear scan.
+// Use the pair class defined in the exercise to handle pairs of time stamps.
+
+// Solution: 
+
+    class Pair {
+        constructor(first, second) {
+            this.first = first
+            this.second = second
+        }
+    }
+
+    let mergeIntervals = (arr) => {
+        if (!arr || arr.length === 0) {
+            return 
+        }
+
+        let result = []
+        result.push(new Pair(arr[0].first, arr[0].second))
+
+        for (let i = 1; i<arr.length; i++) {
+            let input1 = arr[i].first
+            let input2 = arr[i].second
+            let result2 = result[result.length-1].second
+
+            if (result2 >= input1) {
+                result[result.length-1].second = Math.max(result2, input2)
+            } else {
+                result.push(new Pair(input1, input2))
+            }
+        }
+
+        return result
+    }
