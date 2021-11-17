@@ -1481,3 +1481,33 @@ let twoSumImproved = (arr, target) => {
     }
   }
 }
+
+
+// merge sort 
+
+let sort = (arr) => {
+  if (arr.length <= 1) {
+    return arr
+  }
+
+  let mid = Math.floor(arr.length/2)
+  return merge(sort(arr.slice(0,mid)), sort(arr.slice(mid)))
+}
+
+let merge = (arr1, arr2) => {
+  let merged = []
+  let index1 = 0
+  let index2 = 0
+
+  while (index1 < arr1.length && index2 < arr2.length) {
+    if (arr1[index1] > arr2[index2]) {
+      merged.push(arr2[index2]) 
+      index2 ++
+    } else {
+      merged.push(arr1[index1])
+      index1 ++
+    }
+  }
+
+  return merged.concat(arr1.slice(index1), arr2.slice(index2))
+}

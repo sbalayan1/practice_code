@@ -59,7 +59,7 @@ let maximumSlidingWindow = (arr, window_size) => {
 
     let window = []
 
-    for (let i = 0; i<window_size.length; i++) {
+    for (let i = 0; i<window_size; i++) {
         while (window.length > 0 && arr[i] >= arr[window[window.length - 1]]) {
             window.pop()
         }
@@ -125,7 +125,10 @@ let maximumSlidingWindow = (arr, window_size) => {
       
         // handles the case when the key is not in the sorted side of the array. 
         } else if (arr[mid] >= arr[end]) {
-            return binarySearch(arr, s)
+            return binarySearch(arr, mid + 1, end, key)
+            
+        } else if (arr[mid] <= arr[start]) {
+            return binarySearch(arr, start, mid-1, end)
         }
       
         return -1
