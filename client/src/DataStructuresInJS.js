@@ -592,3 +592,43 @@ Space Complexity: O(1)
 
         return result
     }
+
+    // Alternate Solution (without using Pair class):
+
+    let merge = (arr) => {
+    
+        if (!arr || arr.length === 0) {
+            return
+        }
+        
+        let result = []
+        result.push([arr[0][0], arr[0][1]])
+            
+        for (let i = 1; i<arr.length; i++) {
+            let input1 = arr[i][0]
+            let input2 = arr[i][1]
+            let result2 = result[result.length-1][1]
+            
+            if (result2 >= input1) {
+                result[result.length-1][1] = Math.max(result2, input2)
+            } else {
+                result.push([input1, input2])
+            }
+        }
+        
+        return result
+    }
+
+
+
+Time Complexity: O(n)
+Space Complexity O(n)
+
+This is the worst case when there are non-overlapping elements in the array.
+
+This problem can be solved in a simple linear scan algorithm. We know that input is sorted by starting timestamps. Here is the approach we are following:
+
+    List of input intervals is given, and we’ll keep merged intervals in the output list.
+    For each interval in the input list:
+        If the input interval is overlapping with the last interval in output list then we’ll merge these two intervals and update the last interval of output list with merged interval.
+        Otherwise, we’ll add an input interval to the output list.
