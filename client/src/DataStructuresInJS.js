@@ -650,7 +650,7 @@ let partition = (arr, low, high) => {
             i++
         }
 
-        while (arr[j] >= pivot) {
+        while (arr[j] > pivot) {
             j--
         }
 
@@ -669,6 +669,58 @@ let partition = (arr, low, high) => {
 
 let quickSortRec = (arr, low, high) => {
     if (high > low) {
-
+        let pivot = partition(arr, low, high)
+        quickSortRec(a, low, pivot - 1)
+        quickSortRec(a, pivot + 1, high)
     }
+}
+
+let quickSort = (arr) => {
+    quickSortRec(arr, 0, arr.length - 1)
+}
+
+
+Time Complexity: O(n logn)
+Space Complexity: O(log n)
+-> This recursive solution has an O(logn)O(logn) memory complexity since it consumes memory on the stack.
+
+// practice implementing quickSort()
+
+let partition = (arr, low, high) => {
+    let pivot = arr[low]
+    let i = low
+    let j = high
+
+    while (j>i) {
+        while (high >= i && pivot >= arr[i]) {
+            i++
+        }
+
+        while (arr[j] > pivot) {
+            j--
+        }
+
+        if (j>i) {
+            let current = arr[i]
+            arr[i] = arr[j]
+            arr[j] = current
+        }
+    }
+
+    arr[low] = arr[j]
+    arr[j] = pivot
+
+    return j
+}
+
+let quickSortRec = (arr, low, high) => {
+    if (high > low) {
+        let pivot = partition(arr, low, high)
+        quickSortRec(arr, low, pivot - 1)
+        quickSortRec(arr, pivot + 1, high)
+    }
+}
+
+let quickSort = (arr) => {
+    quickSortRec(arr, 0, arr.length-1)
 }
