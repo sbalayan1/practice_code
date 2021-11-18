@@ -518,7 +518,6 @@ Space Complexity: O(1)
 
 // We need to maximize the single buy/sell profit. If we can’t make any profit, we’ll try to minimize the loss. For the below examples, buy and sell prices for making a maximum profit are highlighted.
 
-
 let findBuySellStockPrices = (arr) => {
     let buy = arr[0]
     let sell = arr[1]
@@ -624,11 +623,52 @@ Space Complexity: O(1)
 Time Complexity: O(n)
 Space Complexity O(n)
 
-This is the worst case when there are non-overlapping elements in the array.
+// This is the worst case when there are non-overlapping elements in the array.
 
-This problem can be solved in a simple linear scan algorithm. We know that input is sorted by starting timestamps. Here is the approach we are following:
+// This problem can be solved in a simple linear scan algorithm. We know that input is sorted by starting timestamps. Here is the approach we are following:
 
-    List of input intervals is given, and we’ll keep merged intervals in the output list.
-    For each interval in the input list:
-        If the input interval is overlapping with the last interval in output list then we’ll merge these two intervals and update the last interval of output list with merged interval.
-        Otherwise, we’ll add an input interval to the output list.
+//     List of input intervals is given, and we’ll keep merged intervals in the output list.
+//     For each interval in the input list:
+//         If the input interval is overlapping with the last interval in output list then we’ll merge these two intervals and update the last interval of output list with merged interval.
+//         Otherwise, we’ll add an input interval to the output list.
+
+
+
+// Sort an Array using QuickSort Alogrithm
+// Given an integer array, sort it in ascending order using the quicksort algorithm.
+    // Hints #
+    // Use the divide and conquer strategy.
+    // Use Hoare’s algorithm.
+
+let partition = (arr, low, high) => {
+    let pivot = arr[low]
+    let i = low
+    let j = high
+
+    while (i<j) {
+        while (i<=high && arr[i]<= pivot) {
+            i++
+        }
+
+        while (arr[j] >= pivot) {
+            j--
+        }
+
+        if (i<j) {
+            let current = arr[i]
+            arr[i] = arr[j]
+            arr[j] = current
+        }
+    }
+
+    arr[low] = arr[j]
+    arr[j] = pivot
+
+    return j
+}
+
+let quickSortRec = (arr, low, high) => {
+    if (high > low) {
+
+    }
+}

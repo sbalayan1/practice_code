@@ -1482,6 +1482,20 @@ let twoSumImproved = (arr, target) => {
   }
 }
 
+// Another way to do twoSum
+let findTwoSum = (arr, target) => {
+  let foundValues = new Set()
+  for (let i =0; i<arr.length; i++) {
+    if (foundValues.has(target - arr[i])) {
+      return true
+    }
+
+    foundValues.add(arr[i])
+  }
+
+  return false
+}
+
 
 // merge sort 
 
