@@ -1,5 +1,7 @@
 // Find Maximum in sliding window 
 
+import { supported } from "turbolinks"
+
 // The algorithm uses the deque data structure to find the maximum in a window. A deque is a double-ended queue in which push and pop operations work in O(1)O(1) at both ends. 
 
 let findMaxSlidingWindow = (arr, window_size) => {
@@ -661,10 +663,15 @@ let partition = (arr, low, high) => {
         }
     }
 
+    // note that i and j represent the exact points where the pivot fits. j becomes the low side and i becomes the high side. Since the pivot is greater than arr[j], we need to switch the pivot and arr[j]. Before we can do that, we need to set the low end of the arr to arr[j]. This works because the original value of arr[low] is preserved in the pivot variable. Once arr[low] is set to arr[j], we can change arr[j] to the pivot and return j.  
+
     arr[low] = arr[j]
     arr[j] = pivot
 
+
     return j
+
+    // note that we return J because 
 }
 
 let quickSortRec = (arr, low, high) => {
@@ -687,6 +694,7 @@ Space Complexity: O(log n)
 // practice implementing quickSort()
 
 let partition = (arr, low, high) => {
+    
     let pivot = arr[low]
     let i = low
     let j = high
@@ -725,10 +733,88 @@ let quickSort = (arr) => {
     quickSortRec(arr, 0, arr.length-1)
 }
 
-Here is an overview of how the quicksort algorithm works:
+// Here is an overview of how the quicksort algorithm works:
 
-Select a pivot element from the array to divide the array into two parts based on the pivot.
-We pick the first element as the pivot if we follow Hoare’s algorithm. Another common approach is to select a random element as the pivot.
-Reorder the array by comparing with the pivot element such that smaller values end up at the left side, and larger values end up at the right side of the pivot.
-Now, the pivot element is in its correct sorted position.
-Applying the above steps, we can recursively sort the sublists on the right and left sides of the pivot.
+// Select a pivot element from the array to divide the array into two parts based on the pivot.
+// We pick the first element as the pivot if we follow Hoare’s algorithm. Another common approach is to select a random element as the pivot.
+// Reorder the array by comparing with the pivot element such that smaller values end up at the left side, and larger values end up at the right side of the pivot.
+// Now, the pivot element is in its correct sorted position.
+// Applying the above steps, we can recursively sort the sublists on the right and left sides of the pivot.
+
+
+// other algorithms to know 
+-> find symmetric difference
+-> inventory update
+-> no repeats please
+-> pairwise
+-> bubble sort
+-> insertion sort
+-> selection sort
+-> quick sort
+-> merge sort
+
+
+
+// Recursion Practice
+
+// Find the greatest common divisor
+// Implement a function that takes two numbers, testVariable1 and testVariable2 and returns their greatest common divisor.
+
+Solution: 
+
+let gcd = (var1, var2) => {
+    if (var1 === var2) {
+        return var1
+    }
+
+    if (var1>var2) {
+        return gcd(var1-var2, var2)
+    } else {
+        return gcd(var1, var2 - var1)
+    }
+
+    return null
+}
+
+let agreed = () => {
+
+    console.log('agreed')
+    agreed() 
+}
+
+The naive approach to finding GCDGCD of 22 numbers is to list all their divisors. Then pick the common divisors, and then select the greatest out of them.
+
+However, an easy mathematical simplification can make our task easier. The idea behind calculating GCDGCD is: If m>n, GCD(m,n) is the same as GCD(m-n,n).
+
+This is because if m/d and n/d both leave no remainder, then (m-n)/d leaves no remainder, either.
+
+
+// Pascal's Triangle
+// Given a number, return a list containing the values of the Pascal's Triangle of that size.
+
+Solution: 
+
+let printPascal = (row) => {
+    let line = []
+
+    // If we reach 0th0th row, we return a list containing only 11 value: [1][1]. This is our base case.
+    if (row === 0) {
+        return [1]
+    } else {
+        // Each row in Pascal’s triangle starts with a 11, and ends with a 11, hence line is initialized with [1] and later 11 is pushed in line variable
+        line.push(1)
+
+        // Also, each row is calculated based on the values of the previous row. Thus, the function makes a recursive function call with the previous row number as its argument
+        let previousLine = printPascal(row-1)
+
+        // Now, for each recursive call, we use the values of the previous solution.
+        for (let i = 0; i<previousLine.length-1; i++) {
+            line.push(previousLine[i] + previousLine[i+1])
+        }
+
+
+        line.push(1)
+    }
+
+    return line
+}
