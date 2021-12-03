@@ -797,7 +797,7 @@ Solution:
 let printPascal = (row) => {
     let line = []
 
-    // If we reach 0th0th row, we return a list containing only 11 value: [1][1]. This is our base case.
+    // If we reach 0th row, we return a list containing only 11 value: [1][1]. This is our base case.
     if (row === 0) {
         return [1]
     } else {
@@ -818,3 +818,27 @@ let printPascal = (row) => {
 
     return line
 }
+
+
+// Reverse Linked List
+// Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+var reverseList = function(head) {
+    if (!head || !head.next) {
+        return head
+    }
+    
+    let next = null
+    let current = head
+    let previous = null
+    
+    while (current) {    
+        next = current.next
+        current.next = previous
+        previous = current
+        current = next
+    }
+    
+    return previous
+    
+};

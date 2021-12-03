@@ -1543,3 +1543,19 @@ let binarySearch = (arr, start, end) => {
 let peakIndexInMountainArray = (arr) => {
   return binarySearch(arr, 0, arr.length-1)
 }
+
+// Find Prime Number using Ruby
+
+def isPrime number
+  if number > 1
+    arr = []
+    (2..(number-1)).map do |n|
+      number % n == 0 ? arr << false : arr << true
+    
+    end 
+
+    arr.include?(false) ? false : true
+  else
+    false
+  end
+end 
