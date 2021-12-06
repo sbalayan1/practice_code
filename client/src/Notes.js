@@ -1598,3 +1598,67 @@ Other Solutions:
   def cakes(recipe, available)
     recipe.collect { | k, v | available[k].to_i / v }.min
   end
+
+// Min Coin Change Notes
+
+// ruby iterative
+def minCoinChange amount, coins
+  dp = Array.new amount+1, Float::INFINITY
+  dp[0] = 0
+  i = 1
+
+  while i<=amount do
+    j = 0
+    while j<coins.length do
+      if i - coins[j] >= 0
+        dp[i] = [dp[i], 1 + dp[i - coins[j]]]
+      end
+
+      j+=1
+    end
+
+    i+=1
+  end
+
+  return -1 if dp[amount] == Float::INFINITY
+  
+  return dp[amount]
+end 
+
+// javascript iterative
+let minCoinChange = (coins, amount) => {
+  let dp = new Array(amount+1).fill(Number.MAX_VALUE)
+  dp[0] = 0
+
+  for (let i = 1; i<=amount; i++) {
+    for (j of coins) {
+      if (i>=j) {dp[i] = Math.min(dp[i], 1+dp[i-j])}
+    }
+  }
+
+  if (dp[amount] == Number.MAX_VALUE) {return -1}
+  return dp[amount]
+}
+
+
+
+// Depth First Search - BackTracking 
+
+// Top down memoization? 
+// DP Bottom Up
+  Amount = 7
+  [1,3,4,5]
+
+  DP[0] = 0
+  DP[1] = 1
+  DP[2] = 1+DP[1]
+  DP[3] = 1
+  DP[4] = 1
+  DP[5] = 1
+  DP[6] = 1 + DP[5]
+  DP[7] = 1 + DP[3] or DP[4]
+
+
+
+
+
