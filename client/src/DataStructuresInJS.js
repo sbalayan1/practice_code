@@ -854,11 +854,21 @@ var reverseList = function(head) {
  *     this.next = (next===undefined ? null : next)
  * }
  */
-/**
- * @param {ListNode} list1
- * @param {ListNode} list2
- * @return {ListNode}
- */
+
+class Node {
+    constructor(val) {
+        this.val = val
+        this.next = null
+    }
+}
+
+class listNode {
+    constructor(val = 0, next = null) {
+        this.val = val
+        this.next = next
+    }
+}
+
  var mergeTwoLists = function(list1, list2) {
     if (list1 == null)
         return list2;
@@ -874,3 +884,67 @@ var reverseList = function(head) {
     }
 
 };
+
+// iterative
+var mergeTwoLists = function(list1, list2) {
+    let dummyNode = new Node(0)
+    let tail = dummyNode
+    
+    while (true) {
+        if (list1 == null) {
+            tail.next = list2
+            break
+        }
+        
+        if (list2 == null) {
+            tail.next = list1
+            break
+        }
+        
+        if (list1.val <= list2.val) {
+            tail.next = list1
+            list1 = list1.next
+        } else { 
+            tail.next = list2
+            list2 = list2.next
+        }
+        
+        tail = tail.next
+    }
+    
+    return dummyNode.next
+};
+
+
+// Linked Lists - Push & BuildOneTwoThree
+
+// Write push() and buildOneTwoThree() functions to easily update and initialize linked lists. Try to use the push() function within your buildOneTwoThree() function.
+
+// Here's an example of push() usage:
+
+// var chained = null
+// chained = push(chained, 3)
+// chained = push(chained, 2)
+// chained = push(chained, 1)
+// push(chained, 8) === 8 -> 1 -> 2 -> 3 -> null
+// The push function accepts head and data parameters, where head is either a node object or null/None/nil. Your push implementation should be able to create a new linked list/node when head is null/None/nil.
+
+// The buildOneTwoThree function should create and return a linked list with three nodes: 1 -> 2 -> 3 -> null
+
+function Node(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+  
+  function push(head, data) {
+    return new Node (data, head)
+  }
+  
+  function buildOneTwoThree() {
+    let arr = null
+    arr = push(arr, 3)
+    arr = push(arr, 2)
+    arr = push(arr, 1)
+    
+    return arr
+  }
