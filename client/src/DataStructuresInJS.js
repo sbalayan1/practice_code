@@ -822,7 +822,7 @@ let printPascal = (row) => {
 
 // Reverse Linked List
 // Given the head of a singly linked list, reverse the list, and return the reversed list.
-
+// Iterative: O(n) time complexity and O(1) space complexity
 var reverseList = function(head) {
     if (!head || !head.next) {
         return head
@@ -840,8 +840,30 @@ var reverseList = function(head) {
     }
     
     return previous
-    
 };
+
+// Recursive
+[1 -> 2 -> 3 -> null ]
+head = [1 -> 2 -> 3 -> null]
+reversedHead = [2 -> 3 -> null] -> reversedHead = [2 -> 3 -> ]
+
+
+
+let reverseList = (head) => {
+    if (!head || !head.next) {
+        return head
+    }
+
+    let reversedHead = reverseList(head.next)
+    reversedHead.next.next = head
+    head.next = null
+    return reversedHead
+
+
+
+}
+
+
 
 // Merge Sorted Linked Lists
 
@@ -948,3 +970,23 @@ function Node(data, next = null) {
     
     return arr
   }
+
+// Remove Duplicates of Linked List
+let removeDuplicates = (head) => {
+    if (!head || !head.next) {return head}
+
+    let dupSet = new Set()
+    dupSet.add(head.data)
+    let curr = head
+
+    while (curr.next) {
+        if (dupSet.has(curr.next.data)) {
+            curr.next = curr.next.next
+        } else {
+            dupSet.add(curr.next.data)
+            curr = curr.next
+        }
+    }
+
+    return head
+}
