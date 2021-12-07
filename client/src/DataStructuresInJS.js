@@ -972,6 +972,17 @@ function Node(data, next = null) {
   }
 
 // Remove Duplicates of Linked List
+// The runtime complexity of this problem is Linear, O(n)O(n) - where n is the length of the linked list.
+// The memory complexity of this problem is Linear, O(n)O(n) - to store visited nodes in the hashset.
+
+
+// The interviewer might say that we are not allowed to use any extra memory, i.e., the space complexity of our algorithm should be O(1)O(1).
+    // We can take these approaches based on the requirements:
+
+        // If we are allowed to change the order of the list, we can just sort the linked list in O(n logn)O(nlogn) time. After sorting, all duplicates must be adjacent and can be removed in a linear scan.
+
+        // For each node in the linked list, do another scan of the preceding nodes to see if it already exists or not. The time complexity of this algorithm is O(n^2) and does not require any extra space.
+
 let removeDuplicates = (head) => {
     if (!head || !head.next) {return head}
 
@@ -990,3 +1001,41 @@ let removeDuplicates = (head) => {
 
     return head
 }
+
+
+// Find Missing Number
+    // We are given an array containing ‘n’ distinct numbers taken from the range 0 to ‘n’. Since the array has only ‘n’ numbers out of the total ‘n+1’ numbers, find the missing number.
+
+    // Example 1:
+
+    // Input: [4, 0, 3, 1]
+    // Output: 2
+    // Example 2:
+
+    // Input: [8, 3, 5, 2, 4, 6, 0, 1]
+    // Output: 7
+
+let findMissingNumber = (nums) => {
+    let i = 0
+    while (i<nums.length) {
+        j = nums[i]
+
+        if (nums[i] !== nums[j]) {
+            [nums[i], nums[j]] = [nums[j], nums[i]]
+        } else {
+            i++
+        }
+    }
+
+    for (let k = 0; k<=nums.length; k++) {
+        if (nums[k] == undefined) {
+            return k
+        }
+    }
+
+    return -1
+}
+
+// The time complexity of the above algorithm is O(n)O(n). In the while loop, although we are not incrementing the index i when swapping the numbers, this will result in more than n iterations of the loop, but in the worst-case scenario, the while loop will swap a total of n-1 numbers and once a number is at its correct index, we will move on to the next number by incrementing i. In the end, we iterate the input array again to find the first number missing from its index, so overall, our algorithm will take O(n) + O(n-1) + O(n)O(n)+O(n−1)+O(n) which is asymptotically equivalent to O(n)O(n).
+
+// Space Complexity: O(1)
