@@ -1126,3 +1126,77 @@ let smallestSubArray = (s, arr) => {
     if (minSize === Infinity) return minSize
     return minSize
 }
+
+// longest substring of nonrepeating characters
+// Given a string s, find the length of the longest substring without repeating characters.
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+
+//Notes on what's going inside
+    {a: 0, b: 1, c: 2}
+    windowSize = 3
+    windowStart = 0
+    windowEnd = 2
+
+    // iterate to windowEnd = 3
+    a exists in hashMap
+    windowStart = 0
+    // hashMap[right] = {a:0}
+    hashMap[right] = 0
+    windowStart = Math.max(0, 1) //iterates windowStart to 1
+
+
+ let lengthOfLongestSubstring = (s) => {
+    let hashMap = {}, windowStart = 0, windowSize = 0
+
+    for (let windowEnd = 0; windowEnd<s.length; i++) {
+        let right = s[windowEnd]
+        if (right in hashMap) {
+            // 
+            windowStart = Math.max(windowStart, hashMap[right] + 1)
+        }
+
+        // keep track of the index of each letter
+        // ie. {a: 0, b:1} etc. 
+        hashMap[right] = windowEnd
+        windowSize = Math.max(windowSize, i - windowStart + 1)
+    }
+    return windowSize
+ }
+
+//  Longest substring with max K distinct subchars
+
+let longestSubstringWithDistinct = (str, k) => {
+    // hashMap is used to keep track of character count.
+
+    let hashMap = {}, windowStart = 0, windowSize = 0
+
+    for (let windowEnd = 0; windowEnd<str.length; i++) {
+        let right = str[windowEnd]
+
+        // adds characters at the end of the window to the hashmap
+        if (!(right in hashMap)) {
+            hashMap[right] = 0
+        }
+
+        hashMap[right] ++
+
+        // keeps the window sized correctly. if the number of distinct characters is greater than k, we need to remove characters from the front of the sliding window. 
+        while (Object.keys(hashMap).length > k) {
+            let left = str[windowStart]
+            hashMap[left] --
+            if (hashMap[left] -- === 0) {
+                delete hashMap[left]
+            }
+            windowStart ++
+        }
+
+        // keeps track of the largest windowSize
+        windowSize = Math.max(windowSize, windowEnd - windowStart + 1)
+    }
+
+    return windowSize
+
+}
