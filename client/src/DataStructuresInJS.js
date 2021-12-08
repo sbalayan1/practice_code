@@ -1040,5 +1040,89 @@ let findMissingNumber = (nums) => {
 
 // Space Complexity: O(1)
 
+// Sliding Window
 
-// 
+K = 5
+arr = [1, 3, 2, 6, -1, 4, 1, 8, 2]
+
+let findAverageOfSubArrays = (K, arr) => {
+    let result = []
+    let windowSum = 0, 
+        windowStart = 0
+    for (let i = 0; i<arr.length;i++) {
+        windowSum += arr[i]
+
+        if (i >= K-1) { //why do we subtract -1
+
+            // add the average to the result
+            result.push(windowSum/K)
+
+            // remove the first item from the windowSum. 
+            windowSum -= arr[windowStart]
+
+            // move the windowStart forward 
+            windowStart ++
+        }
+    }
+
+    return result
+}
+
+
+// my solution
+let findMaxSubArray = (k, arr) => {
+    let result = []
+    let windowStart = 0, windowSum = 0
+    
+    for (let i = 0; i<arr.length; i++) {
+        windowSum += arr[i]
+        
+        if (i>= k-1) {
+            result.push(windowSum)
+            windowSum -= arr[windowStart]
+            windowStart ++
+        }
+    }
+
+    return Math.max(...result)
+}
+
+// example solution
+
+let findMaxSubArray = (k,arr) => {
+    let maxSum = 0, windowStart = 0, windowSum = 0
+
+    for (let i = 0; i<arr.length; i++) {
+        windowSum += arr[i]
+
+        if (i>= k -1) {
+            maxSum = Math.max(windowSum, maxSum)
+            windowSum -= arr[windowStart]
+            windowStart ++
+        }
+    }
+
+    return maxSum
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+// minSizeSubArray
+// Given an array of positive numbers and a positive number ‘S,’ find the length of the smallest contiguous subarray whose sum is greater than or equal to ‘S’. Return 0 if no such subarray exists.
+
+let smallestSubArray = (s, arr) => {
+    let sum = 0, windowStart = 0, minSize = Infinity
+    for (let i = 0; i<arr.length; i++) {
+        sum += arr[i]
+
+        while (sum>=s) {
+            minSize = Math.min(minSize, i - windowStart + 1)
+            sum -= arr[windowStart]
+            windowStart ++
+        }
+    }
+
+    if (minSize === Infinity) return minSize
+    return minSize
+}
