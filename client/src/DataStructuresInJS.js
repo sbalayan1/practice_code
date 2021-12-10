@@ -1200,3 +1200,98 @@ let longestSubstringWithDistinct = (str, k) => {
     return windowSize
 
 }
+
+
+//longest substring with same letter replacement
+
+let lengthOfLongestSubstring = (str, k) => {
+    let hashMap = {}, windowStart = 0, windowSize = 0, maxLetterCount = 0
+    for (let windowEnd = 0; windowEnd<str.length; windowEnd ++) {
+        let right = str[windowEnd]
+        if (!(right in hashMap)) {
+            hashMap[right] = 0
+        }
+
+        hashMap[right] ++
+        maxLetterCount = Math.max(maxLetterCount, hashMap[right])
+
+        if (windowEnd - windowStart + 1 - maxLetterCount > k) {
+            let left = str[windowStart]
+            hashMap[left] -- 
+            if (hashMap[left] === 0) {
+                delete hashMap[left]
+            }
+
+            windowStart ++
+        }
+
+        windowSize = Math.max(windowSize, windowEnd - windowStart + 1)
+    }
+
+    return windowSize
+}
+
+// The above algorithm’s time complexity will be O(N)O(N), where ‘N’ is the number of letters in the input string.
+// As we expect only the lower case letters in the input string, we can conclude that the space complexity will be O(26)O(26) to store each letter’s frequency in the HashMap, which is asymptotically equal to O(1)O(1).
+
+
+let lengthOfLongestSubstring = (arr, k) => {
+    let windowStart = 0, windowSize = 0, countOnes = 0
+    for (let windowEnd = 0; windowEnd<arr.length; windowEnd ++) {
+        if (arr[windowEnd === 1]) {countOnes ++}
+
+        if (windowEnd - windowStart + 1 - countOnes > k) {
+            if (arr[windowStart] === 1) {
+                countOnes --
+            }
+
+            windowStart ++
+        }
+
+        windowSize = Math.max(windowSize, windowEnd - windowStart + 1)
+    }
+
+    return windowSize
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+
+
+// Permutation String
+// Given a string and a pattern, find out if the string contains any permutation of the pattern.
+
+let findPermutation = (str, pattern) => {
+    let hashMap = {}, windowStart = 0, matched = 0
+
+    for (let i = 0; i<pattern.length; i++) {
+        let char = pattern[i]
+        if (!(char in hashMap)) hashMap[char] = 0
+        hashMap[char] ++
+    }
+    
+    for (let windowEnd = 0; windowEnd<str.length; windowEnd++) {
+        let right = str[windowEnd]
+        if (right in hashMap) {
+            hashMap[right] --
+            if (hashMap[right] === 0) matched ++
+        }
+
+        if (Object.keys(hashMap).length === matched) return true
+
+        if (windowEnd - windowStart + 1 >= pattern.length) {
+            let left = str[windowStart]
+            if (left in hashMap) {
+                if (hashMap[left] == 0) matched --
+                hashMap[left] ++
+            }
+
+            windowStart ++
+        }
+    }
+    return false
+}
+
+Time Complexity: O(N+M) where N and M are the number of characters in the string and pattern respectively
+Space Complexity: O(M) in the worst case where the whole pattern can have distinct characters that will go into the HashMap.
