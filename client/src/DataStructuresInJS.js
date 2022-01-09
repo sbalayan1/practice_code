@@ -1407,3 +1407,48 @@ const make_squares = function(arr) {
 Time Complexity: O(n)
 Space Complexity: O(n)
   
+// Triplet Sum to Zero (medium)
+// Given an array of unsorted numbers, find all unique triplets in it that add up to zero.
+
+let search_triplets = (arr) => {
+    let triplets = [] 
+    for (let i = 0; i<arr.length; i++) {
+        if (i>0 && arr[i] === arr[i-1]) {
+            continue
+        }
+
+        search_pair(arr, -arr[i], i+1, triplets)
+    }
+
+    return triplets
+
+}
+
+let search_pair = (arr, targetSum, left, triplets) => {
+    let right = arr.length - 1
+    while (left<right) {
+        let currentSum = arr[left] + arr[right]
+        if (targetSum + currentSum === 0) {
+            triplets.push([arr[left], arr[right], -targetSum])
+            left ++
+            right --
+
+            while (left<right && arr[left] === arr[left-1]) {
+                left ++
+            }
+
+            while(left<right && arr[right] === arr[right+1]) {
+                right --
+            }
+        }
+
+        if (targetSum>currentSum) {
+            left ++
+        } else {
+            right --
+        }
+    }
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(n) Ignoring the space required for the output array, the space complexity of the above algorithm will be O(N)O(N) which is required for sorting.
