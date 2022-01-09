@@ -1295,3 +1295,54 @@ let findPermutation = (str, pattern) => {
 
 Time Complexity: O(N+M) where N and M are the number of characters in the string and pattern respectively
 Space Complexity: O(M) in the worst case where the whole pattern can have distinct characters that will go into the HashMap.
+
+// Two Pointer
+
+// two-pointer approach
+let pair_with_targetsum = (arr, target_sum) => {
+    let start = 0, end = arr.length - 1
+    while (left < right) {
+        if (arr[start] + arr[end] == target_sum) return [start, end]
+      if (arr[start] + arr[end] > target_sum) {
+        end--
+      } else {
+        start ++
+      }
+    }
+  
+    return [-1, -1]
+  }
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+//Hash Table
+let pair_with_targetsum = (arr, target_sum) => {
+    let hashMap = {}
+    for (let i = 0; i<arr.length; i++) {
+        hashMap[arr[i]] = i
+    }
+
+    for (let i = 0; i<arr.length; i++) {
+        target = target_sum - arr[i]
+        if (hashMap[target] && target !== arr[i]) {
+            return [i, hashMap[target]]
+        }
+    }
+}
+
+//alternative solution 
+let pair_with_targetsum = (arr, targetSum) => {
+    let nums = {}
+    for (let i = 0; i<arr.length; i++) {
+        let num = arr[i]
+        if (targetSum - num in nums) {
+            return [nums[targetSum - num], i]
+        }
+
+        nums[num] = i
+    }
+}
+
+Time Complexity; O(N)
+Space Complexity: O(N) -> The space complexity will also be O(N)O(N), as, in the worst case, we will be pushing ‘N’ numbers in the HashTable.
