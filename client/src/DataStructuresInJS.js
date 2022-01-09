@@ -1346,3 +1346,64 @@ let pair_with_targetsum = (arr, targetSum) => {
 
 Time Complexity; O(N)
 Space Complexity: O(N) -> The space complexity will also be O(N)O(N), as, in the worst case, we will be pushing ‘N’ numbers in the HashTable.
+
+
+// Remove Duplicates (easy)
+
+// Given an array of sorted numbers, remove all duplicates from it. You should not use any extra space; after removing the duplicates in-place return the length of the subarray that has no duplicate in it.
+
+let removeDuplicates = (arr) => {
+    let nextNonDuplicates = 1
+    let i = 1
+    while (i<arr.length) {
+        if (arr[nextNonDuplicates - 1] !== arr[i]) {
+            arr[nextNonDuplicates] = arr[i]
+            nextNonDuplicates ++
+        } 
+
+        i++
+    }
+
+    return nextNonDuplicates
+}
+
+// Similar Questions#
+// Problem 1: Given an unsorted array of numbers and a target ‘key’, remove all instances of ‘key’ in-place and return the new length of the array.
+
+let remove_element = (arr,key) => {
+    let nextNonKey = 0
+    for (let i = 0; i<arr.length; i++) {
+        if (arr[i] !== key) {
+            arr[nextNonKey] = arr[i]
+            nextNonKey ++
+        }
+    }
+    return nextNonKey
+}
+
+// Squaring a Sorted Array
+// Given a sorted array, create a new array containing squares of all the numbers of the input array in the sorted order.
+
+const make_squares = function(arr) {
+    let start = 0, end = arr.length-1, squares = [], highestSquareIndex = arr.length-1
+  
+    while (start<=end) {
+      let startSquare = arr[start] ** 2, endSquare = arr[end] ** 2
+  
+      if (startSquare > endSquare) {
+        squares[highestSquareIndex] = startSquare
+        start ++
+      } else {
+        squares[highestSquareIndex] = endSquare
+        end --
+      }
+  
+      highestSquareIndex --
+    }
+  
+    return squares
+  };
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+  
