@@ -1486,3 +1486,17 @@ const triplet_sum_close_to_target = function(arr, targetSum) {
 
   Time Complexity: Sorting the array will take O(N* logN)O(N∗logN). Overall, the function will take O(N * logN + N^2), which is asymptotically equivalent to O(N^2).
   Space Complexity: The above algorithm’s space complexity will be O(N)O(N), which is required for sorting.
+
+  Triplet with Smaller Sum 
+
+  let tripletsWithSmallerSum = (arr, target) => {
+      arr.sort((a,b) => a-b)
+      let count = 0
+      for (let i = 0; i<arr.length; i++) {
+          let left = i+1, right = arr.length-1, targetSum = target - arr[i]
+          while (left < right) {
+              
+          }
+      }
+      return count
+  }
