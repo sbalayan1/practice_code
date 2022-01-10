@@ -1300,6 +1300,7 @@ Space Complexity: O(M) in the worst case where the whole pattern can have distin
 
 // two-pointer approach
 let pair_with_targetsum = (arr, target_sum) => {
+    // note does not work for unsorted arrays
     let start = 0, end = arr.length - 1
     while (left < right) {
         if (arr[start] + arr[end] == target_sum) return [start, end]
@@ -1452,3 +1453,36 @@ let search_pair = (arr, targetSum, left, triplets) => {
 
 Time Complexity: O(n^2)
 Space Complexity: O(n) Ignoring the space required for the output array, the space complexity of the above algorithm will be O(N)O(N) which is required for sorting.
+
+
+// Triplet Sum Close to Target (medium)
+// Given an array of unsorted numbers and a target number, find a triplet in the array whose sum is as close to the target number as possible, return the sum of the triplet. If there are more than one such triplet, return the sum of the triplet with the smallest sum.
+
+const triplet_sum_close_to_target = function(arr, targetSum) {
+    arr.sort((a,b) => a-b)
+    let smallestDifference = Infinity
+    for (let i = 0; i<arr.length; i++) {
+      let left = i + 1, right = arr.length - 1
+      while (left < right) {
+        let targetDiff = targetSum - arr[i] - arr[left] - arr[right]
+        if (targetDiff === 0) return targetSum
+  
+        if (Math.abs(targetDiff) < Math.abs(smallestDifference) || 
+          (Math.abs(targetDiff) === Math.abs(smallestDifference) && targetDiff > smallestDifference)) {
+          smallestDifference = targetDiff
+        }
+  
+        if (targetDiff > 0) {
+          left ++
+        } else {
+          right --
+        }
+      }
+    }
+  
+    return targetSum - smallestDifference
+  
+  };
+
+  Time Complexity: Sorting the array will take O(N* logN)O(N∗logN). Overall, the function will take O(N * logN + N^2), which is asymptotically equivalent to O(N^2).
+  Space Complexity: The above algorithm’s space complexity will be O(N)O(N), which is required for sorting.
