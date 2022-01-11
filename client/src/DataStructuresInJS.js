@@ -1458,31 +1458,32 @@ Space Complexity: O(n) Ignoring the space required for the output array, the spa
 // Triplet Sum Close to Target (medium)
 // Given an array of unsorted numbers and a target number, find a triplet in the array whose sum is as close to the target number as possible, return the sum of the triplet. If there are more than one such triplet, return the sum of the triplet with the smallest sum.
 
-const triplet_sum_close_to_target = function(arr, targetSum) {
-    arr.sort((a,b) => a-b)
-    let smallestDifference = Infinity
-    for (let i = 0; i<arr.length; i++) {
-      let left = i + 1, right = arr.length - 1
-      while (left < right) {
-        let targetDiff = targetSum - arr[i] - arr[left] - arr[right]
-        if (targetDiff === 0) return targetSum
-  
-        if (Math.abs(targetDiff) < Math.abs(smallestDifference) || 
-          (Math.abs(targetDiff) === Math.abs(smallestDifference) && targetDiff > smallestDifference)) {
-          smallestDifference = targetDiff
+    let threeSumClosest = (nums, target) => {
+        nums.sort((a,b) => a-b)
+        let smallestDiff = Infinity
+        for (let i = 0; i<nums.length-2; i++) {
+            let left = i+1, right = nums.length-1
+            while (left < right) {
+                let targetDiff = target - nums[i] - nums[left] - nums[right]
+                if (targetDiff===0) return target
+
+
+                // not sure if the || is necessary. Not sure there will be a case where that occurs
+                if (Math.abs(targetDiff) < Math.abs(smallestDiff) ||(Math.abs(targetDiff) === Math.abs(smallestDiff) && targetDiff > smallestDiff)
+                ) {
+                    smallestDiff = targetDiff
+                }
+
+                if (targetDiff > 0) {
+                    left ++
+                } else {
+                    right --
+                }
+            }
         }
-  
-        if (targetDiff > 0) {
-          left ++
-        } else {
-          right --
-        }
-      }
+
+        return target - smallestDiff
     }
-  
-    return targetSum - smallestDifference
-  
-  };
 
   Time Complexity: Sorting the array will take O(N* logN)O(N∗logN). Overall, the function will take O(N * logN + N^2), which is asymptotically equivalent to O(N^2).
   Space Complexity: The above algorithm’s space complexity will be O(N)O(N), which is required for sorting.
