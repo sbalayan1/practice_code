@@ -1677,3 +1677,26 @@ let findDuplicate = (nums) => {
 
 Time Complexity: O(n log n) -> outer while loop takes O(log n) => inner loop iterates through the entire array which takes O(n)
 Space Complexity: O(1)
+
+// Happy Number
+
+let isHappy = (num) => {
+    let fast = num, slow = num
+    while (true) {
+        fast = findSquareSum(findSquareSum(num))
+        slow = findSquareSum(num)
+        if(fast===slow) break
+    }
+
+    return slow === -1
+}
+
+let findSquareSum = (num) => {
+    let sum = 0
+    while (num>0) {
+        let digit = num % 10
+        sum += digit * digit
+        num = Math.floor(num/10)
+    }
+    return sum
+}
