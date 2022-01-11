@@ -1495,7 +1495,13 @@ const triplet_sum_close_to_target = function(arr, targetSum) {
       for (let i = 0; i<arr.length; i++) {
           let left = i+1, right = arr.length-1, targetSum = target - arr[i]
           while (left < right) {
-              
+              let currentSum = arr[left] + arr[right]
+              if (targetSum > currentSum) {
+                  count += right - left
+                  left ++
+              } else {
+                  right --
+              }
           }
       }
       return count
