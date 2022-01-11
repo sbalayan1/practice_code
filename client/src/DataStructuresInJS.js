@@ -1562,9 +1562,36 @@ let hasCycle = (head) => {
     while (fast !== null && fast.next !== null) {
         fast = fast.next.next
         slow = slow.next
-        
         if (fast === slow) return true
+    }
+    
+    return false
+}
+
+// LinkedList Cycle Length
+
+let find_cycle_length = (head) => {
+    let slow = head, fast = head
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next
+        slow = slow.next
+
+        if (fast === slow) {
+            calculate_cycle_length(slow)
+        }
     }
 
     return false
+}
+
+let calculate_cycle_length = (slow) => {
+    let current = slow, count = 0
+    while (true) {
+        current = current.next
+        count ++
+
+        if (current === slow) break
+    }
+
+    return count
 }
