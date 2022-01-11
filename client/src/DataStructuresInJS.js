@@ -1655,3 +1655,25 @@ let findDuplicate = (nums) => {
 
     return fast
 }
+
+// Find Duplicate Number utilizing Binary Search
+let findDuplicate = (nums) => {
+    let low = 1, high = nums.length-1, duplicate = -1;
+    while (low<=high) {
+        let mid = Math.floor((high + low)/2)
+        let count = 0
+        for (num of nums) {if (num <= mid) count ++}
+   
+        if (count > mid) {
+            duplicate = mid
+            high = mid - 1
+        } else {
+            low = mid + 1
+        }
+    }
+    
+    return duplicate
+}
+
+Time Complexity: O(n log n) -> outer while loop takes O(log n) => inner loop iterates through the entire array which takes O(n)
+Space Complexity: O(1)
