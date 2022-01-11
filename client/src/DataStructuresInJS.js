@@ -1526,3 +1526,45 @@ const triplet_sum_close_to_target = function(arr, targetSum) {
 
     return count
   }
+
+Time Complexity:
+Space Complexity:
+
+
+//Dutch National Flag Problem 
+
+let dutch_flag_sort = (arr) => {
+    let low = 0, i = 0; high = arr.length - 1
+    while (low<=high) {
+        if (arr[i] === 0) {
+            [arr[i], arr[low]] = [arr[low], arr[i]]
+            low ++
+            i++
+
+        } else if (arr[i] === 1) {
+            i++
+        } else {
+            [arr[i], arr[high]] = [arr[high], arr[i]]
+            high --
+        }
+    }
+
+    return arr
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+
+// LinkedList Cycle
+let hasCycle = (head) => {
+    let slow = head, fast = head
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next
+        slow = slow.next
+        
+        if (fast === slow) return true
+    }
+
+    return false
+}
