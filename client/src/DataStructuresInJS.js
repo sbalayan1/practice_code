@@ -1557,7 +1557,7 @@ Time Complexity: O(n)
 Space Complexity: O(1)
 
 
-// LinkedList Cycle
+// LinkedList Cycle 
 let hasCycle = (head) => {
     let slow = head, fast = head
     while (fast !== null && fast.next !== null) {
@@ -1700,4 +1700,15 @@ let findSquareSum = (num) => {
         num = Math.floor(num/10)
     }
     return sum
+}
+
+// Middle of Linked List
+let findMiddleOfLinkedList = (head) => {
+    let fast = head, slow = head
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next
+        slow = slow.next
+    }
+
+    return slow
 }
