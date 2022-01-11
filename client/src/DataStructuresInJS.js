@@ -1595,3 +1595,63 @@ let calculate_cycle_length = (slow) => {
 
     return count
 }
+
+// LinkedList Cycle Start
+let findLinkedListCycle = (head) => {
+    let slow = head, fast = head, cycleLength = 0
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next
+        slow = slow.next
+        if (fast === slow) {
+            cycleLength = findCycleLength(slow)
+            break
+        }
+    }
+
+    return findLinkedListCycleStart(head, cycleLength)
+}
+
+let findCycleLength = (slow) => {
+    let current = slow, count = 0
+    while (true) {
+        current = current.next
+        count ++
+        if (slow === current) break
+    }
+    
+    return count
+}
+
+let findLinkedListCycleStart = (head, cycleLength) => {
+    let pointer1 = head, pointer2 = head
+    while (cycleLength > 0) {
+        pointer2 = pointer2.next
+        cycleLength --
+    }
+
+    while (pointer1 !== pointer2) {
+        pointer1 = pointer1.next
+        pointer2 = pointer2.next
+    }
+
+    return pointer1
+}
+
+
+// Find Duplicate Number utilizing Tortoise/Hare fast and slow pointer
+let findDuplicate = (nums) => {
+    let fast = head, slow = head
+    while (true) {
+        fast = nums[nums[fast]]
+        slow = nums[slow]
+        if (fast === slow) break
+    }
+
+    slow = nums[0]
+    while (fast !== slow) {
+        slow = nums[slow]
+        fast = nums[fast]
+    }
+
+    return fast
+}
