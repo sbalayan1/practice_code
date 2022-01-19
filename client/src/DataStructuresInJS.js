@@ -1712,3 +1712,40 @@ let findMiddleOfLinkedList = (head) => {
 
     return slow
 }
+
+
+// Find Missing Number using Cyclic Sort
+let findMissingNumber = (nums) => {
+    let i = 0
+    while (i<nums.length) {
+        let j = nums[i]
+        if (nums[i] !== nums[j]) {
+            [nums[i], nums[j]] = [nums[j], nums[i]]
+        } else {
+            i++
+        }
+    }
+
+    for (let j = 0; j<nums.length; j++) {
+        if (nums[j] === undefined) return j
+    }
+}
+
+// Find missing numbers using cyclic sort
+let findAllMissingNumbers = (nums) => {
+    let missingNumbers = [], i = 0
+    while (i<nums.length) {
+        let j = nums[i] - 1
+        if (nums[i] !== nums[j]) {
+            [nums[i], nums[j]] = [nums[j], nums[i]]
+        } else {
+            i++
+        }
+    }
+
+    for (let k = 0; k<nums.length; k++) {
+        if (k+1 !== nums[k]) missingNumbers.push(k+1)
+    }
+
+    return missingNumbers
+}
