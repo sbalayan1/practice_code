@@ -1639,6 +1639,26 @@ let findLinkedListCycleStart = (head, cycleLength) => {
 }
 
 
+//faster version for finding linkedlist cycle start
+const find_cycle_start = function(head){
+    let slow = head, fast = head
+    while (fast !== null && fast.next !== null) {
+      fast = fast.next.next
+      slow = slow.next
+  
+      if (fast === slow) break
+    }
+  
+    slow = head
+    while (fast !== slow) {
+      fast = fast.next
+      slow = slow.next
+    }
+  
+    return fast
+  }
+
+
 // Find Duplicate Number utilizing Tortoise/Hare fast and slow pointer
 let findDuplicate = (nums) => {
     let fast = head, slow = head
@@ -1767,3 +1787,23 @@ function find_duplicate(nums) {
     }
     return -1;
   }
+
+
+//Find all duplicates using cyclic sort
+let find_duplicates = (nums) => {
+    let i = 0, duplicates = []
+    while (i<nums.length) {
+        let j = nums[i] - 1
+        if (nums[i] !== nums[j]) {
+            [nums[i], nums[j]] = [nums[j], nums[i]]
+        } else {
+            i++
+        }
+    }
+
+    for (let k = 0; k<nums.length; k++) {
+        if (k + 1 !== nums[k]) duplicates.push(nums[k])
+    }
+
+    return duplicates
+}
