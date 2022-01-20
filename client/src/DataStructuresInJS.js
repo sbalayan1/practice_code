@@ -1807,3 +1807,25 @@ let find_duplicates = (nums) => {
 
     return duplicates
 }
+
+
+//merge intervals
+var merge = function(intervals) {
+    if (intervals.length < 2) return intervals
+    intervals.sort((a,b) => a[0] - b[0])
+    let merged = [], startA = intervals[0][0], endA = intervals[0][1]
+    for (let i = 1; i<intervals.length; i++) {
+        let startB = intervals[i][0], endB = intervals[i][1]
+        
+        if (startB <= endA) {
+            endA = Math.max(endA, endB)
+        } else {
+            merged.push([startA, endA])
+            startA = startB
+            endA = endB
+        }
+    }
+    
+    merged.push([startA, endA])
+    return merged
+};
