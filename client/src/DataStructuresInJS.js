@@ -1829,3 +1829,37 @@ var merge = function(intervals) {
     merged.push([startA, endA])
     return merged
 };
+
+Time Complexity: The time complexity of the above algorithm is O(N * logN)O(N∗logN), where ‘N’ is the total number of intervals. We are iterating the intervals only once which will take O(N)O(N), in the beginning though, since we need to sort the intervals, our algorithm will take O(N * logN)O(N∗logN).
+
+Space Complexity: The space complexity of the above algorithm will be O(N)O(N) as we need to return a list containing all the merged intervals. We will also need O(N)O(N) space for sorting. For Java, depending on its version,
+
+
+// insert interval
+const insert = function(intervals, new_interval) {
+    let merged = [], i = 0
+  
+    while (i<intervals.length && intervals[i].end < new_interval.start) {
+      merged.push(intervals[i])
+      i++
+    }
+  
+  
+    while (i<intervals.length && intervals[i].start <= new_interval.end) {
+      new_interval.start = Math.min(new_interval.start, intervals[i].start)
+      new_interval.end = Math.max(new_interval.end, intervals[i].end)
+      i++
+    }
+  
+    merged.push(new_interval)
+  
+    while (i<intervals.length) {
+      merged.push(intervals[i])
+      i++
+    }
+  
+    return merged
+  };
+
+  Time Complexity: O(n)
+  Space Complexity: O(n)
