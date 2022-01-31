@@ -1863,3 +1863,31 @@ const insert = function(intervals, new_interval) {
 
   Time Complexity: O(n)
   Space Complexity: O(n)
+
+
+// interval intersection
+var intervalIntersection = function(firstList, secondList) {
+    let result = [], i = 0, j = 0
+    while (i<firstList.length && j<secondList.length) {
+        aob = firstList[i][0] >= secondList[j][0] && firstList[i][0] <= secondList[j][1]
+        boa = secondList[j][0] >= firstList[i][0] && secondList[j][0] <= firstList[i][1]
+        
+        if (aob || boa) {
+            start = Math.max(firstList[i][0], secondList[j][0])
+            end = Math.min(firstList[i][1], secondList[j][1])
+            result.push([start, end])
+        }
+        
+        
+        if (firstList[i][1] < secondList[j][1]) {
+            i++
+        } else {
+            j++
+        }
+    }
+    
+    return result
+};
+
+Time Complexity: O(n+m)
+Space Complexity: O(1)
