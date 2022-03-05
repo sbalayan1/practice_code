@@ -1893,6 +1893,13 @@ Time Complexity: O(n+m)
 Space Complexity: O(1)
 
 
+// twoSum revised
 
-wrote some code
-more code 3/4
+let twoSum = (nums, target) {
+    let hash = {}
+    for (let i = 0; i<nums.length; i++) {
+        let diff = target - nums[i]
+        if (diff in hash) return [i, hash[diff]]
+        hash[nums[i]] = i
+    }
+}
