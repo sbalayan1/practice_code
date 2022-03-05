@@ -1903,3 +1903,21 @@ let twoSum = (nums, target) {
         hash[nums[i]] = i
     }
 }
+
+// twoSum using twoPointer
+
+let twoSum = (nums, target) {
+    let left = 0, right = nums.length - 1
+    while (left<right) {
+        let currentSum = nums[left] + nums[right]
+        if (target === currentSum) {
+            return [left, right]
+        }
+
+        if (currentSum < targetSum) {
+            left ++
+        } else {
+            right --
+        }
+    }
+}
