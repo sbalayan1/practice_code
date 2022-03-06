@@ -1991,3 +1991,26 @@ let search_pair = (arr, targetSum, left, triplets) => {
         }   
     }
 }
+
+// triplet sum closest to target -> need to look at again later
+let tripletSumCloseToTarget = (arr, targetSum) => {
+    arr.sort((a,b) => a-b)
+    let smallestDiff = Infinity
+    for (let i = 0; i<arr.length; i++) {
+        let left = i+1, right = arr.length-1
+        while (left<right) {
+            let targetDiff = targetSum - arr[i] - arr[left] - arr[right]
+            if (targetDiff === 0) return targetSum
+
+            smallestDiff = Math.min(Math.abs(smallestDiff), Math.abs(targetDiff))
+
+            if (targetDiff > 0) {
+                left ++
+            } else {
+                right --
+            }
+        }
+    }
+
+    return targetSum - smallestDiff
+}
