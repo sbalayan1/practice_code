@@ -1921,3 +1921,73 @@ let twoSum = (nums, target) {
         }
     }
 }
+
+// removeDuplicates code review
+let removeDuplicates = (arr) => {
+    let nextNonDuplicate = 1, i = 1
+    while (i<arr.length) {
+        if (arr[nextNonDuplicate-1] !== arr[i]) {
+            arr[nextNonDuplicate] = arr[i]
+            nextNonDuplicate++
+        }
+
+        i++
+    }
+
+    return nextNonDuplicate
+}
+
+
+// make_squares
+let make_squares = (arr) => {
+    let squares = [], start = 0, end = arr.length - 1, highestSquareIndex = arr.length - 1
+    while (start<=end) {
+        let startSquare = arr[start] ** 2, endSquare = arr[end] ** 2
+        if (startSquare > endSquare) {
+            squares[highestSquareIndex] = startSquare
+            start ++
+        } else {
+            squares[highestSquareIndex] = endSquare
+            end --
+        }
+
+        highestSquareIndex --
+    }
+
+    return squares
+}
+
+// triplet sum to zero review
+let search_triplets = (arr) => {
+    let triplets = []
+    arr.sort((a,b) => a-b)
+    for (let i = 0; i<arr.length; i++) {
+        if (i>0 && arr[i] === arr[i-1]) continue
+        search_pair(arr, -arr[i], i+1, triplets)
+    }
+    return triplets
+}
+
+let search_pair = (arr, targetSum, left, triplets) => {
+    let right = arr.length - 1
+    while (left < right) {
+        let currentSum = arr[left] + arr[right]
+        if (targetSum === currentSum) {
+            triplets.push([-targetSum. arr[left], arr[right]])
+            left ++
+            right --
+
+            while (left < right && arr[left] === arr[left-1]) {
+                left ++
+            }
+
+            while (left < right && arr[right] === arr[right+1]) {
+                right --
+            }
+        } else if (currentSum > targetSum) {
+            right --
+        } else {
+            left ++
+        }   
+    }
+}
