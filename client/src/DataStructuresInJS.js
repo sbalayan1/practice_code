@@ -2014,3 +2014,37 @@ let tripletSumCloseToTarget = (arr, targetSum) => {
 
     return targetSum - smallestDiff
 }
+
+let tripletSumSmallerSum = (arr, target) => {
+    arr.sort((a,b) => a-b)
+    let count = 0
+    for (let i = 0; i<arr.length - 1; i++) {
+        let left = i+1, right = arr.length - 1
+        while (left < right) {
+            let currentSum = arr[i] + arr[left] + arr[right]
+            if (currentSum < target) {
+                count += right - left //Why does the count increase by the difference of the right index? 
+                // the count increases by the difference because all triplets with indexes less than the right index will be less than the target sum. 
+                left ++
+            } else {
+                right --
+            }
+        }
+    }
+
+    return count
+}
+
+Input: [-1, 0, 1, 2, 3], target=3
+Output: 2
+[-1, 0, 3], [-1, 0, 2]
+
+//count = 0, i=0, left=1, right=3
+//currentSum = 2
+//count = 2, increment left ++
+
+//count = 2, i=0, left=2, right=3
+//currentSum = 4
+//decrement right -- => while loop ends and the for loop increments i. No other combinations less than the target. count = 2.
+
+
