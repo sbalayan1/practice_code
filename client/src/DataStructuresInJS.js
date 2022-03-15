@@ -2048,3 +2048,93 @@ Output: 2
 //decrement right -- => while loop ends and the for loop increments i. No other combinations less than the target. count = 2.
 
 
+
+// ShirtStore && BlackRock Coding Assessment 
+// Current algorithm does not work in one test case
+export const cost = (shirts) => {
+    shirts.sort((a,b) => a-b)
+    console.log(shirts)
+    let total = 0, price = 800, uniqueShirtCounts = []
+    let discount = {
+      1: 0,
+      2: 0.05,
+      3: 0.1,
+      4: 0.2,
+      5: 0.25
+    }
+  
+    while (shirts.length>0) {
+      let uniqueShirtCount = removeDuplicates(shirts)
+      uniqueShirtCounts.push(uniqueShirtCount)
+      shirts.splice(0, uniqueShirtCount)
+    }
+  
+    console.log(`Unique Shirt Count ${uniqueShirtCounts}`)
+  
+    while (uniqueShirtCounts.includes(3) && uniqueShirtCounts.includes(5)) {
+      uniqueShirtCounts.splice(uniqueShirtCounts.indexOf(3), 1)
+      uniqueShirtCounts.splice(uniqueShirtCounts.indexOf(5), 1)
+      uniqueShirtCounts.push(4,4)
+    }
+  
+    for (let i = 0; i<uniqueShirtCounts.length; i++) {
+      total += (price * (1-discount[uniqueShirtCounts[i]])) * uniqueShirtCounts[i]
+    }
+  
+    console.log(total)
+    return total
+  }
+  
+  let removeDuplicates = (shirts) => {
+    let nextNonDuplicate = 1, i = 1
+    while (i<shirts.length) {
+      if (shirts[nextNonDuplicate-1] !== shirts[i]) {
+        let temp = shirts[nextNonDuplicate]
+        shirts[nextNonDuplicate] = shirts[i]
+        shirts[i] = temp
+        nextNonDuplicate ++
+      }
+      i++
+    }
+  
+    if (nextNonDuplicate > 5) nextNonDuplicate = 5
+    return nextNonDuplicate
+  }
+  
+  
+  // Sample Solution
+  // export const cost = (shirts) => {
+  //   let discounted = {
+  //     5: 5*800*0.75,
+  //     4: 4*800*0.8,
+  //     3: 3*800*0.9,
+  //     2: 2*800*0.95,
+  //     1: 800, 
+  //     0: 0
+  //   }
+  
+  //   let shirtSet = []
+  
+  //   while (shirts.length > 0) {
+  //     // grabs unique values in the shirts array and pushes the size into the shirtSet. 
+  //     shirtSet.push(new Set(shirts).size)
+  
+  //     // iterate over the unique values and remove them from the shirts array
+  //     new Set(shirts).forEach((i) => {
+  //       shirts.splice(shirts.indexOf(i), 1)
+  //     })
+  //   }
+  
+    
+  //   while (shirtSet.includes(3) && shirtSet.includes(5)) {
+  //     shirtSet.splice(shirtSet.indexOf(3), 1)
+  //     shirtSet.splice(shirtSet.indexOf(5), 1)
+  //     shirtSet.push(4,4)
+  //   }
+  
+  //   let total = 0
+  //   shirtSet.forEach(i => total += discounted[`${i}`])
+  //   return total
+  // }
+  
+  
