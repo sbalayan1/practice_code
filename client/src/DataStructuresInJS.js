@@ -2134,7 +2134,8 @@ export const cost = (shirts) => {
   // }
   
 // Reverse Linked List Practice
-
+Time Complexity: O(n)
+Space Comlexity: O(1)
 
 let reverseLinkedList = (head) => {
     let current = head, previous = null
@@ -2146,4 +2147,33 @@ let reverseLinkedList = (head) => {
     }
 
     return previous
+}
+
+let reverseSubList = (head, p, q) => {
+    let current = head, previous = null, i = 0
+    while (current && i < p-1) {
+        previous = current
+        current = current.next
+        i++
+    }
+
+    let begNode = previous, endNode = current, next = null
+    i = 0
+
+    while (current && i < q-p+1) {
+        next = current.next
+        current.next = previous
+        previous = current
+        current.next = next
+        i++
+    }
+
+    if (begNode) {
+        begNode.next = previous
+    } else {
+        head = previous
+    }
+
+    endNode.next = current
+    return head
 }
