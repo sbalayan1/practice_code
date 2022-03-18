@@ -2053,7 +2053,6 @@ Output: 2
 // Current algorithm does not work in one test case
 export const cost = (shirts) => {
     shirts.sort((a,b) => a-b)
-    console.log(shirts)
     let total = 0, price = 800, uniqueShirtCounts = []
     let discount = {
       1: 0,
@@ -2069,8 +2068,6 @@ export const cost = (shirts) => {
       shirts.splice(0, uniqueShirtCount)
     }
   
-    console.log(`Unique Shirt Count ${uniqueShirtCounts}`)
-  
     while (uniqueShirtCounts.includes(3) && uniqueShirtCounts.includes(5)) {
       uniqueShirtCounts.splice(uniqueShirtCounts.indexOf(3), 1)
       uniqueShirtCounts.splice(uniqueShirtCounts.indexOf(5), 1)
@@ -2081,7 +2078,6 @@ export const cost = (shirts) => {
       total += (price * (1-discount[uniqueShirtCounts[i]])) * uniqueShirtCounts[i]
     }
   
-    console.log(total)
     return total
   }
   
@@ -2137,4 +2133,17 @@ export const cost = (shirts) => {
   //   return total
   // }
   
-  
+// Reverse Linked List Practice
+
+
+let reverseLinkedList = (head) => {
+    let current = head, previous = null
+    while (current) {
+        let temp = current.next //store remaining linkedList
+        current.next = previous // change current pointer to previous node
+        previous = current // set previous node to current node 
+        current = temp //iterate forward
+    }
+
+    return previous
+}
