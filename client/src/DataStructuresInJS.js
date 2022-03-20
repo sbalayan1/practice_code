@@ -2177,3 +2177,32 @@ let reverseSubList = (head, p, q) => {
     endNode.next = current
     return head
 }
+
+let reverseSubListK = (head, k) => {
+    let current = head, previous = null
+    while (true) {
+        let i = 0, endOfPrevSubList = previous, begOfCurrSubList = current, next = null
+
+        while (current && i<k) {
+            next = current.next
+            current.next = previous
+            previous = current
+            current = next
+
+            i++
+        }
+
+        if (endOfPrevSubList) {
+            endOfPrevSubList.next = previous
+        } else {
+            head = previous
+        }
+
+        begOfCurrSubList.next = current
+        if (!current) break
+
+        previous = begOfCurrSubList
+    }
+
+    return head
+}
