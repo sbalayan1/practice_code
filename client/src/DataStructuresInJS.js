@@ -2206,3 +2206,47 @@ let reverseSubListK = (head, k) => {
 
     return head
 }
+
+//reverse subListK. k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes should remain as it is.
+let calculate_cycle_length = (node) => {
+    let current = node, count = 0
+    while (current) {
+        current = current.next
+        count ++
+    }
+
+    return count
+}
+
+
+let reverseSubListK = (head, k) => {
+    let current = head, previous = null
+    while (true) {
+        let cycleLength = calculate_cycle_length(current)
+
+        if (cycleLength >= k) {
+            let i = 0, next = null, begNode = previous, endNode = current
+            while (current && i<k) {
+                next = current.next
+                current.next = previous
+                previous = current
+                current = next
+                i++
+            }
+
+            if (begNode) {
+                begNode.next = previous
+            } else {
+                head = previous
+            }
+
+            endNode.next = current
+            if(!current) break
+            previous = endNode
+        } else {
+            break
+        }
+    }
+
+    return head
+}
