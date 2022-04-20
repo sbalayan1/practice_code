@@ -2250,3 +2250,40 @@ let reverseSubListK = (head, k) => {
 
     return head
 }
+
+let reverseAlternatingSublistK = (head, k) => {
+    let current = head, previous = null, alternateOn = true
+    while (true) {
+      let i = 0, next = null, begList = previous, endList = current
+      if (!alternateOn) {
+        while (current && i<k) {
+          previous = current
+          current = current.next
+          i++
+        }
+  
+        if (!current) break
+        alternateOn = !alternateOn
+      } else {
+        while (current && i<k) {
+          next = current.next
+          current.next = previous
+          previous = current
+          current = next
+          i++
+        }
+  
+        if (begList) {
+          begList.next = previous
+        } else {
+          head = previous
+        }
+  
+        endList.next = current
+        if (!current) break
+        previous = endList
+        alternateOn = !alternateOn
+      }
+    }
+    return head;
+}
