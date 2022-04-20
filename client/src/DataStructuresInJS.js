@@ -2314,3 +2314,29 @@ let rotatingLinkedList = (head, rotations) => {
 
     return head
 }
+
+let binaryTreeLevelOrderTraversal = (root) => {
+    if (!root) return []
+    let result = [], queue = []
+    queue.push(root)
+    while (queue.length > 0) {
+        let levelSize = queue.length, currentLevel = []
+        for (let i = 0; i<levelSize; i++) {
+            let currentNode = queue.shift()
+            if (currentNode) {
+                currentLevel.push(currentNode.val)
+                if (currentNode.left) queue.push(currentNode.left)
+                if (currentNode.right) queue.push(currentNode.right)
+            }    
+        }
+
+        result.push(currentLevel)
+    }
+
+    return result
+}
+
+Time Complexity: O(n)
+    => The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree. This is due to the fact that we traverse each node once.
+Space Complexity: O(n) 
+    => The space complexity of the above algorithm will be O(N) as we need to return a list containing the level order traversal. We will also need O(N)space for the queue. Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), therefore we will need O(N) space to store them in the queue.
