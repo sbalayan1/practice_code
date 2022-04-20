@@ -2287,3 +2287,30 @@ let reverseAlternatingSublistK = (head, k) => {
     }
     return head;
 }
+
+let rotatingLinkedList = (head, rotations) => {
+    let current = head, i = 0
+
+    // find tail of linkedList
+    while (current.next) {
+        current = current.next
+    }
+
+    // append to end of linkedList until i === rotations. 
+    while (i<rotations) {
+        // append head of linked list to the tail
+        current.next = head
+
+        // move pointer to the next node
+        current = current.next
+
+        // move head pointer to the next node. also gets rid of the previous head so we don't affect it when do use current.next.
+        head = head.next
+
+        // set the next nodes to null, erasing previously appended values other than the old head node. 
+        current.next = null
+        i++
+    }
+
+    return head
+}
