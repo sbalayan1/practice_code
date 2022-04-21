@@ -2354,14 +2354,13 @@ let findLinkedListLength = (head) => {
 }
 
 let rotateLinkedListRight = (head, k) => {
-    if (!head || !head.next) return head
+    if (!head || !head.next || k === 0) return head
     let length = findLinkedListLength(head)
-
     if (k%length === 0) return head
-    let current = head, previous = null, i = 0, begList = head
-    let rotations = k > length ? k % length : k
 
-    while (current.next && i < length - rotations) {
+    let current = head, previous = null, i = 0, begList = head
+    k %= length
+    while (current.next && i < length - k) {
         previous = current
         current = current.next
         i++
