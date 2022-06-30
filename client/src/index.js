@@ -1,19 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+//the below demonstrates how here, var is function scoped.
+function name() {
+  var test = 'hello world'
+  console.log(test)
+}
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function testScope() {
+  //var is inaccessible in the console log and will throw an error
+  // console.log(test)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  //we can access var by invoking the name() function
+  return name()
+}
 
-console.log('hello world')
+// testScope()
+
+
+
+//The below demonstrates how even though we reassign test2, using function one, the console log uses the test2 var scoped to function two
+//regardless of order, function two will return 'yomama' ie. one() then test2 or vice versa
+//if it was not a var however and it was just, test2 = 'yomama', then order would take precedence and you'd assign yomama or dupri depending on the order of test2 and one.
+var test2 = 'jermaine'
+
+function one() {
+  test2 = "dupri"
+}
+
+function two() {
+  var test2 = "yomama"
+  one()
+  console.log(test2)
+}
+
+//what is test2 going to be?
+two()
+//=> 'yomama'
+
