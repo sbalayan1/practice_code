@@ -1893,34 +1893,6 @@ Time Complexity: O(n+m)
 Space Complexity: O(1)
 
 
-// twoSum revised
-
-let twoSum = (nums, target) {
-    let hash = {}
-    for (let i = 0; i<nums.length; i++) {
-        let diff = target - nums[i]
-        if (diff in hash) return [i, hash[diff]]
-        hash[nums[i]] = i
-    }
-}
-
-// twoSum using twoPointer
-
-let twoSum = (nums, target) {
-    let left = 0, right = nums.length - 1
-    while (left<right) {
-        let currentSum = nums[left] + nums[right]
-        if (target === currentSum) {
-            return [left, right]
-        }
-
-        if (currentSum < targetSum) {
-            left ++
-        } else {
-            right --
-        }
-    }
-}
 
 // removeDuplicates code review
 let removeDuplicates = (arr) => {
