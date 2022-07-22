@@ -53,7 +53,7 @@ var twoSum = function(nums, target) {
 let twoSum2 = (nums, target) => {
     let hash = {}
 
-    //the below improves the speed so that you don't have to iterate through the entire list to create the hash. Instead we create the hash and check for matching pairs at the same time.
+    //the below improves the speed so that you don't have to iterate through the entire array to create the hash. Instead we create the hash and check for matching pairs at the same time.
     for (let i = 0; i<nums.length; i++) {
         let diff = target - nums[i]
         if (diff in hash && hash[diff] !== i) return [hash[diff], i]
