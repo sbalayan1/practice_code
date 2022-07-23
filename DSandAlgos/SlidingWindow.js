@@ -1,74 +1,51 @@
-//Given a string s, find the length of the longest substring without repeating characters.
+// Given a string s, find the length of the longest substring without repeating characters.
+    // Example 1:
+    //     Input: s = "abcabcbb"
+    //     Output: 3
+    //     Explanation: The answer is "abc", with the length of 3.
 
-//Example 1:
-    // Input: s = "abcabcbb"
-    // Output: 3
-    // Explanation: The answer is "abc", with the length of 3.
+    // Example 2:
+    //     Input: s = "bbbbb"
+    //     Output: 1
+    //     Explanation: The answer is "b", with the length of 1.
+
+    // Example 3:
+    //     Input: s = "pwwkew"
+    //     Output: 3
+    //     Explanation: The answer is "wke", with the length of 3.
     
-// Example 2:
-    // Input: s = "bbbbb"
-    // Output: 1
-    // Explanation: The answer is "b", with the length of 1.
+// Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
-// Example 3:
 
-    // Input: s = "pwwkew"
-    // Output: 3
-    // Explanation: The answer is "wke", with the length of 3.
-    
-//Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+//Utilize a sliding window to keep track of the substring where windowStart denotes the the start of the substring and windowEnd denotes the end of the substring. I will utilize a hash to keep track of the string's characters and count how many times a certain character has appeared. Loop through the string and do the following at each iteration: 
+    //If the character is a duplicate, increase the character's count and reset the substring's length to 1. If it's not a duplicate, add the new character to the hash with a value of 1, and increase the substring length by 1. Check whether max or the substring is larger and update max. 
+//After we've iterated through the string, return the max variable
 
-var lengthOfLongestSubstring = function(s) {
-    //store characters in hash. If the character is a duplicate, reset the hash?
-    let hash = {}, max = 0, substr = []
-    
+//Why this logic is problematic: 
+    //Utilize a hash to keep track of the string's characters and count how many times a certain character has appeared.
+    //If the character is a duplicate, increase the character's count and reset the substring's length to 1
+
+let lengthOfLongestSubString1 = (s) => {
+    let hash = {}, substr = 0, max = 0
     for (let i = 0; i<s.length; i++) {
-        if (s[i] in hash) {
-            hash = {}
-            hash[s[i]] = 1
-            substr = [s[i]]
+        let currentStr = s[i]
+        if (currentStr in hash) {
+            hash[currentStr] += 1
+            substr = 1
         } else {
-            hash[s[i]] = 1
-            substr.push(s[i])
+            hash[currentStr] = 1
+            substr += 1
         }
-        
-        console.log(hash, substr)
-        max = Math.max(substr.length, max)       
+
+        max = Math.max(max, substr)
     }
- 
     return max
-};
+}
 
-var lengthOfLongestSubstring = function(s) {
-    //store characters in a hash. if the character is in the hash, add 1. if not, add the key with a value of 1. 
-    let hash = {}
-    
-    //used to keep track of the substr length. initialize at 0 so that we can add to the substr when the str is unique. 
-        //when the character is new, add + 1
-        //when the character is not new, reset the value to 1
-    //at each iteration, check the substr against the max value. 
-    let substrLength = 0, max = 0
-
-                                         
-    for (let i = 0; i<s.length; i++) {
-        if (s[i] in hash) {
-            hash[s[i]] += 1
-            substrLength = 1
-        } else {
-            hash[s[i]] = 1
-            substrLength += 1
-        }
-        max = substrLength > max ? substrLength : max
-        
-    }
-    
-    return max
-
-};
-
-//Input: "dvdf"
-//Output: 2
-//Expected 3
+    //179 / 987 test cases passed
+    //Input: "dvdf"
+    //Output: 2
+    //Expected 3
 
 var lengthOfLongestSubstring = function(s) {
     //store characters in hash. If the character is a duplicate, reset the hash?
@@ -96,30 +73,18 @@ var lengthOfLongestSubstring = function(s) {
  
     return max
 };
-
+//91/987 test cases passed
 //input: "pwwkew"
 //output: 4
 //expected: 3
 
 
 let lengthOfLongestSubStr = (str) => {
-    //potential cases
-        //abcbac => algorithm finds a duplicate two or more elements away
-        //bbbbb => the string is 1 character
-        //pwwkew => the current and previous letter are duplicates 
-        //dvdf => the duplicates are separated between 1 letter
-        //"" => the string has no characters
-
-    //use a hash to store the indexes of the current substr. If a letter is already in the string, shrink the window by moving the window's starting point. 
     let hash = {}, wStart = 0, max = 0
 
     for (let i; i<str.length; i++) {
         let wEnd = str[i]
-
-        if (wEnd in hash) {
-            wStart = Math.max(wStart, hash[wEnd]+1)
-        }
-
+        if (wEnd in hash) wStart = Math.max(wStart, hash[wEnd]+1)
         hash[wEnd] = i
         max = Math.max(max, i - wStart + 1)
     }
