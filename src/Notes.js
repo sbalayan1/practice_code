@@ -1662,3 +1662,40 @@ let minCoinChange = (coins, amount) => {
 
 
 
+  var findMedianSortedArrays = function(nums1, nums2) {
+    let array = [], p1 = 0, p2=0
+    while (p1<nums1.length || p2<nums2.length) {
+        if (p2 == nums2.length && p1<nums1.length) {
+            array.push(nums1[p1])
+            p1++
+            continue
+        }
+        
+        if (p1 == nums1.length && p2<nums2.length) {
+            array.push(nums2[p2])
+            p2++
+            continue
+        }
+        
+        let elem1 = nums1[p1], elem2 = nums2[p2]
+        
+        if (elem1 < elem2){
+            array.push(elem1)
+            p1++
+        } else if (elem2 < elem1) {
+            array.push(elem2)
+            p2++
+        } else if (elem2 == elem1) {
+            array.push(elem1, elem2)
+            p1++
+            p2++
+        }
+    }
+
+    if (array.length % 2 == 0) {
+        let left = array[(array.length/2) - 1], right = array[array.length/2]
+        return (left+right)/2
+    } else {        
+         return array[Math.floor(array.length/2)]
+    }    
+};
