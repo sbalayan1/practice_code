@@ -1,8 +1,28 @@
-// Given an integer x, return true if x is palindrome integer.
+// Given an integer x, return true if x is palindrome integer. An integer is a palindrome when it reads the same backward as forward. For example, 121 is a palindrome while 123 is not.
 
-// An integer is a palindrome when it reads the same backward as forward.
+//Solution using a stack
+class ListNode {
+    constructor(val, next) {
+        this.val = val === undefined ? 0 : val
+        this.next = next === undefined ? null : next
+    }
+}
 
-// For example, 121 is a palindrome while 123 is not.
+let isNumberPalindromeUsingStack = (head) => {
+    let current = head, stack = []
+    while (current) {
+        stack.push(current.val)
+        current = current.next
+    }
+
+    while (head) {
+        let endNode = stack.pop()
+        if (endNode !== head.val) return false
+        head = head.next
+    }
+
+    return true
+}
 
 let isNumberPalindrome = (x) => {
     let reversed = 0, copyOfX = x
@@ -25,7 +45,7 @@ var isPalindrome = function(head) {
         current = temp 
     }
     
-    console.log(copy, previous)
+    console.log(copy, previous) // [1,2,2,1], [1,2,2,1]
     return previous === copy
 }
 
@@ -35,3 +55,6 @@ let createCopy = (node) => {
     newNode.next = createCopy(node.next)
     return newNode
 }
+
+//input: [1,2,2,1]
+//output: false
