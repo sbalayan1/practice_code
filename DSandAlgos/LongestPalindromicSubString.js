@@ -46,3 +46,19 @@ let longestPalindromicSubstring = (s) => {
     //invokes and returns the recursiveCall
     return recursiveCall(s, 0, s.length-1)
 }
+
+// let start = 0, end = s.length - 1
+    
+//if start and end are the same, we need to check to see if the remainder of the substring is a palindrome
+// if (s[start] === s[end]) {
+    
+//     //need to move the starting point and end point one in and check if the two match. In a way we need to call the above if again and again. Is this a hint to use recursion or a loop?
+    
+// }
+
+// if (s[start] !== s[end]) {
+    
+// }
+
+//what do we do if the start and end are not the same? If they are not the same, then we need to move the start forward and the end backwards. The question then is, do we move them at the sametime or separately
+//if we move them at the sametime, then we miss testing potential substrings. For instance in "cbbd", we are able to find the optimal substr, but we miss testing cbb and bbd. The solution to this is doing them separately.
