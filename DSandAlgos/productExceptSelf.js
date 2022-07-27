@@ -21,8 +21,14 @@ let productExceptSelf = (nums) => {
 }
 
 //Solution using extra space
-//[1,2,3,4]
-let productExceltSelf2 = (nums) => {
+    //input: [1,2,3,4]
+    //the below takes advantage of the fact that the products of each number involve all numbers left and right of i. Left is denoted by i-1 and right i+1. 
+    //Knowing this, we can write an algorithm that uses three separate loops and three arrays. One loop to calculate all of the products left of the current index and another loop to calculate all of the products right of the current index.
+    //After we've iterated found the products of the left and right, we can iterate over the nums list and multiply left[i] by right[i]
+
+    //Time Complexity: O(n)
+    //Space Complexity: O(n)
+let productExceptSelf2 = (nums) => {
     let left = [], right = [], product = []
     left[0] = 1
     for (let i = 1; i<nums.length; i++) {
@@ -47,5 +53,19 @@ let productExceltSelf2 = (nums) => {
     }
 
     return product
+}
 
+//The below solves the problem in O(n) time and O(1) space complexity by reducing the number of arrays used to 1 and updating the right variable and the answer array as we iterate from right to left. 
+let productExceptSelfEfficient = (nums) => {
+    let answer = [], right = 1
+    answer[0] = 1
+    for (let i = 1; i<nums.length; i++) {
+        answer[i] = answer[i - 1] * nums[i - 1]
+    }
+
+    for (let i = nums.length-2; i>=0; i--) {
+        right *= nums[i+1]
+        answer[i] *= right
+    }
+    return answer
 }
