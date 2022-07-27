@@ -8,7 +8,7 @@ class ListNode {
     }
 }
 
-let isNumberPalindromeUsingStack = (head) => {
+let isPalindromeUsingStack = (head) => {
     let current = head, stack = []
     while (current) {
         stack.push(current.val)
@@ -35,20 +35,24 @@ let isNumberPalindrome = (x) => {
 }
 
 //Given the head of a singly linked list, return true if it is a palindrome.
+
 var isPalindrome = function(head) {
-    let current = head, previous = null, copy=createCopy(head)
-    
-    while (current) {        
-        let temp = current.next
-        current.next = previous 
-        previous = current 
-        current = temp 
+    let stack = [], current = head
+    while (current) {
+        stack.push(current)
+        current = current.next
     }
     
-    console.log(copy, previous) // [1,2,2,1], [1,2,2,1]
-    return previous === copy
-}
+    while (head) {
+        let item = stack.pop()
+        if (item.val !== head.val) return false
+        head = head.next
+    }
+    
+    return true
+};
 
+//recursive way to create a copy of a linkedlist
 let createCopy = (node) => {
     if (node === null) return node
     let newNode = new ListNode(node.val)
@@ -56,5 +60,3 @@ let createCopy = (node) => {
     return newNode
 }
 
-//input: [1,2,2,1]
-//output: false
