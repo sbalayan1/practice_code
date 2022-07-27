@@ -35,7 +35,17 @@ let productExceltSelf2 = (nums) => {
 
     right[nums.length-1] = 1
     for (let i = nums.length-2; i>=0; i--) {
-        
+        right[i] = right[i+1] * nums[i+1]
+        // => right[2] = 1 * 4 = 4
+        // => right[1] = 4 * 3 = 12
+        // => right[0] = 12 * 2 = 24
+        // right = [24, 12, 4, 1]
     }
+
+    for (let i = 0; i<nums.length; i++) {
+        product[i] = left[i] * right[i]
+    }
+
+    return product
 
 }
