@@ -50,8 +50,8 @@
         //insertAt()
         //getAt()
         //removeAt()
-        //clear()
-        //print()
+        //clear() => remove all listNodes from the list
+        //print() => use console log to print each node to the console
 
 class ListNode {
     constructor(val=0, next=null) {
@@ -133,16 +133,27 @@ class LinkedList {
 
         this.size --
     }
-    clear() {}
-    print() {}
+
+    //remove all values from the list
+    clear() {
+        this.head = null
+        this.size = 0
+    }
+    print() {
+        let current = this.head
+        while (current) {
+            console.log(current)
+            current = current.next
+        }
+    }
 }
 
-let linkedList = new LinkedList()
-linkedList.insertFirst(10)
-linkedList.insertLast(1)
-for (let i = 50; i<55; i++) {
-    linkedList.insertAt(i,1)
-}
+// let linkedList = new LinkedList()
+// linkedList.insertFirst(10)
+// linkedList.insertLast(1)
+// for (let i = 50; i<55; i++) {
+//     linkedList.insertAt(i,1)
+// }
 
 
 
