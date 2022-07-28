@@ -30,7 +30,7 @@ def is_subsequence_recursive(s, t):
 
 # iterative approach
 
-def is_subsequence_iterative(s, t):
+def is_subsequence_iterative_two_pointer(s, t):
     left_bound, right_bound = len(s), len(t)
     left = right = 0
     while left<left_bound and right<right_bound:
