@@ -42,7 +42,7 @@ arr = [5, 10]
 def maxHeapify(arr, n, i):
     # find the largest among the root, left, and right children
     largest = i
-    left = 2 * i + 1#(why do we multiply by 2)
+    left = 2 * i + 1
     right = 2 * i + 2
 
     if left < n and arr[i] < arr[left]:
@@ -71,7 +71,6 @@ def minHeapify(arr, n, i):
         arr[i], arr[smallest] = arr[smallest], arr[i]
         minHeapify(arr, n, smallest)
     
-
 def insert(array, data):
     size = len(array)
     if size == 0:
@@ -99,6 +98,17 @@ def delete(array, target):
     for i in range((size//2)-1, -1, -1):
         maxHeapify(array, size, i)
 
+def peek(array):
+    return array[0]
+
+def extract(arr):
+    temp = arr.pop(0)
+    size = len(arr)
+    for i in range((size//2)-1, -1, -1):
+        maxHeapify(arr, size, i)
+    
+    return temp
+
 arr = []
 
 insert(arr, 1)
@@ -108,5 +118,6 @@ insert(arr, 4)
 insert(arr, 5)
 insert(arr, -55)
 delete(arr, -55)
-
+print(arr)
+print(extract(arr))
 print(arr)
