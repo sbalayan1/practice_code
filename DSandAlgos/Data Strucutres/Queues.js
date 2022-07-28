@@ -2,10 +2,21 @@
     //A queue is an ordered list of elements where an element is inserted at the end of the queue and is removed from the front of the queue.
     // [1,2,3,4,5,6] => [2,3,4,5,6,7]
 
+//Applications
+
 //The two main operations of a queue:
     //enqueue => insert element at the end of the queue
     //dequeue => remove element from the front of the queue
     //peek => take a look at the first element in the queue
+
+
+//Priority Queue
+    //special type of queue where each element is associated with a priority and is served according to their priority. If two elements have the same priority, then they will be served by their order in the queue. 
+
+//Deque
+    //is a queue where insertion and removal can be performed from the front or rear. 
+
+
 class Queue1 {
 
     //initialize the object that stores the elements and two variables to track the head and tail.
