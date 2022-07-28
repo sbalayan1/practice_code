@@ -9,7 +9,6 @@ s = "babad"
                     //=> start = "b", end ="d"
                     //=> the below continues moving the start point until it completes the string, unable to find a palindrom
 
-
         //end -1
             //=> start = "b", end ="a"
             //=> none of the below are true so the string is not a palindrome. make a recursive call and move the start and end index in. 
