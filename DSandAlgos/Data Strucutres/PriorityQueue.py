@@ -80,11 +80,24 @@ def insert(array, data):
         array.append(data)
         size = len(array)
         for i in range((size // 2) - 1, -1, -1): #why do we decrement instead of increment? because you're starting from the bottom of the heap and you're traversing up
-            # print ('fire times', count, i)
-            # count += 1
             minHeapify(array, size, i)
 
-# def delete():
+def delete(array, target):
+    # if the element to delete is a leaf node => delete the node
+            # else swap the element with the last leaf node => delete the node
+            # heapify the array
+    size = len(array)
+    i = 0
+    while i<size:
+        if target == array[i]: break
+        i+=1
+
+    array[i], array[size-1] = array[size-1], array[i]
+    
+    array.pop()
+    size = len(array)
+    for i in range((size//2)-1, -1, -1):
+        maxHeapify(array, size, i)
 
 arr = []
 
@@ -94,5 +107,6 @@ insert(arr, 3)
 insert(arr, 4)
 insert(arr, 5)
 insert(arr, -55)
+delete(arr, -55)
 
 print(arr)

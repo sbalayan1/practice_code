@@ -48,17 +48,38 @@ class BinaryHeap(object):
             # i //= 2 
 
     def insert(self, data):
-        # print(self.items)
         self.items.append(data) 
         self.percolate_up()
 
     def percolate_down(self, data):
-        
+        while data*2 < len(self.items):
+            min = self.min_child(data)
+            if self.items[min] > self.items[data]:
+                self.items[data], self.items[min] = self.items[min], self.items[data]
 
+            data = min
+
+    def min_child(self, i):
+        if 2*i+1 > len(self.items):
+            return i*2
+        
+        if self.items[i*2] < self.items[i*2+1]:
+            return i*2
+        
+        return 2 * i + 1
+
+    def delete_min(self):
+        deleted = self.items[1]
+        self.items[1] = self.items[len(self.items)-1]
+        self.items.pop()
+        self.percolate_down(1)
+        return deleted
+    
 heap = BinaryHeap()
 heap.insert(8)
 heap.insert(7)
 heap.insert(10)
 heap.insert(9)
-
+print(heap.items)
+heap.delete_min()
 print(heap.items)
