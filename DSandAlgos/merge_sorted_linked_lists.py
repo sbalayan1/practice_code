@@ -36,7 +36,9 @@ def merge_sorted_lists_iterative(list1, list2):
     # iterate over both lists as long as both are not None
     while list1 is not None and list2 is not None:
         if list1.val < list2.val:
-            current.next = list1 #need to use current.next to append to the linkedlist and not just update
+            current.next = list1 
+                #need to use current.next to append to the linkedlist and not just update
+                #also need to set the next node to an actual node, not just the val or else the next time you try to grab next, 
             list1 = list1.next 
         else:
             current.next = list2

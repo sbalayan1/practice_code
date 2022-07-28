@@ -4,7 +4,12 @@ class ListNode:
         self.next = next
 
 class Solution:
-    def reverse_linked_list(self, head=Optional[ListNode]) -> Optional[ListNode]:
+    def reverse_linked_list_recursive(self, head):
+
+
+        return self.reverse_linked_list_recursive(head)
+
+    def reverse_linked_list_iterative(self, head=Optional[ListNode]) -> Optional[ListNode]:
         current, previous = head, None
         while current:
             next = current.next
