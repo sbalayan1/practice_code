@@ -9,6 +9,8 @@
     # implementing stack
     # load balancing and interrupt handling in an OS
 
+    # https://www.geeksforgeeks.org/priority-queue-set-1-introduction/
+
 
 # Operations
     # Insert
@@ -30,6 +32,7 @@
 
     # Peek => return the rootNode
     # Extract Max/Min => return the max/min node after removing it from the heap
+    # changePriority
 
 
 arr = [5, 10]
@@ -39,8 +42,8 @@ arr = [5, 10]
 def maxHeapify(arr, n, i):
     # find the largest among the root, left, and right children
     largest = i
-    left = 2 * i + 1 #(why do we multiply by 2)
-    right = 2 * i + 2 
+    left = 2 * i + 1#(why do we multiply by 2)
+    right = 2 * i + 2
 
     if left < n and arr[i] < arr[left]:
         largest = left 
@@ -69,20 +72,27 @@ def minHeapify(arr, n, i):
         minHeapify(arr, n, smallest)
     
 
-def insert(arr, data):
-    size = len(arr)
+def insert(array, data):
+    size = len(array)
     if size == 0:
-        arr.append(data)
+        array.append(data)
     else:
-        arr.append(data)
+        array.append(data)
+        size = len(array)
         for i in range((size // 2) - 1, -1, -1): #why do we decrement instead of increment? because you're starting from the bottom of the heap and you're traversing up
-            maxHeapify(arr, size, i)
+            # print ('fire times', count, i)
+            # count += 1
+            minHeapify(array, size, i)
 
 # def delete():
 
-arr = [10,3,5,4,1]
-insert(arr, 11)
-# for i in range((size//2)-1, -1, -1):
-#     minHeapify(arr, size, i)
+arr = []
+
+insert(arr, 1)
+insert(arr, 2)
+insert(arr, 3)
+insert(arr, 4)
+insert(arr, 5)
+insert(arr, -55)
 
 print(arr)
