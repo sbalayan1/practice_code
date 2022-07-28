@@ -27,3 +27,6 @@ def is_isomorphic(s, t):
             return False
 
     return True
+
+def elegant_is_isomorphic(s,t):
+    return len(set(s)) == len(set(t)) == len(set(zip(s,t)))
