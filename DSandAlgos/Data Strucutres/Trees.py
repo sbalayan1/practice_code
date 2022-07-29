@@ -13,7 +13,10 @@
 
     #Level - is the number of edges from root to node n. 
 
-    #Height - max level of any node in the trees
+    #Height - max level of any node in the trees. The length of the path from n to its deepest descendant. The height of the tree itself is the height of the root node, and the height of leaf nodes is always 0.
+
+    #Depth - length of the path from the root to node n.
+
 
 
 #Properties of a tree:
@@ -139,6 +142,21 @@ print(root) #[3, [9, [11, [4, [], []], []], []], [7, [], [6, [], []]]]
 get_right_child(root) #gets us the [7, [], [6, [], []]] subtree
 
 get_right_child(get_right_child(root)) #gets us the [6, [], []] subtree of the [7, [], [6, [], []]] subtree
+
+
+#Map Based Binary Tree
+map_binary_tree = {
+    'val': 'A',
+    'left': {
+        'val': 'B',
+        'left': {'val': 'D'},
+        'right': {'val': 'E'}
+    },
+    'right': {
+        'val': 'C',
+        'right': {'val': 'F'}
+    },
+}
 
 
 
