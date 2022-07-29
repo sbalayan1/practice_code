@@ -97,11 +97,49 @@ def insert_right_subtree(tree, val):
         temp = tree[2]
         tree[2] = [val, [], temp]
 
+def get_root(tree):
+    return tree[0]
+
+def set_root_val(tree, val):
+    #whenever we update the root, we need to make sure that there root, left, and right nodes. If there aren't, then we have to append the val, left, and right lists to the root or we won't be able to access them when inserting
+    if len(tree) == 0:
+        tree.append(val)
+        tree.append([])
+        tree.append([])
+    else: 
+        tree[0] = val
+
+def get_left_child(root):
+    return root[1]
+
+def get_right_child(root):
+    return root[2]
+
 insert_left_subtree(tree, 10)
 insert_right_subtree(tree, "hello world")
-print(tree) #['a', [10, ['b', [], []], []], ['c', [], []]]
-print(tree[1]) #[10, ['b', [], []], []]
-print(tree[2]) #["hello world", [], ["c", [], []]]
+# print(tree) #['a', [10, ['b', [], []], []], ['c', [], []]]
+# print(tree[1]) #[10, ['b', [], []], []]
+# print(tree[2]) #["hello world", [], ["c", [], []]]
+
+
+root = []
+set_root_val(root, 3)
+insert_left_subtree(root, 4)
+insert_left_subtree(root, 5)
+insert_right_subtree(root, 6)
+insert_right_subtree(root, 7)
+
+left = get_left_child(root) #[5, [4, [], []], []]
+
+set_root_val(left, 9) #[9, [4, [], []], []]
+insert_left_subtree(left, 11) #[9, [11, [4, [], []], []], []]
+
+print(root) #[3, [9, [11, [4, [], []], []], []], [7, [], [6, [], []]]]
+
+get_right_child(root) #gets us the [7, [], [6, [], []]] subtree
+
+get_right_child(get_right_child(root)) #gets us the [6, [], []] subtree of the [7, [], [6, [], []]] subtree
+
 
 
 
