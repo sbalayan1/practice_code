@@ -8,41 +8,60 @@ tree = {
     'val': 'F',
     'left': {
         'val': 'B',
-        # 'left': {
-        #     'val': 'A'
-        # },
-        # 'right': {
-        #     'val': 'D',
-        #     'left': {'val': 'C'},
-        #     'right':{'val': 'E'}
-        # }
+        'left': {
+            'val': 'A',
+            'left': {},
+            'right': {}
+        },
+        'right': {
+            'val': 'D',
+            'left': {
+                'val': 'C',
+                'left': {},
+                'right': {}
+            },
+            'right':{
+                'val': 'E',
+                'left': {},
+                'right': {}
+            }
+        }
     },
     'right': {
         'val': 'G',
-        # 'right': {
-        #     'val': 'I',
-        #     'right': {'val': 'H'}
-        # }
+        'left': {},
+        'right': {
+            'val': 'I',
+            'left': {},
+            'right': {
+                'val': 'H', 
+                'left': {}, 
+                'right': {}
+            }
+        }
     },
 }
 
-# def preorder_dfs(root):
-#     if root is None: return
-#     if root:
-#         print(root['val'])
-#         root = preorder_dfs(root['left'])
-#         root = preorder_dfs(root['right'])
+def preorder_dfs(root):
+    if root:
+        print(root['val'])
+        preorder_dfs(root['left'])
+        preorder_dfs(root['right'])
+        # traversal += (str(root['val']) + "-")
+        # traversal = preorder_dfs(root['left'], traversal)
+        # traversal = preorder_dfs(root['right'], traversal)
     
-#     return root
+    # return traversal
 
-def preorder_dfs(start, traversal):
-# """Root->Left->Right"""
-    if start:
-        traversal += (str(start['val']) + "-")
-        if len(start) > 0:
-            traversal = preorder_dfs( start['left'], traversal)
-        if len(start) > 1:
-            traversal = preorder_dfs( start['right'], traversal)
-    return traversal
+preorder_dfs(tree)
 
-preorder_dfs(tree, "")
+# def preorder_dfs(start, traversal):
+#     if start:
+#         traversal += (str(start['val']) + "-")
+#         if len(start) > 0:
+#             traversal = preorder_dfs( start['left'], traversal)
+#         if len(start) > 1:
+#             traversal = preorder_dfs( start['right'], traversal)
+#     return traversal
+
+# preorder_dfs(tree, "")
