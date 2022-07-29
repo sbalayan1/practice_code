@@ -52,13 +52,60 @@ class Node(object):
             self.right = val
 
 root = Node('a')
-print(root.val)
-
+print(root.val) # 'a'
 root.insert_left(Node('b'))
-print(root.left.val)
-
+print(root.left.val) #'b'
 root.insert_left(Node('c'))
 root.insert_right(Node('d'))
+print(root.left.val, root.right.val) #'c', 'd'
 
-print(root.left.val, root.right.val)
+
+#Representing a tree as a list of lists.
+    # each element should have only one parent element up to the outermost list
+    # node is represented by a list 
+        #the first element is its value
+        #the second element is its left subtree
+        #the third element is its right subtree 
+
+        #for instance to represent a tree with a root of A and left/right children B,C we can create the list below
+
+tree = ['a', ['b', [], []], ['c', [], []]]
+
+#to access values in the tree, we can use the index
+#note that subtrees b and c are leaf nodes because they have NO CHILDREN!
+
+tree[0] #gets the root
+tree[1] #gets the left subtree
+tree[2] #gets the right subtree
+tree[1][0] #'b'
+tree[2][0] #'c'
+
+#note that the val argument to be passed is just a number, so we need to construct the list in our function
+def insert_left_subtree(tree, val):
+    if tree[1] is None: #checks that there is no subtree in the left position
+        tree[1] = [val, [],[]]
+    else:
+        #if there is a subtree in left
+        temp = tree[1] #save left to variable. note that tree[1] will be a list
+        tree[1] =  [val, temp, []]
+
+
+def insert_right_subtree(tree, val):
+    if tree[2] is None:
+        tree[2] = [val, [], []]
+    else:
+        temp = tree[2]
+        tree[2] = [val, [], temp]
+
+insert_left_subtree(tree, 10)
+insert_right_subtree(tree, "hello world")
+print(tree) #['a', [10, ['b', [], []], []], ['c', [], []]]
+print(tree[1]) #[10, ['b', [], []], []]
+print(tree[2]) #["hello world", [], ["c", [], []]]
+
+
+
+
+
+
 
