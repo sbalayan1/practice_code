@@ -55,7 +55,7 @@ def n_ary_pre_order_traverse_recursive(root):
 
 #iteration 1
     #stack = [], => the last item in the stack is removed
-    # root = {'val': 1, 'children': [{'val': 3, 'children': [{'val': 5, 'children': []}, {'val': 6, 'children': []}]}, {'val': 2, 'children': []}, {'val': 4, 'children': []}]}
+    #root = {'val': 1, 'children': [{'val': 3, 'children': [{'val': 5, 'children': []}, {'val': 6, 'children': []}]}, {'val': 2, 'children': []}, {'val': 4, 'children': []}]}
     # outout = [1]
     stack = [
             {'val': 4, 'children': []},
@@ -69,15 +69,26 @@ def n_ary_pre_order_traverse_recursive(root):
     #output = [1, 3]
 
     stack = [
+        {'val': 4, 'children': []}, 
+        {'val': 2, 'children': []},
         {'val': 6, 'children': []},
         {'val': 5, 'children': []}
     ]
 
+#iteration 3
+    #stack = [{'val': 4, 'children': []}, {'val': 2, 'children': []}, {'val': 6, 'children': []}]
+    #root = {'val': 5, 'children': []}, {'val': 6, 'children': []}
+    #output = [1,3,5]
+    stack = [
+        {'val': 4, 'children': []}, 
+        {'val': 2, 'children': []},
+        {'val': 6, 'children': []},
+    ]
 
-
-
-
-
+#iteration 4
+    #stack = [{'val': 4, 'children': []}, {'val': 2, 'children': []}]
+    #root = {'val': 6, 'children': []}
+    #output = [1,3,5,6]
 
 def n_ary_pre_order_traverse_iterative(root):
     if root is None: return []
@@ -86,9 +97,7 @@ def n_ary_pre_order_traverse_iterative(root):
     
     # print(stack)
     while stack:
-        print(stack)
         root = stack.pop()
-        print(stack)
         output.append(root['val'])
         stack.extend(root['children'][::-1])
 
