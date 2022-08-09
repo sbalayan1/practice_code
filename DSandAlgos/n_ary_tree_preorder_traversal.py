@@ -45,4 +45,54 @@ def n_ary_pre_order_traverse_recursive(root):
     recursive(root)
     return arr
 
-print(n_ary_pre_order_traverse_recursive(tree))
+# print(n_ary_pre_order_traverse_recursive(tree))
+
+
+# Input: root = [1,null,3,2,4,null,5,6]
+# Output: [1,3,5,6,2,4]
+
+# stack = [{'val': 1, 'children': [{'val': 3, 'children': [{'val': 5, 'children': []}, {'val': 6, 'children': []}]}, {'val': 2, 'children': []}, {'val': 4, 'children': []}]}]
+
+#iteration 1
+    #stack = [], => the last item in the stack is removed
+    # root = {'val': 1, 'children': [{'val': 3, 'children': [{'val': 5, 'children': []}, {'val': 6, 'children': []}]}, {'val': 2, 'children': []}, {'val': 4, 'children': []}]}
+    # outout = [1]
+    stack = [
+            {'val': 4, 'children': []},
+            {'val': 2, 'children': []}, 
+            {'val': 3, 'children': [{'val': 5, 'children': []}, {'val': 6, 'children': []}]}, 
+        ]
+
+#iteration 2
+    #stack = [{'val': 4, 'children': []}, {'val': 2, 'children': []}]
+    #root = {'val': 3, 'children': [{'val': 5, 'children': []}, {'val': 6, 'children': []}]}
+    #output = [1, 3]
+
+    stack = [
+        {'val': 6, 'children': []},
+        {'val': 5, 'children': []}
+    ]
+
+
+
+
+
+
+
+def n_ary_pre_order_traverse_iterative(root):
+    if root is None: return []
+    stack = [root]
+    output = []
+    
+    # print(stack)
+    while stack:
+        print(stack)
+        root = stack.pop()
+        print(stack)
+        output.append(root['val'])
+        stack.extend(root['children'][::-1])
+
+    return output
+
+
+print(n_ary_pre_order_traverse_iterative(tree))
