@@ -51,7 +51,7 @@ def preorder_dfs(root):
         # traversal = preorder_dfs(root['left'], traversal)
         # traversal = preorder_dfs(root['right'], traversal)
     
-    # return traversal
+    # return root
 
 preorder_dfs(tree)
 
