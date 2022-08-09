@@ -34,7 +34,7 @@ tree = {
     ]
 }
 
-def n_ary_pre_order_traverse(root):
+def n_ary_pre_order_traverse_recursive(root):
     arr = []
     def recursive(root):
         if root:
@@ -45,4 +45,4 @@ def n_ary_pre_order_traverse(root):
     recursive(root)
     return arr
 
-print(n_ary_pre_order_traverse(tree))
+print(n_ary_pre_order_traverse_recursive(tree))
