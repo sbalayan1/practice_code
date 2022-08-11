@@ -44,6 +44,14 @@ tree = {
     },
 }
 
+def postorder_traversal(root):
+    def recursive(root):
+        if root:
+            recursive(root.left)
+            recursive(root.right)
+            print(root.val)
+
+
 class Node(object):
     def __init__(self, val):
         self.val = val

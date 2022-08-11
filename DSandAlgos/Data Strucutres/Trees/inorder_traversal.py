@@ -1,3 +1,5 @@
+#LEFT -> ROOT -> RIGHT
+
 #check if node is empty or null
 #traverse left subtree by calling the inorder method
 #display the data of the node 
