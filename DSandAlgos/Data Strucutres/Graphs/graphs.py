@@ -32,12 +32,25 @@
     # }
 
     #depth first traversal
+        #dfs uses a STACK
+        
         #travels to the deepest node of a given path before traversing other edges. 
 
         #for instance if we started at point a in our adjaceny_list above, a true dfs would traverse to b then d BEFORE traversing to c -> e -> b -> d. 
 
+        #DFS explores one direction as much as possible BEFORE switching directions from a given node.
+
     #breadth first traversal
-        #depending on starting point, doesn't matter which neighbor you choose
+        #bfs uses a QUEUE
+
+        #depending on starting point, doesn't matter which neighbor you choose, if you choose a -> b, the next node you must traverse to is a -> c. 
+
+        #BFS explores all of the immediate neighbors of a node and explores them evenly.
+
+    #when would i prefer one over the other:
+        #both explore the same exact nodes but it would explore them in different orders
+    
+
 
 
 
