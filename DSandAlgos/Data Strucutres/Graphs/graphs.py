@@ -33,12 +33,44 @@
 
     #depth first traversal
         #dfs uses a STACK
-        
+
         #travels to the deepest node of a given path before traversing other edges. 
 
         #for instance if we started at point a in our adjaceny_list above, a true dfs would traverse to b then d BEFORE traversing to c -> e -> b -> d. 
 
         #DFS explores one direction as much as possible BEFORE switching directions from a given node.
+
+adjacency_list = {
+    "a": ['b', 'c'],
+    "b": ['d'],
+    "c": ['e'],
+    "d": ['f'], 
+    "f": [],
+    "e": []
+}
+
+def dfs(graph, start):
+    stack = [start] #immediately initialize starting node onto stack
+
+    while stack:
+        #because i am using a stack, the only thing i can do is remove the top of my stack. this node variable that we've created is the current node
+        node = stack.pop()
+        print(node)
+
+        #after printing the node's values, I want to consider the node's neighbors. The order doesn't matter but basically we need to push the node's neighbors into the stack
+        for neighbor in graph[node]:
+            stack.append(neighbor) #add neighbor to top of stack
+
+print(dfs(adjacency_list, "a"))
+    #stack = [a]
+    #print "a", stack = [b, c]
+    #print "c", stack = [b, e] => c has one neighbor, "e", which we push to the top of the stack. 
+    #print "e", stack = [b]
+    #print "b", stack = [d] 
+    #print "d", stack = [f]
+    #print "f", stack = []
+    #printed = a, c, e, b, d, f
+
 
     #breadth first traversal
         #bfs uses a QUEUE
@@ -50,9 +82,27 @@
     #when would i prefer one over the other:
         #both explore the same exact nodes but it would explore them in different orders
     
+def bfs(graph, start):
+    queue = [start]
+
+    while queue:
+        node = queue.pop(0) #remove from front of queue
+        print(node)
+        
+        for neighbor in graph[node]:
+            queue.append(neighbor) #add neighbors to back of queue
 
 
+print(bfs(adjacency_list, "a"))
+    #queue = [a]
+    #print "a", queue = [b, c]
+    #print "b", queue = [c, d] #d is a neighbor of b. It gets pushed to the back of the queue and ends up behind c. 
+    #print "c", queue = [d, e] #e is a neighbor of c. It gets pushed to the back of the queue and ends up behind d. 
+    #print d, queue = [e, f]
+    #print e, queue = [f]
+    #print f
 
+    #printed: a, b, c, d, e, f
 
 
 
