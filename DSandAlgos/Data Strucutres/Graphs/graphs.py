@@ -49,6 +49,17 @@ adjacency_list = {
     "e": []
 }
 
+graph = {
+        "NY": ["Iceland", "Maine"],
+        "Maine": ["London"],
+        "London": ["Berlin", "Egypt"],
+        "Iceland": ["London"],
+        'Berlin': ["Paris"],
+        "Paris": ["London", "Amsterdam"],
+        "Amsterdam": [],
+        "Egypt": []
+}
+
 def dfs(graph, start):
     stack = [start] #immediately initialize starting node onto stack
 
@@ -61,7 +72,7 @@ def dfs(graph, start):
         for neighbor in graph[node]:
             stack.append(neighbor) #add neighbor to top of stack
 
-print(dfs(adjacency_list, "a"))
+print(dfs(graph, "a"))
     #stack = [a]
     #print "a", stack = [b, c]
     #print "c", stack = [b, e] => c has one neighbor, "e", which we push to the top of the stack. 
