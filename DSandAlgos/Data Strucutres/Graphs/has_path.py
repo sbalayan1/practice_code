@@ -21,8 +21,14 @@ def has_path_dfs_iterative(graph, src, dst):
 
     return False
 
-print(has_path_dfs_iterative(graph, 'i', 'h'))
+# print(has_path_dfs_iterative(graph, 'i', 'h'))
 
 def has_path_dfs_recursive(graph, src, dst):
+    if src == dst: return True
+    for neighbor in graph[src]:
+        return has_path_dfs_recursive(graph, neighbor, dst)
 
-print(has_path_dfs_recursive(graph, 'i', 'h'))
+    return False
+    
+
+print(has_path_dfs_recursive(graph, 'f', 'h'))
