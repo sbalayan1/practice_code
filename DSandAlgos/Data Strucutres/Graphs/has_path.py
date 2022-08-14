@@ -9,7 +9,7 @@ graph = {
   "k": []
 }
 
-def has_path(graph, src, dst):
+def has_path_dfs_iterative(graph, src, dst):
     stack = [src]
 
     while stack:
@@ -21,4 +21,8 @@ def has_path(graph, src, dst):
 
     return False
 
-print(has_path(graph, 'i', 'h'))
+print(has_path_dfs_iterative(graph, 'i', 'h'))
+
+def has_path_dfs_recursive(graph, src, dst):
+
+print(has_path_dfs_recursive(graph, 'i', 'h'))
