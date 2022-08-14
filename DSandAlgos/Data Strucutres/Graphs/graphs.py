@@ -40,6 +40,19 @@
 
         #DFS explores one direction as much as possible BEFORE switching directions from a given node.
 
+#acyclic => means no cycles
+#what would a cycle look like in a graph?
+    #is some path through nodes where I can end up where I started. 
+
+        #A => B => C => A
+        # cyclic_list = {
+        #     "a": ["b"],
+        #     "b": ["c"],
+        #     "c": ["a"],
+        # }
+
+
+
 adjacency_list = {
     "a": ['b', 'c'],
     "b": ['d'],
@@ -66,6 +79,8 @@ def dfs(graph, start):
     while stack:
         #because i am using a stack, the only thing i can do is remove the top of my stack. this node variable that we've created is the current node
         node = stack.pop()
+
+        #process node when it leaves the stack. not when it enters the stack.
         print(node)
 
         #after printing the node's values, I want to consider the node's neighbors. The order doesn't matter but basically we need to push the node's neighbors into the stack
@@ -73,6 +88,15 @@ def dfs(graph, start):
             stack.append(neighbor) #add neighbor to top of stack
 
 print(dfs(graph, "a"))
+
+def dfs_recursive(graph, start): #uses the implicit call stack
+
+    #does not have an explicit base case 
+    #instead we have an implicit base case for when a node is a dead end. 
+    print(start)
+    for neighbor in graph[start]:
+        dfs_recursive(graph, neighbor)
+
     #stack = [a]
     #print "a", stack = [b, c]
     #print "c", stack = [b, e] => c has one neighbor, "e", which we push to the top of the stack. 
@@ -92,6 +116,8 @@ print(dfs(graph, "a"))
 
     #when would i prefer one over the other:
         #both explore the same exact nodes but it would explore them in different orders
+
+    #note you cannot implement bfs using recursion because the implicit call stack will fight against the queue in bfs
     
 def bfs(graph, start):
     queue = [start]
@@ -114,6 +140,7 @@ print(bfs(adjacency_list, "a"))
     #print f
 
     #printed: a, b, c, d, e, f
+
 
 
 
