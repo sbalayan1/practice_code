@@ -14,7 +14,7 @@
 
 
 #recursive
-def floodFill(image, sr, sc, color):
+def floodFill_recursive(image, sr, sc, color):
     initial = image[sr][sc]
     
     def recursive(row, column):
@@ -27,4 +27,23 @@ def floodFill(image, sr, sc, color):
             if column+1 < len(image[0]): recursive(row, column+1)
 
     recursive(sr, sc)
+    return image
+
+
+def floodFill_bfs(image, sr, sc, color):
+    if image[sr][sc] == color: return image
+    initial = image[sr][sc]
+    queue = [(sr,sc)]
+
+    while queue:
+        i,j = queue.pop(0)
+
+        if image[i][j] == initial:
+            image[i][j] = color
+
+            if i-1 >= 0: queue.append((i-1,j))
+            if i+1 < len(image): queue.append((i+1,j))
+            if j-1 >= 0: queue.append((i,j-1))
+            if j+1 < len(image[0]): queue.append((i,j+1))
+    
     return image
