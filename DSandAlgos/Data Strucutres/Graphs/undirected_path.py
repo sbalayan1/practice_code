@@ -61,11 +61,26 @@ def dfs(list, src, dst):
     
     return False
 
-print(dfs(edges, "k", "i"))
+# print(dfs(edges, "k", "i"))
 
+def dfs_recursive(list, src, dst):
+    graph = build_graph(list)
+    vst = set()
+    vst.add(src)
+    return has_path(graph, src, dst, vst)
+
+def has_path(graph, src, dst, vst):
+    if src == dst: return True
+    for neighbor in graph[src]:
+        if neighbor not in vst:
+            vst.add(neighbor)
+            return has_path(graph, neighbor, dst, vst) #don't forget to return this recursive call. Otherwise we will always return False even if one of our recursive calls returns True
+
+    return False
     #n = nodes
     #n^2 = edges
     #Time: O(n^2) =>  worst case you travel across every edge in the graph. for instance if you travel to a node where the path doesn't exist, our algo would have to traverse every edge before figuring out that there is no path.
 
     #Space: O(n) => in the worst case you would have to add every single node in the stack
         
+print(dfs_recursive(edges, "k", "i"))
