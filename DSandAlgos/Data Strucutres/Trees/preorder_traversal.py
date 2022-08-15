@@ -44,26 +44,24 @@ tree = {
     },
 }
 
-def preorder_dfs(root):
+
+def preorder_travesal_iterative(root):
+    arr, stack = [], []
+
+    while stack:
+        if root:
+            arr.append(root.val)
+            if root.right: stack.append(root.right)
+            if root.left: stack.append(root.left)
+            
+    return arr
+
+
+def preorder_traversal_recursive(root):
     if root:
         print(root['val'])
-        preorder_dfs(root['left'])
-        preorder_dfs(root['right'])
-        # traversal += (str(root['val']) + "-")
-        # traversal = preorder_dfs(root['left'], traversal)
-        # traversal = preorder_dfs(root['right'], traversal)
-    
-    # return root
+        preorder_traversal_recursive(root['left'])
+        preorder_traversal_recursive(root['right'])
 
-preorder_dfs(tree) # F B A D C E G I H
+preorder_traversal_recursive(tree) # F B A D C E G I H
 
-# def preorder_dfs(start, traversal):
-#     if start:
-#         traversal += (str(start['val']) + "-")
-#         if len(start) > 0:
-#             traversal = preorder_dfs( start['left'], traversal)
-#         if len(start) > 1:
-#             traversal = preorder_dfs( start['right'], traversal)
-#     return traversal
-
-# preorder_dfs(tree, "")

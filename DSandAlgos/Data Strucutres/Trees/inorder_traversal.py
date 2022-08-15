@@ -43,8 +43,21 @@ tree = {
     },
 }
 
+def inorder_traversal_iterative(root):
+    arr, stack, current = [], [], root
 
-def inorder_traversal(root):
+    while stack or current:
+        while current:
+            stack.append(current)
+            current = current.left
+        
+        node = stack.pop()
+        arr.append(node.val)
+        current = node.right
+    
+    return arr
+
+def inorder_traversal_recursive(root):
     def recursive(root):
         if root:
             recursive(root['left'])
@@ -54,4 +67,6 @@ def inorder_traversal(root):
     recursive(root)
 
 inorder_traversal(tree) #ABCDEFGIH
+
+
 

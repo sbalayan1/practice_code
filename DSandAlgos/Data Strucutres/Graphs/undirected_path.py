@@ -64,8 +64,7 @@ def dfs(list, src, dst):
 
 # print(dfs(edges, "k", "j"))
 
-
-
+#important to note that each recursive call returns something!
 def dfs_recursive(list, src, dst):
     graph = build_graph(list)
     vst = set()
