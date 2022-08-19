@@ -38,16 +38,40 @@ class Connect4:
                 
         #if player won, return won      
             # self.isWin(row, column, player)
-            #[right, up, up right, down right]
-            VECTORS = [[0,1], [1,0], [1,1], [-1,1]]
-            for element in VECTORS:
-                locations = []
-                for multiplier in range(-3, 3):
-                    locations.append(multiplier * element + [column, self.height])
-                
-                for element in locations:
-                    
+            # left = [-3, 0]
+            # right = [3, 0]
 
+            # top = [0, -3]
+            # bottom = [0, 3]
+
+            # diag_down = [[0,0], [1,1], [2,2], [3,3]]
+            # diag_up = [[0,0], [-1,-1], [-2,-2], [-3,-3]]
+
+            # anti_diag_down = [[0,0], [-1,1], [-2,2], [-3,3]]
+            # anti_diag_up = [[0,0], [1,-1], [2,-2],[3,-3]]
+
+            VECTORS = [[1,0], [0,1], [1,1], [-1,1]]
+            locations = []
+            for vector in VECTORS:
+                for num in range(-3, 4):
+                    locations.append([vector[0]*num+row, vector[1]*num+column])
+
+            positions = []
+            for location in locations:
+                if location[0] >= 0 and location[0] < self.height: 
+                    if location[1] >= 0 and location[1] < self.width:
+                        positions.append(location)
+            
+            win = []
+            for position in positions:
+                row = position[0]
+                column = position[1]
+
+                if self.board[row][column] == player: 
+                    win.append(player)
+                    if len(win) == 4: return "Win"
+                else:
+                    win = []
 
         #otherwise return successful
             return "Successful"
@@ -95,9 +119,18 @@ class Connect4:
 
 
 game = Connect4()
-# print(game.get_board())
-game.move("x", 6)
-game.move('x', 6)
-game.move('x', 6)
-game.move('x', 6)
+print(game.move("x", 0))
+print(game.move("o", 2))
+print(game.move("x", 0))
+print(game.move("o", 0))
+print(game.move("x", 1))
+print(game.move("o", 2))
+print(game.move("x", 2))
+print(game.move("o", 3))
+print(game.move("x", 0))
+print(game.move("o", 3))
+print(game.move("x", 1))
+print(game.move("o", 5))
+print(game.move("x", 0))
+print(game.move("o", 4))
 game.get_board()
