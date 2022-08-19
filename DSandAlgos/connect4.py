@@ -37,7 +37,6 @@ class Connect4:
 
                 
         #if player won, return won      
-            # self.isWin(row, column, player)
             # left = [-3, 0]
             # right = [3, 0]
 
