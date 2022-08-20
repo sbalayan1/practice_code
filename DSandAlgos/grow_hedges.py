@@ -212,7 +212,7 @@ def grow_hedges_2(years, hedges):
 def simulate(hedges):
     height = len(hedges)
     width = len(hedges[0])
-    copy_hedges = [[0 for j in hedges[0]] for i in hedges]
+    copy_hedges = [[0 for j in range(len(hedges[0]))] for i in range(len(hedges))]
     for i in range(height):
         for j in range(width):
             adj_neighbors = count_neighbors(hedges, i, j)
@@ -254,4 +254,4 @@ def calc_adj(hedges):
     return count//2
 
 
-print(grow_hedges_2(2, matrix))
+print(grow_hedges_2(3, matrix))
