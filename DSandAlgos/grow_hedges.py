@@ -36,6 +36,11 @@
 #     [1, 0, 1, 1],
 #     [1, 1, 1, 1]]
 
+    #year 3
+#     [[1, 1, 1, 1],
+#     [1, 1, 1, 1],
+#     [1, 1, 1, 1]]
+
 
 #     the final matrix will be:
 #     [[1, 1, 1, 1],
@@ -104,9 +109,10 @@
 
         
 def grow_hedges(years, hedges):
-    adj_list = [(i-1, j), (i+1, j), (i, j-1), (i, j+1), (i-1, j+1), (i+1, j-1), (i-1, j-1), (i+1, j+1)]
-    for i in range(0, years):
+    for n in range(0, years):
         visited = set()
+        visited.add((0,0))
+        adjusted = set()
         queue = [(0,0)]
 
         while queue:
@@ -115,36 +121,40 @@ def grow_hedges(years, hedges):
             count_missing = 0
             count_adjacent_hedges = 0
             # top, bottom, left, right, diagUp, diagDown, antiDiagUp, antiDiagDown
-            copy_adj = [adj_list[:]]
+            adj_list = [(i-1, j), (i+1, j), (i, j-1), (i, j+1), (i-1, j+1), (i+1, j-1), (i-1, j-1), (i+1, j+1)]
+            copy_adj = adj_list[:]
+
             for elem in adj_list:
                 a, b = elem
-                if a < 0 or b >= len(hedges[0]): count_missing += 1
-                copy_adj.remove(elem)
+                if a < 0 or a >= len(hedges) or b < 0 or b >= len(hedges[0]): 
+                    count_missing += 1
+                    copy_adj.remove(elem)
 
             for elem in copy_adj:
+                c, d = elem
+                adj_elem = hedges[c][d]
+
+                if current == 1 and adj_elem == 0 and elem not in adjusted:
+                    hedges[c][d] = 1
+                                        
+                elif current == 1 and adj_elem == 1:
+                    count_adjacent_hedges += 1
+
+
                 if elem not in visited:
-                    c, d = elem
-                    adj_elem = hedges[c][d]
-
-                    if current == 0 and adj_elem == 1:
-                        hedges[i][j] = 1
-                    
-                    if current == 1 and adj_elem == 1:
-                        count_adjacent_hedges += 1
-
-                    if current == 1 and adj_elem == 1:
-                        hedges[c][d] = 1
-
                     visited.add(elem)
                     queue.append(elem)
 
             if count_adjacent_hedges == 8: 
+                # print('hit', queue, hedges)
                 hedges[i][j] = 0
+                adjusted.add((i,j))
     
     return hedges
                     
 
-matrix = [[0, 0, 1],
-          [0, 0, 0]]
-print(grow_hedges(1, matrix))
+matrix = [[1, 0, 0, 0],
+          [1, 1, 0, 0],
+          [1, 0, 0, 1]]
+print(grow_hedges(2, matrix))
 
