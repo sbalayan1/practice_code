@@ -192,6 +192,9 @@ def calculate_adjacent_hedges(hedges):
             
 
 
+    #create an empty matrix with the same dimensions as our input
+    #then we can iterate over the number of years and populate our empty matrix
+
 matrix = [[1, 0, 0, 0],
           [1, 1, 0, 0],
           [1, 0, 0, 1]]
@@ -199,4 +202,56 @@ matrix = [[1, 0, 0, 0],
 # matrix = [[0, 0, 1],
 #           [0, 0, 0]]
 
-print(grow_hedges(2, matrix))
+def grow_hedges_2(years, hedges):
+    for n in range(years):
+        garden = simulate(hedges)
+    
+    print(garden)
+    return calc_adj(garden)
+
+def simulate(hedges):
+    height = len(hedges)
+    width = len(hedges[0])
+    copy_hedges = [[0 for j in hedges[0]] for i in hedges]
+    for i in range(height):
+        for j in range(width):
+            adj_neighbors = count_neighbors(hedges, i, j)
+            elem = hedges[i][j]
+            if elem == 1 and adj_neighbors == 8:
+                copy_hedges[i][j] = 0
+            
+            if elem == 0 and adj_neighbors > 0:
+                copy_hedges[i][j] = 1
+            else:
+                copy_hedges[i][j] = hedges[i][j]
+
+    return copy_hedges
+
+def count_neighbors(hedges, i , j):
+    pop_neighbors = 0
+    distance = (-1, 0, 1)
+    for delta_i in distance:
+        for delta_j in distance:
+            if delta_i == 0 and delta_j == 0: continue
+
+            row = i+delta_i
+            column = j+delta_j
+
+            if 0 <= row < len(hedges) and 0 <= column < len(hedges[0]):
+                if hedges[row][column] == 1: pop_neighbors += 1
+
+    return pop_neighbors     
+
+def calc_adj(hedges):
+    count = 0
+    height = len(hedges)
+    width = len(hedges[0])
+    for i in range(height):
+        for j in range(width):
+            if hedges[i][j] == 1: count += count_neighbors(hedges, i, j) 
+
+
+    return count//2
+
+
+print(grow_hedges_2(2, matrix))
