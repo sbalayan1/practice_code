@@ -14,6 +14,8 @@
     # Input: s = "foo", t = "bar"
     # Output: false
 
+#what's the difference between .get() and using bracket notation?
+
 def is_isomorphic(s, t):
     if len(s) != len(t): return False
     hash_s = {}
