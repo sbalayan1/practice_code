@@ -106,7 +106,9 @@ test4 = {
 print(connected_component_count(test1))
 
 
-n = nodes
-e = edges
-Time Complexity:
-Space Complexity:
+# n = nodes
+# e = edges
+
+# Time Complexity: O(e) => in all cases you traverse all of the edges in the graph
+
+# Space Complexity: O(n) => in all cases, you will need to store all of the nodes in the set. 
