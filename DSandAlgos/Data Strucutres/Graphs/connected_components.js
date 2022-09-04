@@ -1,3 +1,5 @@
+// think => dfs for each node
+
 const connectedComponentsCount = (graph) => {
     let count = 0
     let stack = []
@@ -26,6 +28,27 @@ let dfs = (graph, visited, stack) => {
             }
         }
     }
+}
+
+
+function connectedComponentsCount_recursive(graph) {
+  let count = 0
+  let visited = new Set()
+  for (let node in graph) {
+    if (explore(graph, visited, node) == true) count ++
+  }
+
+  return count
+}
+
+function explore(graph, visited, current) {
+  if (visited.has(String(current))) return false
+  visited.add(String(current))
+  for (let child of graph[current]) {
+    explore(graph, visited, child)
+  }
+
+  return true
 }
 
 let test1 = {
@@ -60,4 +83,4 @@ let test4 = {
     8: []
 }
 
-console.log(connectedComponentsCount(test2))
+console.log(connectedComponentsCount_recursive(test4))
