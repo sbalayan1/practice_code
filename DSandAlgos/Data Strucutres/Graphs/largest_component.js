@@ -1,3 +1,5 @@
+
+
 // Write a function, largestComponent, that takes in the adjacency list of an undirected graph. The function should return the size of the largest connected component in the graph.
 
 let test1 = {
@@ -47,3 +49,6 @@ function recursive_dfs(graph, visited, current) {
 }
 
 console.log(largestComponent(test1))
+
+// timeComplexity: O(e) => on average we iterate over all the edges of our graph
+// spaceComplexity: O(n) => need to store all the nodes in our set
