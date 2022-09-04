@@ -30,14 +30,17 @@ function largestComponent(graph) {
 
 function recursive_dfs(graph, visited, current) {
     
-    if (visited.has(String(current))) return 0 //got stuck on what to return when we revisit a node. 
+    if (visited.has(current)) return 0 //got stuck on what to return when we revisit a node. 
 
-    let size = 1 //if the above is not true, then we need to count the node
-    visited.add(String(current))
+    let size = 1 
+        //if the above is not true, then we need to count the node
+        //1 represents the current node that we're at and each recursive call is going to count its own node
+    visited.add(current)
 
     for (let neighbor of graph[current]) {
         size += recursive_dfs(graph, visited, neighbor)
         //each of our recursive calls will either return 0 or 1. 
+        //the above accumulates a count of all of the nodes of the fully connected component
     }
 
     return size
