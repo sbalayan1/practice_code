@@ -41,25 +41,25 @@ def convert_edges(edges):
 
 def shortestPath(edges, start, destination):
     graph = convert_edges(edges)
-    min_path = math.inf
     queue = [(start,0)] #start represents the starting node, 0 represents the number of edges
     visited = set() #issue with where we should put the set
 
     while queue:
-        curr_node, edges = queue.pop(0)
+        curr_node, distance = queue.pop(0)
 
         if curr_node == destination:
-            min_path = min(min_path, edges)
-            continue
+            return distance
         
         for neighbor in graph[curr_node]:
             if neighbor not in visited:
                 visited.add(neighbor)
-                queue.append((neighbor, edges+1))
+                queue.append((neighbor, distance+1))
 
-    return min_path
+    return -1
         
 
 
 
 print(shortestPath(edges, 'w', 'z'))
+
+# Time complexity: O(e) => don't need to traverse the graph more than once
