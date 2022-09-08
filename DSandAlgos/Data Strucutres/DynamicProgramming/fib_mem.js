@@ -53,6 +53,9 @@ let improved_fib = (n, memo={}) => {
 }
 
 console.log(improved_fib(0))
+
+//time: O(n)
+//space: O(n or the height of the tree)
     
 
 const foo = (n) => {
