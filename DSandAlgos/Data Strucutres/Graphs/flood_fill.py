@@ -47,3 +47,39 @@ def floodFill_bfs(image, sr, sc, color):
             if j+1 < len(image[0]): queue.append((i,j+1))
     
     return image
+
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        if image[sr][sc] == color: return image   
+        start = image[sr][sc]
+        visited = set((sr,sc))   
+        queue = [(sr, sc)]
+        
+        while queue:
+            curr_row, curr_col = queue.pop(0)
+            adj_list = self.build_adj_list(curr_row, curr_col, image)
+            image[curr_row][curr_col] = color
+    
+            for neighbor in adj_list:
+                row, col = neighbor
+                if neighbor not in visited and image[row][col] == start:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+                
+        
+        return image
+    
+    
+    def build_adj_list(self, sr, sc, image):
+        adj_list = []
+        directions = [(sr-1, sc), (sr+1, sc), (sr, sc-1), (sr, sc+1)]
+        
+        for direction in directions:
+            row, col = direction
+            rowInbounds = row >= 0 and row < len(image)
+            colInbounds = col >= 0 and col < len(image[0])
+        
+            if rowInbounds and colInbounds:
+                adj_list.append(direction)
+        
+        return adj_list
