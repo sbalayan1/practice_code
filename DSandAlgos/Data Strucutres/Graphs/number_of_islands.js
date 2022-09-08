@@ -26,5 +26,37 @@
 
 //r = rows
 //c = columns
-// Time complexity:
-// Space Complexity
+// Time complexity: 
+    //Iterative code will give run in O(r*c). Also assuming our entire grid is an island, our DFS will take O(r*c)
+
+// Space Complexity:
+    //O(r*c) in the worst case because you'd need to create a visited set and hold all of the nodes in that set
+
+    const islandCount = (grid) => {
+        const rows = grid.length, columns = grid[0].length
+        let visited = new Set()
+        let numIslands = 0
+        for (let row = 0; row<rows; row++) {
+          for (let column = 0; column<columns; column++) {
+            if (explore(row, column, grid, visited) == true) numIslands++
+          }
+        }  
+        return numIslands
+      };
+      
+      const explore = (r, c, grid, visited) => {
+        const rowInbounds = r >= 0 && r < grid.length
+        const columnInbounds = c >= 0 && c < grid[0].length
+        if (!rowInbounds || !columnInbounds) return false
+        if (grid[r][c] == "W") return false
+        let pos = r + "," + c
+        if (visited.has(pos)) return false
+        visited.add(pos)
+        
+        explore(r-1, c, grid, visited) 
+        explore(r+1, c, grid, visited)
+        explore(r, c-1, grid, visited)
+        explore(r, c+1, grid, visited)
+        
+        return true
+      }
