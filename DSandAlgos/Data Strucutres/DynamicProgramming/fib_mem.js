@@ -52,9 +52,9 @@ let improved_fib = (n, memo={}) => {
     return memo[n]
 }
 
-console.log(improved_fib(0))
+console.log(improved_fib(0)) 
 
-//time: O(n)
+//time: O(n) => There are n nodes in this tree. Each node has a right partner. At each level then there are 2 nodes. => The trees time complexity then is 2n which simplifies to n
 //space: O(n or the height of the tree)
     
 
@@ -86,7 +86,7 @@ const dib = (n) => {
 
     // height or the distance from the root to the farthest leaf is equal to n
 
-    //to get the number of nodes in a level, I need to multiply the current level's number of nodes by 2
+    //to get the number of nodes in a level, I need to multiply the previous level's number of nodes by 2
     // ex. 
     //     level 1 => 1 node
     //     level 2 => 2 nodes
