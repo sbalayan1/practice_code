@@ -38,7 +38,7 @@ let howSumImproved = (target, nums, memo={}) => {
         let remainder = target-num
         let result = howSumImproved(remainder, nums, memo)
         if (result) {
-            memo[target] = [...result, num]
+            memo[target] = [...result, num] //copying over the contents of the array adds to our time complexity. In the worst case, we will need to copy over an array that is m elements long. Thus this operation is O(m)
             return memo[target]
         }  
         
@@ -49,3 +49,7 @@ let howSumImproved = (target, nums, memo={}) => {
 }
 
 console.log(howSumImproved(300, [7,14]))
+
+time: O(n*m^2) or O(n*m) //polynomial time complexity
+space: O(m^2) or O(m*m) //your space is taken up by the memo object. At most, your memo object will have m keys with at worst an array of m elements
+
