@@ -32,6 +32,7 @@ console.log(bestSum(8, [2,3,5])) //=> [3,5]
 // n = nums.length
 
 // Time:O(n^m * m) => branching factor to the height power. We branch for each number in nums and the height will just be the targetSum so m. We also need to spread/do a linear operation in m for each of those n^m calls.
+//exponential time complexity
 
 // Space: O(m*m) or O(m^2)
 
@@ -59,3 +60,16 @@ let bestSumImproved = (target, nums, memo={}) => {
 }
 
 console.log(bestSumImproved(100, [1, 5, 10, 15, 20, 25]))
+
+m = targetSum 
+n = nums.length
+
+Time: O(m*n*m) => O(m^2*n) //polynomial time complexity
+    //We store every targetSum as a key inside the memo object. If our targetSum is 50, then we ultimately store 50 different keys inside of the memo object. O(m)
+    //That being said, our for loop forces us to branch for every number in the array.
+    //O(m*n)
+    //Lastly we copy over the result array in linear time or O(m) => this results in a time complexity of O(m*n*m)
+
+
+Space: O(m^2) 
+//comes from the memo object. The memo object can store up to 50 different keys if the targetSum is 50, but for each of those keys, their VALUE can be an array of length m.
