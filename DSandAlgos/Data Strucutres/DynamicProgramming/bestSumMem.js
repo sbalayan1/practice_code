@@ -33,22 +33,29 @@ console.log(bestSum(8, [2,3,5])) //=> [3,5]
 
 // Time:O(n^m * m) => branching factor to the height power. We branch for each number in nums and the height will just be the targetSum so m. We also need to spread/do a linear operation in m for each of those n^m calls.
 
-// Space:
+// Space: O(m*m) or O(m^2)
 
 
-let bestSumImproved = (target, nums) => {
-    if (target<0) return 0 //what do we want to return in this case? 
+let bestSumImproved = (target, nums, memo={}) => {
+    if (target in memo) return memo[target]
+    if (target<0) return null //what do we want to return in this case? 
     if (target == 0) return [] //at the bottom of our tree, if we hit a node where target==0, it means we've found a path
 
     let smallest = null
 
     for (let num of nums) { //apply each num in nums to the current target
-        let result = bestSumImproved(target-num, nums) //will either return 0 or []
-        if (smallest == null || result.length < smallest.length) smallest = [...result, num]
+        let result = bestSumImproved(target-num, nums, memo) //will either return 0 or []
+        if (result) { //in some cases, our bestSumImproved will return null, check if result is not null
+            if (smallest == null || result.length < smallest.length) { 
+                smallest = [...result, num]
+            }
+        }
     }
 
-
+    memo[target] = smallest 
+        //I need to memoize the target before I return it
+        //note if we memoize inside of the for loop, we end up changing the stored array at memo[target]
     return smallest
 }
 
-console.log(bestSum(5, [1,4]))
+console.log(bestSumImproved(100, [1, 5, 10, 15, 20, 25]))
