@@ -27,7 +27,7 @@
 
 //The overall logic when we build this tree is to only branch to children when we have a matching prefix in our wordbank. The child will be the resulting string after we remove that prefix 
 
-let canConstruct = (target, wordBank) => {
+let canConstructBruteForce = (target, wordBank) => {
     if (target.length == '') return true
 
     for (let word of wordBank) {
@@ -40,4 +40,22 @@ let canConstruct = (target, wordBank) => {
     return false
 }
 
-console.log(canConstruct('abcdef', ['ab', 'abc', 'cd', 'def', 'abcd']))
+// m = target.length
+// n = wordbank.length
+//height of tree = m
+
+// time: O((n^m)*m)
+// space: O(m*m) //comes from storing each node in the worst case in the call stack as well as the maximal length of slicing the string. Each of your stack frames will need to store a string of length M basically.
+
+//worst case scenario occurs when at each branch, we take a single prefixed character. Basically results in a tall tree with many steps. Therefore height of our tree is m because we'd have to remove m characters, one at a time to create the tree/targetString
+
+//branching factor is dictated by the number of nodes in our wordBank
+
+//slicing targetString can have a maximal length of m. Note this doesn't make it super slow. The exponential O(n^m) makes it slow af
+
+
+
+console.log(canConstructImproved('abcdef', ['ab', 'abc', 'cd', 'def', 'abcd']))
+
+
+
