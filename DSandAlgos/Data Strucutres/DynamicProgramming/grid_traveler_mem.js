@@ -30,8 +30,8 @@ function gridTraveler(m, n) {
 // console.log(gridTraveler(18,18)) 
 
 //there are n + m levels and the number of nodes per level is denoted by its previous level's number of nodes by 2. 
-// time: O(2^n+m)
-// space: O(h) height of the tree or n+m
+time: O(2^n+m)
+space: O(h) height of the tree or n+m
 
 function gridTravelerImproved(m, n, memo={}) {
     const key = m + ',' + n
