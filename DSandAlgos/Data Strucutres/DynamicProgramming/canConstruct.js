@@ -6,14 +6,14 @@
 
 
 // Example 1
-    canConstruct(abcdef, [ab, abc, cd, def, abcd]) //=> True (abc + def)
+    // canConstruct(abcdef, [ab, abc, cd, def, abcd]) //=> True (abc + def)
 
 // Example 2
-    canConstruct(skateboard, [bo, rd, ate, t, ska, sk, boar]) //=> False
+    // canConstruct(skateboard, [bo, rd, ate, t, ska, sk, boar]) //=> False
 
 //Example 3
     //interestingly, the easiest string to create is the empty string
-    canConstruct('', [cat, dog, mouse]) //=> True
+    // canConstruct('', [cat, dog, mouse]) //=> True
 
 //Since we know our base case is an empty string and our wordBank doesn't change, we use our targetString as our root and now need to think about how we can transition and shrink our targetString to our base case
 
@@ -27,3 +27,17 @@
 
 //The overall logic when we build this tree is to only branch to children when we have a matching prefix in our wordbank. The child will be the resulting string after we remove that prefix 
 
+let canConstruct = (target, wordBank) => {
+    if (target.length == '') return true
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) == 0) {
+            const suffix = target.slice(word.length)
+            if (canConstruct(suffix, wordBank) == true) return true //why can't we just return canConstruct(suffix, wordBank) ? If we simply return canConstruct, we're basically letting all branches return.
+        }
+    }
+
+    return false
+}
+
+console.log(canConstruct('abcdef', ['ab', 'abc', 'cd', 'def', 'abcd']))
