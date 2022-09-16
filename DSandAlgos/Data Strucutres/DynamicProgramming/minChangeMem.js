@@ -52,5 +52,16 @@ let minChangeRecursive = (target, coins, memo={}) => {
 }
 
 console.log(minChangeImproved(100, [1,2,5]))
+m = target
+n = coins.length
+height = m
+
+//brute force big o notation
+time: O(n^m)
+space: O(m)
+
+//optimization using memoization
+time: O(n*m)
+space: O(m)
 
 
