@@ -13,10 +13,12 @@
 let howSum = (target, nums) => {
     if (target < 0) return null
     if (target == 0) return []
-
+    let output = []
     for (let num of nums) {
         const result = howSum(target-num, nums)
-        if (result) return [...result, num]
+        if (result) {
+            return [...result, num] //this early return is basically what let's us bubble up and add the current num to our result
+        } 
     }
 
     return null
