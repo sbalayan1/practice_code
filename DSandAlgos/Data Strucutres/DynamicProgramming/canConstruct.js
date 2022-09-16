@@ -44,8 +44,8 @@ let canConstructBruteForce = (target, wordBank) => {
 // n = wordbank.length
 //height of tree = m
 
-// time: O((n^m)*m)
-// space: O(m*m) //comes from storing each node in the worst case in the call stack as well as the maximal length of slicing the string. Each of your stack frames will need to store a string of length M basically.
+// time: O((n^m)*m) => exponential
+// space: O(m*m) => quadratic comes from storing each node in the worst case in the call stack as well as the maximal length of slicing the string. Each of your stack frames will need to store a string of length M basically.
 
 //worst case scenario occurs when at each branch, we take a single prefixed character. Basically results in a tall tree with many steps. Therefore height of our tree is m because we'd have to remove m characters, one at a time to create the tree/targetString
 
@@ -55,7 +55,29 @@ let canConstructBruteForce = (target, wordBank) => {
 
 
 
-console.log(canConstructImproved('abcdef', ['ab', 'abc', 'cd', 'def', 'abcd']))
+let canConstructImproved = (target, wordBank, memo={}) => {
+    if (target in memo) return memo[target]
+    if (target == '') return true
+
+    for (let word of wordBank) {
+        if (target.indexOf(word) == 0) {
+            const suffix = target.slice(word.length)
+
+            if (canConstructImproved(suffix, wordBank, memo) == true) {
+                memo[target] = true
+                return true //whereever we have our recursive returns, store that value in your memo object
+            }
+        }
+    }
+
+    memo[target] = false
+    return false
+}
+
+console.log(canConstructImproved('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee', 'eeeee', 'eeeeee']))
+
+time: O(m^2 * n) //polynomial
+space: O(m^2) //quadratic
 
 
 
