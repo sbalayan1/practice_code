@@ -13,7 +13,8 @@
 //=> [[]]
 
 
-let allConstruct = (target, wordBank) => {
+let allConstruct = (target, wordBank, memo={}) => {
+    if (target in memo) return memo[target]
     if (target == '') return [[]]
 
     const result = []
@@ -21,8 +22,7 @@ let allConstruct = (target, wordBank) => {
     for (let word of wordBank) {
         if (target.indexOf(word) == 0) {
             const suffix = target.slice(word.length)
-
-            const suffixCombos = allConstruct(suffix, wordBank) //what should we get back from allConstruct. 
+            const suffixCombos = allConstruct(suffix, wordBank, memo) //ask yourself, what should we get back from allConstruct(suffix, wordBank, memo)?
                 //either it returns an array of all the ways to make the suffix
                 //or it returns an empty array
 
@@ -40,9 +40,25 @@ let allConstruct = (target, wordBank) => {
         }
     }
 
+    memo[target] = result
     return result
 }
 
 console.log(allConstruct("purple", ["purp", "p", "ur", 'le', "purpl"])) //=> [[purp, le], [p, ur, p, le]]
-time:
-space:
+console.log(allConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee', 'eeeee', 'eeeeee']))
+
+m = target.length
+n = wordBank.length
+height = m
+branchingFactor = n //multiply the number of nodes by n
+
+// time: O(n^m) 
+    //this means we have O(n^m) leaves and O(n^m) target combinations. This therefore means that we must need O(n^m) subarrays stored in our output
+
+    //Ultimately, we can't do any better than exponential here
+
+// space: O(m) //height of the recursion tree
+    //output is very large. usually we don't include the size of the result into our space complexity. If we did, our space complexity would be exponential as well. 
+
+//note optimizing this doesn't actually affect the true Big O worst case. The reason here is because line 48 is not the worst case scenario.
+//The worst case scenario is when you have to create a massive subarray. For example allConstruct('eeeeeeeeeeeeeeeeeeeee', ['e', 'ee', 'eee', 'eeee', 'eeeee', 'eeeeee']) would be the worst case because we have to create every single combination.
