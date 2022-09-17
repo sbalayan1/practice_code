@@ -19,8 +19,9 @@ let combinationSum = (nums, target) => {
     let output = []
     for (let num of nums) {
         let subCombos = combinationSum(nums, target-num)
-        if (subCombos)
-            nums = nums.filter(n => n != num)
+        
+        if (subCombos!=null)
+            nums = nums.filter(n => n !== num)
             let combosWithNum = subCombos.map(combo => [...combo, num])
 
             output.push(...combosWithNum)
