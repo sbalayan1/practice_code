@@ -45,3 +45,29 @@ let minPathSum = (grid, memo={}) => {
 let grid = [[2,3,4,2,2,5,5,6,6,3],[7,5,6,4,1,7,8,1,7,7],[4,0,4,5,4,2,7,8,9,3],[7,3,8,3,5,0,9,1,8,7],[4,5,4,0,9,5,8,0,8,5],[7,4,7,3,0,1,7,9,0,8],[5,9,1,5,3,7,6,4,8,6]]
 
 console.log(minPathSum(grid)) //=> 52
+
+
+
+var minPathSumOptimized = function(grid, row=0, col=0, memo={}) {
+    if (row >= grid.length || col >= grid[0].length) return null
+    let m = grid.length, n = grid[0].length
+    let pos = row + ',' + col
+    if (pos in memo) return memo[pos]
+    if (row == m-1 && col == n-1) return grid[row][col]
+    
+    //minPathSum(right or down) will return either null or the 1x1 grid's value
+    if (minPathSum(grid, row, col+1, memo) == null) {
+        memo[pos] = minPathSum(grid, row+1, col, memo) + grid[row][col]
+        return minPathSum(grid, row+1, col, memo) + grid[row][col]
+    }
+    
+    if (minPathSum(grid, row+1, col, memo) == null) {
+        memo[pos] = minPathSum(grid, row, col+1, memo) + grid[row][col]
+        return minPathSum(grid, row, col+1, memo) + grid[row][col]
+    }
+    
+    let smallest = Math.min(minPathSum(grid, row+1, col, memo), minPathSum(grid, row, col+1, memo))
+    memo[pos] = smallest + grid[row][col]
+    return smallest + grid[row][col]
+}
+

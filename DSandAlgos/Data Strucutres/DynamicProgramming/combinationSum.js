@@ -30,6 +30,9 @@ let combinationSum = (nums, target) => {
     return output
 }
 
+time:
+space:
+
 
 
 console.log(combinationSum([2,3,6,7], 7))
