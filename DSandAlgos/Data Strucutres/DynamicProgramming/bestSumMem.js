@@ -31,7 +31,7 @@ console.log(bestSum(8, [2,3,5])) //=> [3,5]
 // m = targetsum
 // n = nums.length
 
-// Time:O(n^m * m) => branching factor to the height power. We branch for each number in nums and the height will just be the targetSum so m. We also need to spread/do a linear operation in m for each of those n^m calls.
+// Time:O((n^m) * m) => branching factor to the height power. We branch for each number in nums and the height will just be the targetSum so m. We also need to spread/do a linear operation in m for each of those n^m calls.
 //exponential time complexity
 
 // Space: O(m*m) or O(m^2)

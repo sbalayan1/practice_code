@@ -20,8 +20,7 @@
 // 1 -> 3 -> 4 //=> 8
 
 
-
-let minPathSum = (grid, memo={}) => {
+let minPathSumUsingModifiedGrids = (grid, memo={}) => {
     if (grid.length == 0) return null //if there's nothing in the grid
     const m = grid.length, n = grid[0].length, pos = m + ',' + n
 
@@ -44,7 +43,16 @@ let minPathSum = (grid, memo={}) => {
 
 let grid = [[2,3,4,2,2,5,5,6,6,3],[7,5,6,4,1,7,8,1,7,7],[4,0,4,5,4,2,7,8,9,3],[7,3,8,3,5,0,9,1,8,7],[4,5,4,0,9,5,8,0,8,5],[7,4,7,3,0,1,7,9,0,8],[5,9,1,5,3,7,6,4,8,6]]
 
-console.log(minPathSum(grid)) //=> 52
+// console.log(minPathSum(grid)) //=> 52
+m = grid.length
+n = grid.length[0]
+height = m+n
+branchingFactor = 2
+//The number of nodes per level is based on the previous level's number of nodes * 2
+
+time: O((2^(n+m)) * 2m)
+space: 
+
 
 
 
@@ -71,3 +79,6 @@ var minPathSumOptimized = function(grid, row=0, col=0, memo={}) {
     return smallest + grid[row][col]
 }
 
+console.log(minPathSumOptimized(grid)) //=> 52
+time:
+space:
