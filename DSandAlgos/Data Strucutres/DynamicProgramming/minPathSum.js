@@ -50,8 +50,13 @@ height = m+n
 branchingFactor = 2
 //The number of nodes per level is based on the previous level's number of nodes * 2
 
+//brute force time complexity with no memoization
 time: O((2^(n+m)) * 2m)
-space: 
+space: O(3(m+n))
+
+//optimized space/time complexity with memoization
+time: O()
+space: O()
 
 
 
