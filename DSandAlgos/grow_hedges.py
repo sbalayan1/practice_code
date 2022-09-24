@@ -148,7 +148,6 @@ def simulate_growth(hedges):
             elif current == 1 and adj_elem == 1:
                 count_adjacent_hedges += 1
 
-
             if elem not in visited:
                 visited.add(elem)
                 queue.append(elem)

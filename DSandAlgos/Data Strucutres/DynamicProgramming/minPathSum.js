@@ -55,7 +55,8 @@ time: O((2^(n+m)) * 2m)
 space: O(3(m+n))
 
 //optimized space/time complexity with memoization
-time: O()
+time: O((m+n)) 
+//=> would it be m*n or m+n?
 space: O(3(m+n))
     // will have to store m+n nodes in the memo object plus rightGrid and downGrid in each recursive call which will have a length of m+n in the worst case?
 
