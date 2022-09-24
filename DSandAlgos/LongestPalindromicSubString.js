@@ -26,25 +26,34 @@ s = "babad"
 
 
 let longestPalindromicSubstring = (s) => {
-    let recursiveCall = (s, start, end) => {
-        if (start>end) return 0 //start and end have crossed
-        if (start == end) return 1 //start and end are on the same element within the string. The palindrome's length is then 1. 
+    let recursiveCall = (s, start, end, memo={}) => {
+        let pos = start + ',' + end
+        if (pos in memo) return memo[pos]
+        if (start>end) return "" //start and end have crossed
+        if (start == end) return s[start] //start and end are on the same element within the string. The palindrome's length is then 1.
+
         if (s[start] === s[end]) {
             let remainingLength = end - start - 1
-            if (remainingLength === recursiveCall(s, start+1, end-1)) {
-                return remainingLength + 2
+
+            if (remainingLength === recursiveCall(s, start+1, end-1, memo).length) {
+                memo[pos] = s.slice(start, end+1)
+                return s.slice(start, end+1)
             }
         }
 
-        let c1 = recursiveCall(s, start+1, end) //makes recursive calls to move the start index if none of the above are true
-        let c2 = recursiveCall(s, start, end-1) //makes recursive calls to move the end index if none of the above are true
+        let c1 = recursiveCall(s, start+1, end, memo) //makes recursive calls to move the start index if none of the above are true
+        let c2 = recursiveCall(s, start, end-1, memo) //makes recursive calls to move the end index if none of the above are true
 
-        return Math.max(c1, c2)
+        let longestSubstr = c1.length >= c2.length ? c1 : c2
+        memo[pos] = longestSubstr
+        return longestSubstr
     }
 
     //invokes and returns the recursiveCall
     return recursiveCall(s, 0, s.length-1)
 }
+
+console.log(longestPalindromicSubstring("321012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210012321001232100123210123210012321001232100123210123"))
 
 // let start = 0, end = s.length - 1
     
