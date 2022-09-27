@@ -18,6 +18,8 @@
 //if the string is a prefix of all elements, continue,
 //if not, return longestPrefix
 
+//test
+
 var longestCommonPrefix = function(strings) {
     let longestPrefix = ""
     
