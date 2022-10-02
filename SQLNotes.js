@@ -189,6 +189,18 @@ Command practice
     => a sql query is where a sql statement retrieves data from the database. Here we learn how to manipulate our sql queries to view and analyze data.
 
         ORDER BY
+            -> SELECT column_name FROM table_name ORDER BY column_name ASC|DESC;
+            -> SELECT * FROM cats ORDER BY age ASC
+        
+        LIMIT
+            -> If we want to select extremes from a database table, we can use the ORDER BY in conjunction with LIMIT
+            -> SELECT * FROM cats ORDER BY age DESC LIMIT 1;
+        
+        BETWEEN
+            -> say we need to urgently select all cats whose age is between 1 and 3.
+            -> SELECT column_name(s) FROM table_name WHERE column_name BETWEEN value1 AND value2;
+            -> SELECT * FROM cats WHERE age BETWEEN 1 and 3;
+
 
     OTHER: 
         Top-Tip: In sqlite3, you can format the output of your select statements with a few helpful options:
