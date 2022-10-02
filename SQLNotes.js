@@ -156,6 +156,10 @@ Command practice
         -> more specific SELECT * FROM artists where name = "Black Sabbath"
         -> less specific SELECT * FROM artists WHERE name LIKE "%Black%" //note casing doesn't matter  
 
+        -> NOTE you can use the DISTINCT keyword to get a list of unique records. 
+                    => SELECT DISTINCT name from cats 
+                        ^the above will select only the unique names and not retrieve cats with the same name
+
     => Queries the database and gets a record from the profiles table whose name column == 'Sean'
         -> SELECT * FROM profile WHERE name = 'sean';
 
@@ -178,3 +182,7 @@ Command practice
     => delete 
         -> DELETE FROM profiles WHERE name = 'sean';
         -> deletes a row from a table
+
+
+
+    SQL Queries;
