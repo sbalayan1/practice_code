@@ -76,8 +76,24 @@ Relating Tables with Foreign Keys
     
     => JOINS
         -> SQL utilizes foreign keys and primary keys to join tables together. JOINS allows us to create a brand new table by joining two tables together with new column names from each table. 
+
         -> SELECT albums.title as 'album title', artists.name as 'artist name' FROM albums JOIN artists ON artists.artist_id = albums.artist_id;
             - note artist_id is a foreign key in the albums table.
+        -> INNER JOIN
+            - returns all rows when there is at least one match in BOTH tables
+            - SELECT column_names FROM first_table INNER JOIN second_table ON first_table.column_name = second_table.column_name;
+
+
+            Example
+            SELECT cats.name, cats.breed, owners.name FROM cats INNER JOIN owners ON cats.owner_id = owners.id;
+
+            name        breed          name
+            ----------  -------------  ----------
+            maru        scottish fold  mugumogu
+            hana        tabby          mugumogu
+            
+        -> LEFT (OUTER) JOIN
+            - returns all rows from the left table and the matched rows from the right table
 
 SQL
     -> is the language that lets us QUERY the database. 
