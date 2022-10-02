@@ -186,3 +186,14 @@ Command practice
 
 
     SQL Queries;
+    => a sql query is where a sql statement retrieves data from the database. Here we learn how to manipulate our sql queries to view and analyze data.
+
+        ORDER BY
+
+    OTHER: 
+        Top-Tip: In sqlite3, you can format the output of your select statements with a few helpful options:
+            .headers on      # output the name of each column
+            .mode column     # now we are in column mode, enabling us to run the next two .width commands
+            .width auto      # adjusts and normalizes column width
+            # or
+            .width NUM1, NUM2 # customize column width
