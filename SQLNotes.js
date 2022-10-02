@@ -58,7 +58,23 @@ Relational Databases
         adam = Person.new("Adam", 28, "adam@flatironschool.com")
 
 
+Relating Tables with Foreign Keys 
 
+    => How do we establish a relationship between two tables? 
+        -> One to Many
+            - Use a foreign key on the table that belongs to a record in the other table
+                - an owner can have many cats but a cat has one and therefore belongs to one owner
+    
+    => adding foriegn keys to a table 
+        -> ALTER TABLE cats ADD COLUMN owner_id INTEGER; 
+            - adds the foreign key column
+        -> UPDATE cats SET owner_id = 1 WHERE name = 'maru';
+            - associates the cat named maru with the owner with the id = 1
+        -> SELECT * FROM cats WHERE owner_id = 1;
+            1|maru|3|scottish fold|1
+            2|hana|1|tabby|1
+    
+    => JOINS
 
 SQL
     -> is the language that lets us QUERY the database. 
