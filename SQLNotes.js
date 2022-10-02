@@ -75,6 +75,9 @@ Relating Tables with Foreign Keys
             2|hana|1|tabby|1
     
     => JOINS
+        -> SQL utilizes foreign keys and primary keys to join tables together. JOINS allows us to create a brand new table by joining two tables together with new column names from each table. 
+        -> SELECT albums.title as 'album title', artists.name as 'artist name' FROM albums JOIN artists ON artists.artist_id = albums.artist_id;
+            - note artist_id is a foreign key in the albums table.
 
 SQL
     -> is the language that lets us QUERY the database. 
