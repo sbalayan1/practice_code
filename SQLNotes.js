@@ -105,6 +105,18 @@ Syntax Notes
     => when linking words together, link them together using snake case. 
     => when we create new tables, we need to specify some column names and their data types. Otherwise the command "create table cats;" will return a syntax error
 
+    => SELECT name FROM cats; and SELECT cats.name FROM cats; work the same! why?
+        -> SQL lets us use dot notation to select! This lets us select data from different tables!
+        Examples
+            CREATE TABLE dogs(
+                id INTEGER PRIMARY KEY,
+                name TEXT
+            );
+
+            INSERT INTO dogs (name) VALUES ('clifford');
+
+            SELECT name FROM cats, dogs; -> this won't work
+            SELECT cats.name, dogs.name FROM cats, dogs; -> this works because we explicitly follow the tableName.columnName syntax
 Command practice
     => all sql commands besides those that start with a . should end with a ;
     => SELECT * FROM artists;
@@ -163,23 +175,24 @@ Command practice
     => Queries the database and gets a record from the profiles table whose name column == 'Sean'
         -> SELECT * FROM profile WHERE name = 'sean';
 
-    => queries the database and gets the DOB of the record from the profiles table whose name column === 'sean' (note casing matters here when using WHERE)
+    => Queries the database and gets the DOB of the record from the profiles table whose name column === 'sean' (note casing matters here when using WHERE)
         -> SELECT dob FROM profile WHERE name = 'sean'; (note casing matters here when using WHERE)
         -> SELECT age FROM profile WHERE name LIKE 'arthur'; (note casing does not matter when using LIKE)
 
-    => query the table and gets all records whose name includes a and retrieves specific columns
+    => Query the table and gets all records whose name includes a and retrieves specific columns
         -> SELECT name, age, dob FROM profile WHERE name LIKE 'a';
 
     => .schema [database] lets you see the schema of the database
 
-    => insert a new row into your table
+    => INSERT
         -> INSERT INTO fans(name, artist_id) VALUES("arthur", 2)
         - note this command also creates a join between the fans table and the artist table
 
-    => update
+    => UPDATE
         -> UPDATE fans SET artist_id = 169 WHERE name != "ix";
         -> UPDATE profiles SET spouse_id = 1 WHERE name != 'sean';
-    => delete 
+
+    => DELETE 
         -> DELETE FROM profiles WHERE name = 'sean';
         -> deletes a row from a table
 
@@ -200,6 +213,26 @@ Command practice
             -> say we need to urgently select all cats whose age is between 1 and 3.
             -> SELECT column_name(s) FROM table_name WHERE column_name BETWEEN value1 AND value2;
             -> SELECT * FROM cats WHERE age BETWEEN 1 and 3;
+        
+        NULL
+            -> say we need to add a new record in our database but we don't have all of the information. ie. we have missing values
+            -> here we can use the NULL keyword 
+            -> INSERT INTO cats (name, age, breed) VALUES (NULL, NULL, "Tabby");
+    
+        => SQL Aggregate Functions
+            -> SQL aggregate functions are statements that operate on GROUPS OF RECORDS rather than INDIVIDUAL RECORDS. 
+            COUNT
+                -> counts the number of records that meet a certain condition
+                -> SELECT COUNT([column name]) FROM [table name] WHERE [column name] = [value]
+                -> SELECT COUNT(owner_id) FROM cats WHERE owner_id = 1
+                    - the above^ counts the number of owner_ids where the cat's owner_id equals 1 
+                    - note COUNT only takes 1 argument
+            GROUP BY
+                -> groups results by a given column. It's a great way for aggregating results and can even group using multiple columns
+                -> SELECT breed FROM cats GROUP BY breed; -> groups the cats by breed and returns the unique breeds
+                -> SELECT breed, COUNT(breed) FROM cats GROUP BY breed;
+                -> SELECT breed, owner_id, COUNT(breed) FROM cats GROUP BY breed, owner_id;
+
 
 
     OTHER: 
