@@ -81,17 +81,23 @@ Relating Tables with Foreign Keys
             - note artist_id is a foreign key in the albums table.
         -> INNER JOIN
             - returns all rows when there is at least one match in BOTH tables
+            - When using an INNER JOIN to return data from multiple tables, you will only see the results from records in the first table (left side of the diagram above) and the second table (right side) when they can be connected via a foreign key;
             - SELECT column_names FROM first_table INNER JOIN second_table ON first_table.column_name = second_table.column_name;
 
 
-            Example
-            SELECT cats.name, cats.breed, owners.name FROM cats INNER JOIN owners ON cats.owner_id = owners.id;
+            Example:
+                SELECT cats.name, cats.breed, owners.name AS 'owner_name'
+                    -> specifies which columns from each table we want to select data from 
+                FROM cats INNER JOIN owners 
+                    -> joins our cats and owners table using INNER JOIN
+                ON cats.owner_id = owners.id; 
+                    -> tells our query how to connect or join the two tables by specifying which columns function as foreign and primary keys. Here, we are telling our query that the owner_id column on the Cats table is filled with data that corresponds to data in the id column of the Owners table. We are indicating that a value of 1, for example, in an individual cat's owner_id column refers to the individual owner who has an id of 1. And we are telling our query to return only those cats and owners who share this connection.
 
-            name        breed          name
-            ----------  -------------  ----------
-            maru        scottish fold  mugumogu
-            hana        tabby          mugumogu
-            
+                name        breed          owner_name
+                ----------  -------------  ----------
+                maru        scottish fold  mugumogu
+                hana        tabby          mugumogu
+
         -> LEFT (OUTER) JOIN
             - returns all rows from the left table and the matched rows from the right table
 
