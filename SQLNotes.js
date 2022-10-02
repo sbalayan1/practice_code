@@ -8,22 +8,31 @@ What is a database?
     - persistance
     
 Relational Databases
-    - is a database that has tables with related data points 
+    -> Primary Key
+        - a column in a table with an ID that uniquely identifies a specific record or row in a table.
+
+    -> Foreign Key
+        - a column in a table that refers to a primary key in another table. 
+        - SQL programmatically uses the foreign key in one table to identify a corresponding row in another table
+
+    -> is a database that has tables with related data points 
         - think of an author with a bunch of books they've written. Here we separate the books and authors into separate tables and connect the two using a foreign key
-        - 
-    - unique keys or primary key
+
+    -> unique keys or primary key
         - every single item created in a database is assigned an ID
-    - foreign keys that relate to other tables
+
+    -> foreign keys that relate to other tables
         - to create a relationship between two tables, we take the id from another table and assign it to its related table
         - if we need information from the related table while looking at the authors for instance, we can use the attached id
-    - prevents duplicate data
-    - data is easier to index and query
 
-    - relational databases like SQLite store data in a table
+    -> prevents duplicate data
+    -> data is easier to index and query
+
+    -> relational databases like SQLite store data in a table
         - columns refer to datatypes or a CLASS in ruby
         - rows refers to instances of that datatype or instances of a class
 
-    - schema
+    -> schema
         - you can view the structure of our database using .schema
         - the schema represents the structure of your database
 
@@ -117,6 +126,7 @@ Syntax Notes
 
             SELECT name FROM cats, dogs; -> this won't work
             SELECT cats.name, dogs.name FROM cats, dogs; -> this works because we explicitly follow the tableName.columnName syntax
+
 Command practice
     => all sql commands besides those that start with a . should end with a ;
     => SELECT * FROM artists;
@@ -227,11 +237,29 @@ Command practice
                 -> SELECT COUNT(owner_id) FROM cats WHERE owner_id = 1
                     - the above^ counts the number of owner_ids where the cat's owner_id equals 1 
                     - note COUNT only takes 1 argument
+                -> You can also use the Wildcard * in count to count the number of rows in a given column
+                    - SELECT COUNT(*) FROM cats WHERE net_worth > 1000000;
             GROUP BY
                 -> groups results by a given column. It's a great way for aggregating results and can even group using multiple columns
                 -> SELECT breed FROM cats GROUP BY breed; -> groups the cats by breed and returns the unique breeds
                 -> SELECT breed, COUNT(breed) FROM cats GROUP BY breed;
                 -> SELECT breed, owner_id, COUNT(breed) FROM cats GROUP BY breed, owner_id;
+            
+            AVERAGE
+                -> returns the average value of a column
+                -> SELECT AVG(column_name) FROM table_name;
+                -> SELECT AVG(net_worth) FROM cats;
+                -> To reformat, we can also use aliasing to make the return value more readable
+                    SELECT AVG(net_worth) AS average_net_worth FROM cats;
+
+            SUM
+                ->  returns the sum of all of the values in a particular column.
+                -> SELECT SUM(net_worth) FROM cats;
+
+            MIN/MAX
+                -> The minimum and maximum aggregator functions return the minimum and maximum values from a specified column respectively.
+                -> SELECT MIN(net_worth) FROM cats;
+
 
 
 
