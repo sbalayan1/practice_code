@@ -100,6 +100,11 @@ Relating Tables with Foreign Keys
 
         -> LEFT (OUTER) JOIN
             - returns all rows from the left table and the matched rows from the right table
+        
+
+        => SELECT customers.name AS 'customers' FROM customers WHERE customerId NOT IN (SELECT customerId FROM orders);
+            -> select customerId from orders:  gets us a list of the customers who have made orders
+            -> we then use the NOT IN query to get customers who are not in the ^above list.
 
 SQL
     -> is the language that lets us QUERY the database. 
