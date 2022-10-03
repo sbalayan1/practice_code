@@ -1,5 +1,7 @@
 // Write a function, breadthFirstValues, that takes in the root of a binary tree. The function should return an array containing all values of the tree in breadth-first order.
 
+//note breadth first is different from level order because in level order, you need to separate each level into an array. 
+
 // Example 1
 
 class Node {
@@ -44,10 +46,7 @@ function breadthFirstValuesItr(root) {
 }
 
 console.log(breadthFirstValuesItr(a)); //    -> ['a', 'b', 'c', 'd', 'e', 'f']
+n = # of nodes
+time: O(n) each node is visited once. Note this assumes that adding and removing from the queue runs in constant time
+space: O(n) at most we will add at most n nodes into the stack.
 
-function breadthFirstValuesRec(root) {
-    if (!root) return []
-    let leftVals = breadthFirstValuesRec(root.left)
-    let rightVals = breadthFirstValuesRec(root.right)
-    return [root.val, ...leftVals, ...rightVals]
-}
