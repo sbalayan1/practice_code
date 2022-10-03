@@ -19,7 +19,6 @@ let binaryTreePaths = (root) => {
                 if (root.left) buildPaths(root.left, path)
                 if (root.right) buildPaths(root.right, path)
             }
-
         }
     }
     buildPaths(root)

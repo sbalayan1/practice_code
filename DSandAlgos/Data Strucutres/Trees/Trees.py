@@ -25,13 +25,44 @@
     #a unique path traverses from root to each index
     #if each node in the tree has a max of two children. 
 
-#representing a tree using Nodes and references between instances
+#What are the properties of a binary tree?
+    # at most 2 children per node
+    # one root node
+    # exactly one path between the root and any node
+
+
+#representing a tree using Nodes and references between instances using Python
+
+from contextlib import nullcontext
+
 
 class Node(object):
     def __init__(self, val):
         self.val = val
         self.left = None
         self.right = None
+
+# JAVASCRIPT
+        class Node {
+            constructor(val) {
+                this.val = val;
+                this.left = null;
+                this.right = null;
+            }
+        }
+
+        const a = new Node('a')
+        const b = new Node('b')
+        const c = new Node('c')
+        const d = new Node('d')
+        const e = new Node('e')
+        const f = new Node('f')
+
+        a.left = b
+        a.right = c
+        b.left = d
+        b.right = e
+        c.right = f
 
 
 # the current node has no existing left child
