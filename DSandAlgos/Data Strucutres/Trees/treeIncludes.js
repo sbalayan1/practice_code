@@ -48,7 +48,7 @@ time: O(n)
 space: O(n)
 
 function treeIncludesRecursive(root, target) {
-    if (!root) return false //what is my base case ? I don't find a node, if there's no node, return false
+    if (!root) return false //what is my affirmative and my negative base case ? I don't find a node, if there's no node, return false
     if (root.val == target) return true //if I find a node whose value == the target return true
     return treeIncludesRecursive(root.left, target) || treeIncludesRecursive(root.right, target)
 }
