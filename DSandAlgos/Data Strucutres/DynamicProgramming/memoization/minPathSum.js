@@ -83,7 +83,7 @@ var minPathSumOptimized = function(grid, row=0, col=0, memo={}) {
     
     let smallest = Math.min(minPathSum(grid, row+1, col, memo), minPathSum(grid, row, col+1, memo))
     memo[pos] = smallest + grid[row][col]
-    return smallest + grid[row][col]
+    return memo[pos]
 }
 
 console.log(minPathSumOptimized(grid)) //=> 52

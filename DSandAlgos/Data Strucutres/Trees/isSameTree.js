@@ -1,5 +1,14 @@
 // Given the roots of two binary trees p and q, write a function to check if they are the same or not. Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
 
+
+// Things to think about?
+    // What type of search should I use? BFS or DFS?
+    // What are my base cases if I use recursion?
+        //if p is null and q is not null, what should we return?
+        //if both p and q are null, what should we return?
+        //if p.val != q.val what should we return?
+
+
 //my solution
 let isSameTree = function(p, q) {
     if (!p && !q) return true
@@ -38,5 +47,15 @@ let isSameTree = function(p, q) {
 //iterative solution using stack
 let isSameTree = function(p, q) {
     let stack = [[p,q]]
+    while(stack.length > 0) {
+        let [nodeP, nodeQ] = stack.pop()
+
+        if ((nodeP && nodeQ) && (nodeP.val == nodeQ.val)) {
+            stack.push([nodeP.left, nodeQ.left], [nodeP.right, nodeQ.right])
+        } else if (nodeP || nodeQ) {
+            return false
+        }
+    }
+    return true
 }
 
