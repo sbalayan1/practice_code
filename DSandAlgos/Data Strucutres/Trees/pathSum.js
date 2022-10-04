@@ -18,3 +18,16 @@ let hasPathSum = (root, target) => {
 
     return hasPathSum(root.left, target-root.val) || hasPathSum(root.right, target-root.val)
 }
+
+let hasPathSumIterative = (root, target) => {
+    if (!root) return false
+    let stack = [[root, target]]
+    while (stack.length > 0) {
+        let [curr, currSum] = stack.pop()
+        currSum -= curr.val
+        if (!curr.left && !curr.right && currSum == 0) return true
+        if (curr.left) stack.push([curr.left, currSum])
+        if (curr.right) stack.push([curr.right, currSum])
+    }
+    return false
+}
