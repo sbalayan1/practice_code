@@ -310,6 +310,14 @@ Command practice
 
 
     OTHER: 
+        if syntax => if(employee_id % 2 =1 and name not like 'M%', salary , 0)
+                    if (condition, return value if true, return value if false)
+        CASE syntax => 
+                UPDATE salary SET sex = CASE sex WHEN 'm' THEN 'f' ELSE 'm' END
+                // Write an SQL query to swap all 'f' and 'm' values (i.e., change all 'f' values to 'm' and vice versa) with a single update statement and no intermediate temporary tables.
+
+                UPDATE salary SET sex = if(sex='m', 'f', if(sex='f', 'm', 'f'))
+
         Top-Tip: In sqlite3, you can format the output of your select statements with a few helpful options:
             .headers on      # output the name of each column
             .mode column     # now we are in column mode, enabling us to run the next two .width commands
