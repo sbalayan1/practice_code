@@ -1,5 +1,22 @@
 const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } = require("react/cjs/react.production.min")
 
+    1.5hrs 
+    danny coureia
+    google meet
+    invitation to a virtual whiteboard
+    coding algorithm
+    some front end some back end
+    javascript sql
+    ruby sql
+
+
+    2x 45min interview 
+    brittney jacobs
+    product management team
+
+    2x google calendar invites
+    applicant tracking system
+
 What is a database? 
     - is a way to organize database
     - large collections of data
@@ -99,12 +116,81 @@ Relating Tables with Foreign Keys
                 hana        tabby          mugumogu
 
         -> LEFT (OUTER) JOIN
-            - returns all rows from the left table and the matched rows from the right table
+            - returns all rows from the left table and the matched rows from the right, regardless of whether or not they meet the join condition. The query will also return the matched data from the right or second table. 
+
+            -> boilerplate
+                SELECT column_name(s)
+                FROM first_table
+                LEFT JOIN second_table
+                ON first_table.column_name = second_table.column_name;
+
+            -> Example
+                SELECT cats.name, cats.breed, owners.name
+                FROM cats
+                LEFT OUTER JOIN owners
+                ON cats.owner_id = owners.id
+
+                name             breed            name
+                ---------------  ---------------  ----------
+                Maru             Scottish Fold    mugumogu
+                Hana             Tabby            mugumogu
+                Nona             Tortoiseshell    Sophie
+                Lil' Bub         perma-kitten
+
+            -> Here, our LEFT JOIN has returned to us all of the cats (including Lil' Bub!), with matched data regarding owner's name for those cats that have an owner, and empty space in the owner's name column for the cat that doesn't have an owner
+
+            ->*** As you can see, with a left join, all the data is returned from the first table regardless of whether there's a foreign key match in the second table. We get back all the data from the cats data, and we get data from the owners table when our cats table has an owner_id that corresponds with an id in the owners table.****
         
 
         => SELECT customers.name AS 'customers' FROM customers WHERE customerId NOT IN (SELECT customerId FROM orders);
             -> select customerId from orders:  gets us a list of the customers who have made orders
             -> we then use the NOT IN query to get customers who are not in the ^above list.
+
+RELATIONSHIPS
+    JOIN TABLE
+        - a join table contains common fields from two or more other tables
+        - typically a join table has a column for the tables that they are joining. Each column is typically a foreign key which references a primary key from the related table.
+
+        => creating a join table
+            CREATE TABLE cat_owners (
+                cat_id INTEGER, 
+                owner_id INTEGER
+            )
+
+    ONE TO MANY
+        -> one owner HAS MANY cats and a cat BELONGS TO an owner
+        -> the table that contains the foreign key is the table where entities belong to other entities
+        -> This relationship works ebcause multiple entities in the child table or belonging table can have the same foreign key. 
+
+    MANY TO MANY
+        -> utilizes a JOIN table to let our CATS table have many owners
+        -> one row in our join table represents one cat/owner relationship
+        -> a many to many relationship is essentially TWO ONE TO MANY RELATIONSHIPS that go THROUGH a common join table. 
+                - to get from a cat to all of its owners, we must go THROUGH the cat_owners table. 
+        -> another way to describe this relationship is a cat HAS MANY owners THROUGH the cat_owners table. 
+
+        Example
+        -> let's say Nona the cat has acquired a second owner, Penny. How would we represent that Nona has two owners, Sophie and Penny
+
+        -> INSERT INTO cat_owners (cat_id, owner_id) VALUES (3, 2)
+            - here we insert a new row into the cat_owners join table and set the row's cat_id to Nona's id of 3 and the owner_id to Sophie's id of 2
+        
+        -> Querying the JOIN table
+            - SELECT cat_owners.owner_id FROM cat_owners WHERE cat_id = 3;
+
+                ^the above SELECTS from the join table table all owners who are associated to cat number 3
+            
+            -We can improve our queries to return further information by querying our join tables using JOIN statements
+
+                - SELECT owners.name FROM owners INNER JOIN cat_owners ON owners.id = cat_owners.owner_id WHERE cat_owners.cat_id = 3;
+
+                
+
+            
+
+
+
+
 
 SQL
     -> is the language that lets us QUERY the database. 
@@ -317,6 +403,10 @@ Command practice
                 // Write an SQL query to swap all 'f' and 'm' values (i.e., change all 'f' values to 'm' and vice versa) with a single update statement and no intermediate temporary tables.
 
                 UPDATE salary SET sex = if(sex='m', 'f', if(sex='f', 'm', 'f'))
+
+        Write an SQL query to delete all the duplicate emails, keeping only one unique email with the smallest id. Note that you are supposed to write a DELETE statement and not a SELECT one.
+            DELETE p1 FROM Person p1, Person p2 WHERE p1.email = p2.email AND p1.id > p2.id
+            
 
         Top-Tip: In sqlite3, you can format the output of your select statements with a few helpful options:
             .headers on      # output the name of each column
