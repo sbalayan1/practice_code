@@ -182,9 +182,60 @@ RELATIONSHIPS
             
             -We can improve our queries to return further information by querying our join tables using JOIN statements
 
-                - SELECT owners.name FROM owners INNER JOIN cat_owners ON owners.id = cat_owners.owner_id WHERE cat_owners.cat_id = 3;
+                boilerplate
+                - SELECT column(s)
+                FROM table_one
+                INNER JOIN table_two
+                ON table_one.column_name = table_two.column_name
+                WHERE table_two.column_name = condition;
 
-                
+                example 1
+                    - SELECT owners.name FROM owners INNER JOIN cat_owners ON owners.id = cat_owners.owner_id WHERE cat_owners.cat_id = 3;
+
+                    SELECT owners.name 
+                        - declares the column data we want to return
+
+                    FROM owners 
+                        - specfies the table we are querying
+
+                    INNER JOIN cat_owners ON owners.id = cat_owners.owner_id 
+                        - joins the cat_owners table ON the owners table and tells our query to look for owners whose id matches the owner_id in the cat_owners table
+                    
+                    WHERE cat_owners.cat_id = 3;
+                        - tells our query to look at the cat_owners table where the cat_id = 3. Then for those rows, cross reference the owner_id column in cat_owners with the id column in the owners table
+
+                example 2
+                    - query the join table for the names of all cats owned by sophie. Remember sophie has an id = 2
+
+                    - this should return 
+                    name
+                    ---------------
+                    Nona
+                    Maru
+
+                    SELECT cats.name 
+                    FROM cats 
+                    INNER JOIN cat_owners ON cats.id = cat_owners.cat_id 
+                    WHERE cat_owners.owner_id = 2
+
+                example 3
+                    - query the join table for names of all cats and owners
+                    - here we join the third table in our query (owners) by expanding the query using the same pattern using foreign and primary keys
+
+                    SELECT cats.name AS cat_name, owners.name AS owner_name
+                    FROM cats
+                    INNER JOIN cat_owners ON cats.id = cat_owners.cat_id
+                    INNER JOIN owners ON cat_owners.owner_id = owners.id;
+
+                    -> this returns info about both the owners and cats
+                    cat_name    owner_name
+                    ----------  ----------
+                    Nona        Sophie
+                    Nona        Penny
+                    Maru        Sophie
+
+
+
 
             
 
