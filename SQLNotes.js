@@ -1,22 +1,3 @@
-const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } = require("react/cjs/react.production.min")
-
-    1.5hrs 
-    danny coureia
-    google meet
-    invitation to a virtual whiteboard
-    coding algorithm
-    some front end some back end
-    javascript sql
-    ruby sql
-
-
-    2x 45min interview 
-    brittney jacobs
-    product management team
-
-    2x google calendar invites
-    applicant tracking system
-
 What is a database? 
     - is a way to organize database
     - large collections of data
@@ -447,13 +428,44 @@ Command practice
 
 
     OTHER: 
-        if syntax => if(employee_id % 2 =1 and name not like 'M%', salary , 0)
+        IF
+            syntax => if(employee_id % 2 =1 and name not like 'M%', salary , 0)
                     if (condition, return value if true, return value if false)
-        CASE syntax => 
+        CASE 
+            syntax => 
                 UPDATE salary SET sex = CASE sex WHEN 'm' THEN 'f' ELSE 'm' END
                 // Write an SQL query to swap all 'f' and 'm' values (i.e., change all 'f' values to 'm' and vice versa) with a single update statement and no intermediate temporary tables.
 
                 UPDATE salary SET sex = if(sex='m', 'f', if(sex='f', 'm', 'f'))
+        
+        GROUP_CONCAT(expression1) => returns a string with cocatenated non-NULL values from a group
+
+        CONCAT(expression1, expression2, expression3, ...) => adds expressions together
+            ex. SELECT CONCAT(UPPER(SUBSTR(users.name), 1, 1), LOWER(SUBSTR(users.name, 2))) AS name
+
+        SUBSTR(string, start, length) => extracts a substring from a string starting at any position
+            ex. UPPER(SUBSTR(users.name, 1, 1))
+
+        UPPER/LOWER => capitalize or lowercase the entire string. Example: LOWER(users.name) 
+
+        OFFSET/LIMIT
+            - to limit the number of rows returned by your select statement, use the limit and offset clauses
+            - ex. LIMIT row_count OFFSET offset; 
+                    - The limit row_count determines the number of rows returned by the query.
+                    - The OFFSET offset skips the number of specified rows before returning the rows
+
+        UNION
+            - used to combine the results of two or more SELECT statement
+                - The select statements must have the same number of columns
+                - the columns must also have similar data types
+                - the columns in either select must be in the same order
+
+            - note, union by default selects distinct values. To allow duplicates, use UNION ALL
+
+            SELECT column_name(s) FROM table1;
+            UNION
+            SELECT column_name(s) FROM table2
+
 
         Write an SQL query to delete all the duplicate emails, keeping only one unique email with the smallest id. Note that you are supposed to write a DELETE statement and not a SELECT one.
             DELETE p1 FROM Person p1, Person p2 WHERE p1.email = p2.email AND p1.id > p2.id
