@@ -7,7 +7,7 @@ What is a database?
     
 Relational Databases
     -> Primary Key
-        - a column in a table with an ID that uniquely identifies a specific record or row in a table.
+        - a column in a table witcd 
 
     -> Foreign Key
         - a column in a table that refers to a primary key in another table. 
