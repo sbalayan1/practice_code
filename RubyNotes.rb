@@ -44,3 +44,7 @@ Instance Variables
             @this_dogs_name
         end
     end
+
+Macros
+    - metaprogramming is where we automate repetitive tasks to make our lives easier. 
+    - a macro is an example of metaprogramming. Here we use the attr macros to abstract away the manual definitions of setter and getter methods.
