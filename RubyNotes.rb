@@ -6,6 +6,8 @@ instance
     -> is a single occurrence of an obj
     -> instances refer to the individual objects produced from the class
 
+note, unlike JS, whenever we use dot notaion in Ruby, were calling a method on an object.
+
 Ruby Object Notation => #<Dog:0x007fc52c2cc588>
     -> is the default way that ruby communicates to you that you are dealing with an object or instance of a particular class
     -> the above tells you that the object is an instance of Dog and 0x007fc52c2cc588is its object identifier. This identifier is where the object lives inside the computer.
@@ -32,7 +34,7 @@ Instance Variables
         end
     end
 
-    
+    #***** by changing this_dogs_name to an instance variable, we effectively change its scope and make the variable available to all instance methods defined within the class ******
     class Dog2
         def name=(dog_name)
             @this_dogs_name = dog_name
