@@ -48,3 +48,7 @@ Instance Variables
 Macros
     - metaprogramming is where we automate repetitive tasks to make our lives easier. 
     - a macro is an example of metaprogramming. Here we use the attr macros to abstract away the manual definitions of setter and getter methods.
+    - attr_accessor, attr_reader, attr_writer
+
+Initialization
+    - the initialize method assigns properties to an instance upon creation or instantiation
