@@ -20,6 +20,8 @@ What is GraphQL
     -> note queries can take arguments
     -> ! exclamation point makes an argument required
 
+    npm i --save-dev nodemon => saves the nodemon dependency as a dev dependency and lets us reload our server whenever we save our files
+
 Union Type Fragments
 Mutations
     -> mutations write data or change data on the server
