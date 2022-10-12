@@ -1,2 +1,70 @@
 NextJS => creates fast SEO react apps with zero config
-traditionally, react apps are rendered client side. The browser starts with a shell of an html page, with no rendered content. From there, the browser fetches the js file containing the react file to render content to the page and make it interactive. 
+
+Traditionally, react apps are rendered client side. The browser starts with a shell of an html page, with no rendered content. From there, the browser fetches the js file containing the react file to render content to the page and make it interactive. 
+
+    There are two major drawbacks:
+        1.the content is not reliably indexed by all search engines or read by social media link bots
+        2. in can take longer to reach the first contentful paint when a user lands on the webpage
+
+NextJS is a framework that lets you to build a react app but render the content in advance on the server. This way the first thing a user or search bot sees is the fully rendered html. After receiving this init page, client side rendering takes over and it works like a traditional react app. 
+    => fully renderedd content for bots
+    => interactive content for users
+
+Pages directory
+    - each js file defined here, exports a react component that represents a route in the application
+    - the file structure in pages, mirrors the routes/urls the user will navigate to.
+    - NextJS provides its own router called useRouter to make navigation seamless
+        ex. 
+
+        import {useRouter} from 'next/router'
+        export default function Car() {
+            const router = useRouter()
+            const {name} = router.query
+            return <h1>{name}</h1>
+        }
+
+    _app.js 
+        - is the main entry point into the app
+        - every individual page will start from this template
+    index.js
+        - is the first available page 
+        - points to the root url
+        - when a user navigates to the root url, nextjs finds the default export in the file
+
+    implementing dynamic routes
+        - let's say we want to create dynamic routes like so => /cars/:id
+        - we can create a directory called cars
+        - inside of that directory, we can have an index.js that shows the main list of cars
+        - for each individual car, we'll add a component called [id].js
+            - the boilerplate for the file naming is [param].js
+            - the [] make the route dynamic thus anytime the user navigates to cars/tesla or cars/lambo, nextjs will render the component in this file.
+
+            - import { useRouter } from "next/router"; //allows us to access the query parameters from the url
+            - this lets us do things like, 
+                const router = useRouter()
+                const {id} = router.query
+                return <h1>{id}</h1>
+    
+API directory
+    -> the api directory is for setting up routes that will only apply to the server
+
+Data Fetching
+    - NextJS can perform multiple server rendering strategies from a single project
+    - Static Generation aka prerendering -> great for things that don't change often like blogs
+        - allows you to render your page at build time
+        - to do this, have a page implement getStaticProps()
+        - getStaticProps() will fetch data from a cloud database for isntance, then pass the data as props to the component
+        - you can then build your app to render out the html locally and upload it to a storage bucket where it can be easily cached by a cdn.
+    
+    - Server Side rendering - great for pages that must change often
+        - builds the html page everytime it's requested by the user
+        - here nextjs generates each page at request time. 
+        - getServerSideProps() -> great for pages with rapidly changing data
+            -> basically instead of running at build time, this function runs at request time
+            - that means the page will fetch the latest data on the server, each time a new request comes in
+    
+    - incremental static regeneration
+        - regenerates single pages in the background
+        - by adding a revalidate option to getStaticProps => next can regenerate a page whenever a new request comes in within a certain time interval
+
+    
