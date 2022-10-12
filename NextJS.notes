@@ -47,9 +47,12 @@ Pages directory
     
 API directory
     -> the api directory is for setting up routes that will only apply to the server
+    -> useful because the code written here won't increase the client side javascript bundle that needs to be sent over the network
+    -> useful feature for work done on the backend or for exposing api to end users
 
 Data Fetching
     - NextJS can perform multiple server rendering strategies from a single project
+    - nextjs lets us fetch data and render html on the server. This lets users get rendered content quicker 
     - Static Generation aka prerendering -> great for things that don't change often like blogs
         - allows you to render your page at build time
         - to do this, have a page implement getStaticProps()
