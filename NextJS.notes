@@ -1,0 +1,2 @@
+NextJS => creates fast SEO react apps with zero config
+traditionally, react apps are rendered client side. The browser starts with a shell of an html page, with no rendered content. From there, the browser fetches the js file containing the react file to render content to the page and make it interactive. 
