@@ -52,12 +52,24 @@ API directory
 
 Data Fetching
     - NextJS can perform multiple server rendering strategies from a single project
-    - nextjs lets us fetch data and render html on the server. This lets users get rendered content quicker 
+    - nextjs lets us fetch data and render html on the server. This lets users get rendered content quicker, content can be crawled by search bots and social media link bots. 
     - Static Generation aka prerendering -> great for things that don't change often like blogs
-        - allows you to render your page at build time
+        - allows you to render your page at build time 
+        - aka generate all of the html at build time
         - to do this, have a page implement getStaticProps()
         - getStaticProps() will fetch data from a cloud database for isntance, then pass the data as props to the component
+            - at build time, nextjs calls the above function, then sends result as props to the component itself
         - you can then build your app to render out the html locally and upload it to a storage bucket where it can be easily cached by a cdn.
+
+        Tradeoffs
+            - data can become stale. if the data on the server changes, you need to rebuild and redeploy for the changes to be reflected
+            - hard to scale many pages. if your website has a ton of pages, it may be difficult to prerender them.
+        
+        implementation
+
+
+
+
     
     - Server Side rendering - great for pages that must change often
         - builds the html page everytime it's requested by the user
