@@ -135,9 +135,30 @@ implicit receiver vs explicit receiver
 Private Methods
     -> Private methods cannot be called by an explicit receiver. What does that mean? It means we can only call private methods within the context of the defining class: the receiver of a private method is always self.
     -> Private methods are a way of encapsulating functionality within a class. 
+    -> note the receiver of a private method is always self
 
 Inheritance
     -> inheritance occurs when one class inherits from another. Here, the child class takes on all of the methods and behaviors of the parent class. 
+    -> inheritance syntax implies that a class is a TYPE of another class. For instance BMW < Car implies that bmw is a type of car. With modules, BMW::Car, the BMW class has access to all of the Car module's functionality without stating that a BMW is a type of car. 
+
+Modules
+    -> Modules are used to share functionality. They allow us to collect and a bundle a group of methods and make those methods available to other classes. 
+    -> To lend our two classes all of the methods of the Dance module, we use the include keyword. If we use the include keyword, we allow our classes to use all of the methods of the included module as instance methods.
+    -> The benefit of modules is we can share behavior between multiple classes without relying on inheritance.
+    -> In order to lend a module's methods to a class as class methods, we use the extend keyword. 
+
+    -> module namespacing lets us desginate class methods and instance methods inside of a single module so that we don't ahve to separate these methods into two separate modules.
+
+    -> name spacing can also be used to namespace classes. For example
+        module ActiveRecord
+            class Base
+            end
+
+            class Migration
+            end
+        end 
+
+        -> here namespacing avoids variable collision. By using namespacing we can tell that these class definitions are specific to the activerecord module. To use these class definitions, we do ActiveRecord::Base or ActiveRecord::Migration
 
 Custom Errors
     example:
