@@ -159,6 +159,58 @@ Modules
         end 
 
         -> here namespacing avoids variable collision. By using namespacing we can tell that these class definitions are specific to the activerecord module. To use these class definitions, we do ActiveRecord::Base or ActiveRecord::Migration
+Super
+    -> super within a method, tells that method to find the identical method in its parent and execute that code. Super basically lets us use code in parent class's or modules then use additional code in the class's method.
+
+    class User
+        def log_in
+            @logged_in = true
+        end
+    end
+
+    class Student < User
+        def log_in
+            super
+            @in_class = true
+        end
+    end
+
+    -> in the log_in method above, the super keyword will call the log_in method in the parent class. Then the additional code in our log_in method will run. 
+
+    => Calling super with arguments
+        -> we can use super to call methods on a parent class from the child class, even passing arguments
+        -> #notice here how both the user and student class initialize a name instance variable. 
+        -> example
+    
+            class User
+                attr_accessor :name
+                def initialize name
+                    @name = name 
+                end
+
+                def log_in
+                    @logged_in = true
+                end
+            end
+
+            class Student < User
+                attr_accessor :name
+                def initialize name, grade
+                    #@name = name
+                    super(name) 
+                        #super calls the initialize method ON the super class. This gets rid of redundant duplicate @name instance variables and lets us keep our code DRY.
+                    @grade = grade
+                end
+
+                def log_in
+                    super
+                    @in_class = true
+                end
+            end
+
+Environment.rb
+    -> instead of requiring files within one another. We can create an environment file to handle those requirements.
+    -> One neat benefit to requiring all files in the environment.rb is that our spec_helper only needs to require one file. This way when we use the spec_helper in any of the individual spec files, we don't have to require the files individually.
 
 Custom Errors
     example:
