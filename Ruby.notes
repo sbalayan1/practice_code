@@ -22,7 +22,9 @@ Instance Variables
     
     -> instance variables are bound to an instance of a class
         - this means that when we set the attribute on an instance, the value we set is associated with that particular instance.
-    
+    -> instance variables are responsible for holding information regarding an instance
+    -> it has instance scope => meaning it is available to all instance methods in the class
+
     # example below has a setter and getter method that sets the dog_name to the LOCAL VARIABLE this_dogs_name, notice you run into an error because this_dogs_name is a local variable and cannot be accessed outside of #name=(dog_name)
     class Dog
         def name=(dog_name)
@@ -49,6 +51,24 @@ Macros
     - metaprogramming is where we automate repetitive tasks to make our lives easier. 
     - a macro is an example of metaprogramming. Here we use the attr macros to abstract away the manual definitions of setter and getter methods.
     - attr_accessor, attr_reader, attr_writer
+
+    -> note that when you use these methods for variables that are not instance variables, ruby auto sets these variables to nilClass and will print nothing or 0
+    -> Example
+
+    class Test
+        attr_accessor :random
+
+        def initialize
+        end
+
+        def check_random
+            puts random.class #this will print NilClass
+            puts random #this will print nothing
+        end
+    end
+
+    test = Test.new()
+    test.check_random
 
 Initialization
     - the initialize method assigns properties to an instance upon creation or instantiation
@@ -97,13 +117,23 @@ implicit receiver vs explicit receiver
                         end
         end
 
-        def hygiene=(value)
-            @hygiene = if value > 10
-                10
-            elsif value < 0
-                0
-            else 
-                value
-            end
-        end
     end
+
+    Class Variables
+        -> a class is an object itself
+        -> class variables are used to store values related to the class rather than a particular instance
+        -> class methods are used to implement behavior related to a class rather than a particular instance
+            example
+            def self.className
+
+            end
+        -> a class variable has class scope and is available to the entire class. thus we can access class variables in both isntance and class methods
+
+        -> class constants => GENRES = ["Hip-Hop", "Pop", "Jazz"]
+        -> class constants are accessible outside of a class like so Album::GENRES => ["Hip-Hop", "Pop", "Jazz"]
+
+
+Other notes
+    tally => used to hash the elements of an array and count occurences
+        example. ['bob', 'bob', 'bob'] => {bob => 3}
+    clamp => 
