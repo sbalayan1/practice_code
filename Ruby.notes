@@ -52,3 +52,58 @@ Macros
 
 Initialization
     - the initialize method assigns properties to an instance upon creation or instantiation
+
+self
+    - is a special variable that points to the object that owns the current executing code.
+    - self refers to the instance or class the method is being called on.
+    - self is called the explicit receiver syntax. https://learning.flatironschool.com/courses/3315/pages/implicit-self?module_item_id=279245
+    - note self cannot be called implicitly on setter methods
+
+implicit receiver vs explicit receiver
+    - explicit receiver syntax is where we use self to call other instance methods from a single class. For instance self.bark is explicit syntax where self receives the bark method
+    - implicit receiver syntax is the same except we omit the self keyword when calling other instance methods. When ruby encounters a bare method, it will attempt to use that method and call it on self. 
+
+    example:
+    class Person
+        attr_reader :name, :happiness, :hygiene
+        attr_accessor :bank_account
+
+        def initialize name
+            @name = name
+            @bank_account = 25
+            @happiness = 8
+            @hygiene = 8
+        end
+
+        # def happiness
+        #     @happiness #represents the instance variable happiness
+        #     #happiness #implicit receiver syntax that calls self.happiness. this calls the happiness method over and over again and creates an infinite loop
+        # end
+
+        def happiness=(value)
+
+            # self.happiness = 0 #explicit receiver syntax calls the happiness setter method over and over again, regardless of what's passed as val
+            
+            #happiness = 50 here ruby views the implicit receiver as a variable assignment. Thus if you print happiness, you will get 50 because the variable happiness is 50. That being said, ruby will still attempt to apply self to the puts happiness. This results in the call and print of the happiness getter method. If you put a print in the happiness method, you'll see this method print both 50 and 8.
+
+
+            #thus we need to reference the instance variable here in this setter method
+            @happiness = if value > 10
+                            10
+                        elsif value < 0
+                            0
+                        else 
+                            value
+                        end
+        end
+
+        def hygiene=(value)
+            @hygiene = if value > 10
+                10
+            elsif value < 0
+                0
+            else 
+                value
+            end
+        end
+    end
