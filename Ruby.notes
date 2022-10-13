@@ -132,6 +132,47 @@ implicit receiver vs explicit receiver
         -> class constants => GENRES = ["Hip-Hop", "Pop", "Jazz"]
         -> class constants are accessible outside of a class like so Album::GENRES => ["Hip-Hop", "Pop", "Jazz"]
 
+Private Methods
+    -> Private methods cannot be called by an explicit receiver. What does that mean? It means we can only call private methods within the context of the defining class: the receiver of a private method is always self.
+    -> Private methods are a way of encapsulating functionality within a class. 
+
+Inheritance
+    -> inheritance occurs when one class inherits from another. Here, the child class takes on all of the methods and behaviors of the parent class. 
+
+Custom Errors
+    example:
+        class Person
+
+            def get_married person
+                if person.is_a? Person
+                else 
+                    raise PartnerError #using the raise method, we tell ruby to invoke the PartnerError when the person passed is not of the Person class.
+                end
+            end
+
+            class PartnerError < Standard Error #here the custom error called PartnerError, inherits all behavior from the standard error class
+                def message
+                    "you must give the get_married method an argument of an instance of the person class!"
+                end
+            end
+        end
+    
+    -> To rescue errors and allow your program to continue running, we need to rescue from the error. Otherwise, we will be stuck in the error response
+        example:
+
+            def get_married person
+                if person.is_a? Person
+                else
+                    begin
+                        raise PartnerError
+                    rescue PartnerError => error #error here is a parameter and represents the error property in PartnerError
+                        puts error.message
+                    end
+                end
+            end
+
+        -> the rescue method creates an instance of the PartnerError class and calls then prints the result of the message methods call.
+
 
 Other notes
     tally => used to hash the elements of an array and count occurences
