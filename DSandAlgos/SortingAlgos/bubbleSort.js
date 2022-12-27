@@ -14,16 +14,16 @@ function bubbleSort2(arr) {
 }
 
 function bubbleSort(arr) {
-    console.time()
+    // console.time()
     for (let i = 0; i<arr.length; i++) {
         let j = i + 1
-        while(arr[i] > arr[j]) {
+        while(arr[i] > arr[j]) {s
             [arr[i], arr[j]] = [arr[j], arr[i]]
             j++
         }
 
     }
-    console.timeEnd()
+    // console.timeEnd()
     return arr
 }
 

@@ -1,9 +1,8 @@
 function partition(arr, start, end) {
-    let pivot = arr[start]
     let swapIdx = start
 
     for (let i = start+1; i<=end; i++) {
-        if (arr[i] > pivot) {
+        if (arr[i] > arr[start]) {
             swapIdx ++
             [arr[swapIdx], arr[i]] = [arr[i], arr[swapIdx]]
         }
