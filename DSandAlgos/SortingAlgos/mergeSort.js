@@ -35,13 +35,13 @@ const bestCase = [1,2,3,4,5] //array comes presorted
 
 
 //Thinking through time complexity, in all cases we will need to split an array into subarrays
-                [1,2,3,4,5]
-               /           \
-            [1, 2]         [3,4,5]
-            /    \          /     \
-          [1]    [2]       [3]    [4,5]
-                                  /    \
-                                [4]    [5]
+        //         [1,2,3,4,5]
+        //        /           \
+        //     [1, 2]         [3,4,5]
+        //     /    \          /     \
+        //   [1]    [2]       [3]    [4,5]
+        //                           /    \
+        //                         [4]    [5]
 
     //The height of the tree is n-1
 
@@ -58,3 +58,37 @@ const bestCase = [1,2,3,4,5] //array comes presorted
         //well the while loop only runs n times. Left and right have equal lengths so in all cases, the loop will execute n times. Therefore the time complexity of the merge operation is O(n)
 
     // Binary Search that whenever we divide a number into half in every step, it can be represented using a logarithmic function, which is log n and the number of steps can be represented by log n + 1(at most). Since the time complexity of our divide is (log n + 1) and our merge is O(n) our time complexity then becomes O(n*log n) in all cases.
+
+//recursive binary search
+//iterative binary search
+    const iter_binary_search = (arr, num) => {
+        let left = 0, right = arr.length - 1
+        while (left <= right) {
+            if (arr[left] == num) return left
+            if (arr[right] == num) return right
+
+            let mid = Math.floor((left + right)/2)
+            if (arr[mid] == num) return num
+            if (arr[mid] > num) {
+                right = mid-1
+            } else {
+                left = mid + 1
+            }
+        }
+
+        return -1
+    }
+
+        // [1,2,3,4,5], 4
+        // left = 0
+        // right = 4
+        // mid = 2
+
+        // left = 1
+        // right = 4
+        // mid = 2
+
+        // left = 2
+        // right = 4
+        // mid = 3
+
