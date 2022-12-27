@@ -9,9 +9,9 @@ const mergeArrays = (left, right) => {
 }
 
 const mergeSort = (arr) => {
-    if (arr.length <= 1) return arr
+    if (arr.length <= 1) return arr 
     const mid = Math.floor(arr.length/2)
-    return mergeArrays(mergeSort(arr.slice(0, mid)), mergeSort(arr.slice(mid, arr.length)))
+    return mergeArrays(mergeSort(arr.slice(0, mid)), mergeSort(arr.slice(mid, arr.length))) 
 }
 
 const arr = [4,3,5,89,10, 1000, 0, 1]
@@ -56,3 +56,5 @@ const bestCase = [1,2,3,4,5] //array comes presorted
         }
 
         //well the while loop only runs n times. Left and right have equal lengths so in all cases, the loop will execute n times. Therefore the time complexity of the merge operation is O(n)
+
+    // Binary Search that whenever we divide a number into half in every step, it can be represented using a logarithmic function, which is log n and the number of steps can be represented by log n + 1(at most). Since the time complexity of our divide is (log n + 1) and our merge is O(n) our time complexity then becomes O(n*log n) in all cases.
