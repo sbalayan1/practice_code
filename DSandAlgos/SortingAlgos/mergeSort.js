@@ -1,4 +1,3 @@
-
 const mergeSort = (arr) => {
     if (arr.length <= 1) return arr
     let mid = Math.floor(arr.length/2)
@@ -6,46 +5,18 @@ const mergeSort = (arr) => {
 }
 
 const mergeArrays = (left, right) => {
+    let output = []
+    while (left.length > 0 && right.length > 0) {
+        let elem = left[0] < right[0] ? left.shift() : right.shift()
+        output.push(elem)
+    }
 
+    return output.concat(left, right)
 }
 
-const arr = [5,4,3]
-mergeSort(arr)
-
-mid = 1
-    //left mergeSort
-        arr = [5]
-        returns [5]
-
-    //right mergeSort
-        arr = [4,3]
-        mid = 1
-
-        //left mergeSort
-            arr = [4]
-            returns [4]
-        
-        //right mergeSort
-            arr = [3]
-            returns [3]
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
+const arr = [4,3,5,89,10, 1000, 0, 1]
+console.log(mergeSort(arr))
+console.log(mergeSort(['beg','life','i','to','james brown']))
 
 
 
