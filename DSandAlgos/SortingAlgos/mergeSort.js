@@ -15,8 +15,8 @@ const mergeSort = (arr) => {
 }
 
 const arr = [4,3,5,89,10, 1000, 0, 1]
-console.log(mergeSort(arr))
-console.log(mergeSort(['beg','life','i','to','james brown']))
+// console.log(mergeSort(arr))
+// console.log(mergeSort(['beg','life','i','to','james brown']))
 
 const worstCase = []
     //Time Complexity: O(nlogn)
@@ -61,7 +61,7 @@ const bestCase = [1,2,3,4,5] //array comes presorted
 
 //recursive binary search
 //iterative binary search
-    const iter_binary_search = (arr, num) => {
+    const iterBinarySearch = (arr, num) => {
         let left = 0, right = arr.length - 1
         while (left <= right) {
             if (arr[left] == num) return left
@@ -79,16 +79,22 @@ const bestCase = [1,2,3,4,5] //array comes presorted
         return -1
     }
 
-        // [1,2,3,4,5], 4
-        // left = 0
-        // right = 4
-        // mid = 2
+    const recBinarySearch = (arr, currArr, num) => {
+        if (currArr[0] === num) return arr.indexOf(currArr[0])
+        const mid = Math.floor((currArr.length/2))
+        if (currArr[mid] === num) return arr.indexOf(currArr[mid])
+        if (currArr[mid] > num) return recBinarySearch(arr, currArr.slice(0, mid), num)
+        return recBinarySearch(arr, currArr.slice(mid, currArr.length), num)
+    }
 
-        // left = 1
-        // right = 4
-        // mid = 2
+    const alterRecBinarySearch = (arr, left, right, num) => {
+        if (left > right) return -1
+        let mid = Math.floor((left + right)/2)
+        if (arr[mid] === num) return mid
+        if (arr[mid] > num) return alterRecBinarySearch(arr, left, mid-1, num)
+        return alterRecBinarySearch(arr, mid+1, right, num)
+    }
 
-        // left = 2
-        // right = 4
-        // mid = 3
+    console.log(recBinarySearch([1,2,3,4,5], [1,2,3,4,5], 5))
+    console.log(alterRecBinarySearch([1,2,3,4,5], 0, 4, 5))
 
