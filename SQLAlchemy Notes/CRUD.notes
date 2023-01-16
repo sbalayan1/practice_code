@@ -6,10 +6,14 @@ What is an Identity Map?
     An identity map is a property within a Session object. It is similar to an empty dictionary and contains keys for table names, columns and primary keys. The identity map property is essentially the TRANSLATOR between the database and the SQL application. 
 
 ###Creating a Session
-    - to create a session, we need to import the sessionmaker class. This ensures that there is a consistent identity map for the duration of our session.
-    - what does the sessionmaker class do? 
+    - to create a session, we need to import the sessionmaker class. 
+    - By interacting with the database via a SESSION, we that there is a consistent identity map for the duration of our session (maybe) 
 
+    Questions:
+    - without a session, do we have access to identity mapping?
+    - what does the sessionmaker class do? 
     - how does sessionmaker(bind=engine) work?
+    
 
         #!/usr/bin/env python3
 
@@ -34,3 +38,84 @@ What is an Identity Map?
             session = Session() #this line creates an instance of the Session class
 
 ###Transactions
+    transactions are a way to execute SQL statements via ORM that ensures the statements fail or succeed as a group. 
+
+    A transaction proceeds like so:
+        transaction initiates -> database state recorded -> SQL statement executes -> SQL statement executes -> SQL statement executes -> transaction committed. 
+
+    If any of the SQL statements fail, the DB will be rolled back to the DB state recorded at the beginning of the transaction. The process will end and an error message returned.
+
+What are Indexes?
+    - indexes are used to speed up lookups on certain column values. This sets up an index for the name property. 
+
+    example:
+        class Student(Base):
+            __tablename__ = 'students'
+
+            Index('index_name', 'name')
+
+            id = Column(Integer(), primary_key=True)
+            name = Column(String())
+            email = Column(String())
+            grade = Column(Integer())
+            birthday = Column(DateTime())
+            enrolled_date= Column(DateTime(), default=datetime.now())
+
+What does the __repr__() method do? 
+    - the repr method determines the standard output value of a class. All python classes have them. 
+
+    example: 
+        def __repr__(self):
+            return f"Student {self.id}: {self.name}, Grade: {self.grade}"
+
+        student = Student(...)
+        print(student) => Student 1: Joseph Smith, Grade 4
+
+
+###Creating Records
+    To populate a database, we need to create records. We do this the same way we've always done in Python by creating a Student object
+
+    example:
+        #student class from above
+        
+        if __name__ == '__main__':
+            engine = create_engine('sqlite:///:memory:')
+            Base.metadata.create_all(engine)
+            Session = sessionmaker(bind=engine)
+            session = Session()
+
+            albert_einstein = Student(
+                name= "Albert Einstein",
+                email="albert.einstein@zurich.edu",
+                grade=6,
+                birthday=datetime(
+                    year=1879,
+                    month=3,
+                    day=14
+                )
+            )
+
+            alan_turing = Student(
+                name="Alan Turing",
+                email="alan.turing@sherborne.edu",
+                grade=11,
+                birthday=datetime(
+                    year=1912,
+                    month=6,
+                    day=23
+                ),
+            )
+
+            session.add(albert_einstein) #this line generates a statement and adds it to the overall session transaction. 
+
+            #to save multiple rows in a single line of code we can use the bulk_save_objects() instance method. Note that bulk_save_objects() will not update the IDs of the existing instances within your current Session.
+
+                session.bulk_save_objects([alan_turing, albert_einstein])
+
+            session.commit() #this line executes all statements in the transaction and saves any changes to the database. commit() will also update the Student object ID. 
+
+###Reading Records
+
+
+
+
