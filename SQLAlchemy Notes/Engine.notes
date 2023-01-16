@@ -1,0 +1,31 @@
+The Engine is a factory that can create new database connections and holds onto connections inside of a Connection Pool.  #the Engine object is the starting point for any SQLAlchemy application and is instantiated using the create_engine() function. It's the homebase for the ACTUAL database and the DBAPI. The database and DBAPI are delivered through a Dialect and connection Pool, which together interpret the DBAPI's module functions as well as the behavior of the database. The Engine object, references the Dialect and connection Pool. The engine once created can be used to either directly to interact with the database or passed to a Session object to work with the ORM.
+
+
+# The create_engine function() creates an engine object based on a URL. URLs typically include username, password, hostname, database name fields, as well as optional keyword arguments for additional configuration. In some cases a file path is accepted, and in others a “data source name” replaces the “host” and “database” portions. this is the typical form of a database URL:
+    dialect+driver://username:password@host:port/database
+
+    Dialect names identify the name of the SQLAlchemy dialect such as sqlite, mysql, postgresql, oracle, or mssql. The drivername is the name of the DBAPI to be used to connect to the database using all lowercase letters. If not specified, a “default” DBAPI will be imported. This default is typically the most widely known driver available for that backend
+
+    #the example below creates a Dialect object tailored towards PSQL and a Pool obj which will establish DBAPI connection at localhost:5432 when a connection is first received.
+        engine = create_engine("postgresql+psycopg2://scott:tiger@localhost:5432/mydatabase)
+
+
+##Creating URLs programmatically
+    The create_engine() function creates engines based on a URL. This means that the value passed to create_engine() can be an instance of URL. The below example creates a URL instance and passes that instance to the create_engine() function
+
+    from sqlalchemy import create_engine
+
+    if __name__ == __main__:
+        url_object = URL.create(
+            "postgresql+pg8000",
+            username="dbuser",
+            password="kx@jj5/g",
+            host="pghost10",
+            database="appdb",
+        )
+
+        engine = create_engine(url_object)
+        engine = create_engine("postgresql+pg8000://dbuser:kx%40jj5%2Fg@pghost10/appdb") #this line is the same as line 27
+        Base.metadata.create_all(engine)
+
+####Creating a URL using SQLite

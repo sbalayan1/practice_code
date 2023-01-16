@@ -1,0 +1,60 @@
+SQLAlchemy is a Python library that comes with two modes, SQLAlchemy Core and SQLAlchemy ORM. We will use SQLAlchemy ORM
+
+-> To install SQLAlchemy in a project, simply include sqlalchemy as a package in your pipfile and run pipenv install
+    example:
+        [packages]
+        sqlalchemy = "1.4.41"
+
+###Defining Tables via SQLAlchemy ORM
+    - Creating a table with SQLAlchemy ORM requires four key traits
+        1. inheritance from a declarative_base object. 
+        2. a __tablename__ class attribute
+        3. one or more Columns as class attributes
+        4. a Column specified to be the table's primary key
+
+        The below code defines a students table:
+
+            #!/usr/bin/env python3 ---> this is a shebang line. This specifies where the python3 interpreter is located. This line tells the OS to run the file using python3. This line lets us run our scripts without having to specify python3 like so => python3 script.py
+
+            from sqlalchemy import Column, Integer, String
+            from sqlalchemy.ext.declarative import declarative_base
+
+            Base = declarative_base()
+            #declarative_base combines a container for table metadata as well as a group of methods that act as mappers between Python and our SQL database. Inheritance from Base, a declarative_base object, allows us to avoid rewriting code. 
+
+            class Student(base): 
+                __tablename__ = 'students'
+                #notice the class is singular and the tablename is plural
+
+                #here we identify the table's columns using Column objects. 
+                id = Column(Integer(), primary_key = True)
+                name = Column(String())
+
+    - Persisting the Schema
+        To generate our database and persist our schema, we need to execute a series of Python statements. We'll create a script for this exercise. This script can actually be included in the code above to generate a table. 
+
+            #!usr/bin/env python3
+
+            from sqlalchemy import create_engine
+            
+            #this condition allows you to execute code when the file runs as a script, but not when it's imported as a module. This conditional block lets us store and run code only when the file is executed as a script. 
+
+            if __name__ == '__main__':
+                engine = create_engine('sqlite:///students.db')
+                Base.metadata.create_all(engine)
+        
+        The engine once created can be used to either directly to interact with the database or passed to a Session object to work with the ORM.
+
+        After adding the above code, run chmod +x file_name.py to make the script executable. Now if you run the file from your pipenv shell, you should see a students.db with a students table in your project
+                
+
+What is DBAPI?
+    DBAPI is shorthand for the phrase Python Database API Specification. This specification is used to define common usage patterns for all database connection packages. It is a low level API and is typically the lowest level system used in a Python application to talk to a database. 
+
+What is a Dialect? 
+
+What is a Pool? 
+
+
+        
+
