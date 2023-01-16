@@ -1,4 +1,4 @@
-SQLAlchemy is a Python library that comes with two modes, SQLAlchemy Core and SQLAlchemy ORM. We will use SQLAlchemy ORM
+SQLAlchemy is a Python library that comes with two modes, SQLAlchemy Core and SQLAlchemy ORM. We will use SQLAlchemy ORM.
 
 -> To install SQLAlchemy in a project, simply include sqlalchemy as a package in your pipfile and run pipenv install
     example:
@@ -101,3 +101,6 @@ What does passing the engine to the create_all method do?
 
 Why is the metadata_obj the second argument in Table instantiation?
 
+
+Other Notes:
+    - chmod +x <file_name> makes the file executable as a script

@@ -43,3 +43,5 @@ The Engine object is a FACTORY that can create new database connections and hold
             relative: For a relative file path, this requires three slashes:
                 example: create_engine('sqlite:///foo.db')
 
+    The below creates a sqlite dialected engine IN MEMORY:
+        engine = create_engine('sqlite:///:memory:')

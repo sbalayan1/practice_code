@@ -1,0 +1,36 @@
+#note these notes use a SQLITE database in memory instead of a local db file. 
+
+SQLAlchemy interacts with databases through sessions. (remember an engine can interact with a database directly or through a Session obj). A Session object wraps an Engine object. When this happens (maybe), the Session object pulls data from the database. (remember the Engine object creates a connection between the application and the database). This data is then used to FILL an IDENTITY MAP which then populates a STUDENT OBJECT. Vice versa, when data is committed to the database, the data is passed to the identity map which fills and unpacks into a STUDENT ROW. (remember this is similar to what we did with our built from scratch ORM where a creating new Instance needed to be translated to a ROW and pulling a ROW needed to be translated into an INSTANCE.)
+
+What is an Identity Map? 
+    An identity map is a property within a Session object. It is similar to an empty dictionary and contains keys for table names, columns and primary keys. The identity map property is essentially the TRANSLATOR between the database and the SQL application. 
+
+###Creating a Session
+    - to create a session, we need to import the sessionmaker class. This ensures that there is a consistent identity map for the duration of our session.
+    - what does the sessionmaker class do? 
+
+    - how does sessionmaker(bind=engine) work?
+
+        #!/usr/bin/env python3
+
+        from datetime import datetime
+        from sqlalchemy import (create_engine, Column, Index, DateTime, String, desc)
+        from sqlalchemy.ext.declarative import declarative_base
+        from sqlalchemy.orm import sessionmaker
+
+        Base = declarative_base()
+
+        class Student(base):
+            __tablename__ = 'students'
+
+            id = Column(Integer(), primary_key=True)
+            name = Column(String())
+
+
+        if __name__ == '__main__':
+            engine = create_engine('sqlite:///:memory:')
+            Base.metadata.create_all(engine)
+            Session = sessionmaker(bind=engine) #this line uses our engine to configure a Session class
+            session = Session() #this line creates an instance of the Session class
+
+###Transactions
