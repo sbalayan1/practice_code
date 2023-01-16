@@ -20,7 +20,7 @@ SQLAlchemy is a Python library that comes with two modes, SQLAlchemy Core and SQ
             from sqlalchemy.ext.declarative import declarative_base
 
             Base = declarative_base()
-            #declarative_base combines a container for table metadata as well as a group of methods that act as mappers between Python and our SQL database. Inheritance from Base, a declarative_base object, allows us to avoid rewriting code. 
+                #declarative_base combines a container for table metadata as well as a group of methods that act as mappers between Python and our SQL database. Inheritance from Base, a declarative_base object, allows us to avoid rewriting code. 
 
             class Student(base): 
                 __tablename__ = 'students'
@@ -30,23 +30,63 @@ SQLAlchemy is a Python library that comes with two modes, SQLAlchemy Core and SQ
                 id = Column(Integer(), primary_key = True)
                 name = Column(String())
 
+        The below code defines a student table:
+            from sqlalchemy import Table, Column, String, Integer, MetaData
+            metadata_obj = MetaData() #MetaData is a container object that stores a collection of metadata entities.
+            students = Table(
+                "students",
+                metadata_obj,
+                Column("id", Integer(), primary_key=True)
+                Column("name", String())
+            )
+
+            #the line of code above, creates an instance of the Table class. The two primary args of a Table object are the name and metadata obj. The remaining positional arguments are mostly Column objects describing each column:
+
     - Persisting the Schema
         To generate our database and persist our schema, we need to execute a series of Python statements. We'll create a script for this exercise. This script can actually be included in the code above to generate a table. 
 
             #!usr/bin/env python3
 
             from sqlalchemy import create_engine
-            
-            #this condition allows you to execute code when the file runs as a script, but not when it's imported as a module. This conditional block lets us store and run code only when the file is executed as a script. 
+
+            if __name__ == '__main__':  #this condition allows you to execute code when the file runs as a script, but not when it's imported as a module. This conditional block lets us store and run code only when the file is executed as a script. 
+
+                engine = create_engine('sqlite:///students.db') 
+                    #The engine once created can be used to either directly to interact with the database or passed to a Session object to work with the ORM.
+                
+                Base.metadata.create_all(engine) 
+                
+                    #the create_all() typically called on the metadata_obj to issue CREATE statements. When called, the method issues queries that check for the existence of an individual table, and when no table exists, issues the CREATE statements. Base.metadata.create_all(engine) tells the Engine that any models we create using the Base as a parent should be used to create tables. In the example below, we create a model called Students that inherits from the Base obj. This tells the engine to use the model to create a table
+
+                        Base = declarative_base()
+
+                        class Student(base):
+                            __tablename__ = 'students'
+
+                            id = Column(Integer(), primary_key=True)
+                            name = Column(String())
+
+
+        After adding the above code, run chmod +x file_name.py to make the script executable. Now if you run the file from your pipenv shell, you should see a students.db with a students table in your project.
+
+        #####The code below does the exact same thing as the code above but does not use the declarative_base
+            from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine
+
+            metadata_obj = MetaData()
 
             if __name__ == '__main__':
-                engine = create_engine('sqlite:///students.db')
-                Base.metadata.create_all(engine)
-        
-        The engine once created can be used to either directly to interact with the database or passed to a Session object to work with the ORM.
+                engine = create_engine("sqlite:///students.db")
+                students = Table(
+                    "students",
+                    metadata_obj,
+                    Column("id", Integer(), primary_key=True),
+                    Column("name", String())
+                )
 
-        After adding the above code, run chmod +x file_name.py to make the script executable. Now if you run the file from your pipenv shell, you should see a students.db with a students table in your project
+                metadata_obj.create_all(engine)
                 
+
+What is a declarative_base or a declarative_base obj? 
 
 What is DBAPI?
     DBAPI is shorthand for the phrase Python Database API Specification. This specification is used to define common usage patterns for all database connection packages. It is a low level API and is typically the lowest level system used in a Python application to talk to a database. 
@@ -55,6 +95,9 @@ What is a Dialect?
 
 What is a Pool? 
 
+What does the MetaData object do? 
 
-        
+What does passing the engine to the create_all method do? 
+
+Why is the metadata_obj the second argument in Table instantiation?
 

@@ -1,4 +1,6 @@
-The Engine is a factory that can create new database connections and holds onto connections inside of a Connection Pool.  #the Engine object is the starting point for any SQLAlchemy application and is instantiated using the create_engine() function. It's the homebase for the ACTUAL database and the DBAPI. The database and DBAPI are delivered through a Dialect and connection Pool, which together interpret the DBAPI's module functions as well as the behavior of the database. The Engine object, references the Dialect and connection Pool. The engine once created can be used to either directly to interact with the database or passed to a Session object to work with the ORM.
+The Engine object is a FACTORY that can create new database connections and holds onto connections inside of a Connection Pool.  #the Engine object is the starting point for any SQLAlchemy application and is instantiated using the create_engine() function. It's the homebase for the ACTUAL database and the DBAPI. The database and DBAPI are delivered through a Dialect and connection Pool, which together interpret the DBAPI's module functions as well as the behavior of the database. The Engine object, references the Dialect and connection Pool. The engine once created can be used to either directly to interact with the database or passed to a Session object to work with the ORM.
+
+***The Engine object creates and holds a connection between the SQLAlchemy application and the database. From my understanding it also is the EXECUTOR of sql queries. 
 
 
 # The create_engine function() creates an engine object based on a URL. URLs typically include username, password, hostname, database name fields, as well as optional keyword arguments for additional configuration. In some cases a file path is accepted, and in others a “data source name” replaces the “host” and “database” portions. this is the typical form of a database URL:
@@ -29,3 +31,15 @@ The Engine is a factory that can create new database connections and holds onto 
         Base.metadata.create_all(engine)
 
 ####Creating a URL using SQLite
+    SQLite connects to LOCAL FILE-BASED databases using Python's built-in sqlite3 module. 
+    
+    ***When we create an Engine object using the create_engine() function that is based on a SQlite dialect, we create an Engine object that is connected to a LOCAL database. 
+
+    ***The typical form is, sqlite://<nohostname>/<path><file>
+        - the <file> is the filename of the database. 
+        - the <path> is the absolute or relative path to the file. 
+            absolute: three slashes are followed by the absolute path. 
+                example: create_engine("sqlite:///C:\\path\\to\\foo.db")
+            relative: For a relative file path, this requires three slashes:
+                example: create_engine('sqlite:///foo.db')
+
