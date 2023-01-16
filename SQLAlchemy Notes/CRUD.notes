@@ -115,6 +115,10 @@ What does the __repr__() method do?
             session.commit() #this line executes all statements in the transaction and saves any changes to the database. commit() will also update the Student object ID. 
 
 ###Reading Records
+    To read from the database, we will use the session's query() instance method. 
+
+    example:
+        session.query(Students) or even session.query(Students).all()
 
 
 
