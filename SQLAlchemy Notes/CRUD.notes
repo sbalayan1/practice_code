@@ -118,8 +118,41 @@ What does the __repr__() method do?
     To read from the database, we will use the session's query() instance method. 
 
     example:
-        session.query(Students) or even session.query(Students).all()
+        session.query(Student) or even session.query(Student).all()
 
+    Query:
+        By default query() returns complete records from the database. However we can adjust our argument to retrieve specific columns in our datamodel. 
+            example:
+                students = session.query(Student.name).all() 
+        
+                #without the all() method, the above code saves a SQL statement to the students variable. 
+                
+                #the above sql statement reads, "SELECT students.name AS students_name FROM students ORDER BY students.name"
+
+                #However when you include the all() method, the students variable becomes:
+                    students = [('Alan Turing',), ('Albert Einstein',)]
+
+        We can even sort our query like so:
+            students = session.query(Student).order_by(Student.name)
+
+        The query method returns an ARRAY OF TUPLES
+            example: 
+                studentNames = session.query(Student.name).order_by(Student.name).all()
+                print(studentNames)
+                => [('Alan Turing',), ('Albert Einstein',)]
+
+
+        To sort in descending order and limit the number of rows, we can use the desc and limit methods
+            example:
+                student = session.query(Student.name, Student.birthday).order_by(desc(Student.birthday)).limit(1).all()
+                print(students)
+                #=> [('Alan Turing', datetime.datetime(1912, 6, 23, 0, 0))]
+
+        However if we wanted to do this without needing the all() we could use the first() method. This method will return a tuple, not a SQL statement and does not require list interpretation (aka the all() method). Since it returns a tuple we can even access properties within the tuple like so. 
+            example:
+                student = session.query(Student.name, Student.birthday).order_by(desc(Student.grade)).first()
+                print(student.birthday)
+    The Func library
 
 
 
