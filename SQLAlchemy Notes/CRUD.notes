@@ -152,7 +152,17 @@ What does the __repr__() method do?
             example:
                 student = session.query(Student.name, Student.birthday).order_by(desc(Student.grade)).first()
                 print(student.birthday)
-    The Func library
+
+    func
+        the func library gives us access to common SQL operations like sum() and count(). These operations take Columns as arguments and are passed as an argument to the query method. 
+            example:
+                student_count = session.query(func.count(Student.id))
+                print(student_count) 
+                    #without all(), the above prints the underlying sql statement
+                    # with all(), the above prints [(2,)]
+
+    filter
+        
 
 
 
