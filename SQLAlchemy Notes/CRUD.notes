@@ -162,7 +162,62 @@ What does the __repr__() method do?
                     # with all(), the above prints [(2,)]
 
     filter
-        
+        to retrieve specific records from the database, typically you will use the filter() method. 
+            example:
+                student = session.query(Student).filter(
+                    Student.name.like('%Alan%'),
+                    Student.grade == 11
+                ).all()
 
+                for record in query:
+                    print(record.name)
+                
+                #=> Alan Turing
+    
+###Updating Data
+    The simplest way to update data using the SQLAlchemy ORM is to use Python to modify objects and then commit the changes to the session. 
+        example:
+            for student in session.query(Student): #interestingly the all() method is not necessary here even though session.query(Student) is a SQL statement, not a list
+                student.grade += 1
+
+            session.commit()
+            print([(student.name, student.grade) for student in session.query(Student)])
+            #=> [('Albert Einstein', 7), ('Alan Turing', 12)]
+
+    Another way to update data is using the update() method
+        example:
+            #here we create an object that has the keys we'd like to update and their respective values and pass the object to the update method
+                session.query(Student).update({Student.grade: Student.grade + 1})
+                print([(student.name, student.grade) for student in session.query(Student)])
+                #=> [('Albert Einstein', 7), ('Alan Turing', 12)]
+
+###Deleting Data
+    To delete a record from the database, you can use the delete() method. 
+        1. If Object in memory => call the delete() on the session object
+        2. If object not in memory => query the database and call the delete method on your query. 
+            example:
+                if __name__ == '__main__':
+                    #create session and student objects
+                    query = session.query(Student).filter(Student.name == "Albert Einstein")
+                    albert_einstein = query.first() #note you do not need to call the all method, though you will notice that the query is a SQL statement. 
+
+                    session.delete(albert_einstein)
+                    session.commit()
+
+                    print(query.first())
+                    #=> None
+
+
+
+                    #The alternative would look like so:
+
+                        query = session.query(Student).filter(Student.name == "Albert Einstein")
+                        query.delete()
+                        print(query.first())
+                        #=> None
+
+
+                #It's important to note that the second approach will delete ALL records returned by the query. 
+                
 
 
