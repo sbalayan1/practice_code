@@ -1,0 +1,6 @@
+Alembic is a library for handling schema changes that uses SQLAlchemy to perform migrations in a standardized way. 
+
+Why do we need to use Alembic? 
+    SQLAlchemy only creates MISSING tables when we use the create_all() method. It does NOT update tables to match changes we've made to columns or keys. Alembic fixes this by providing classes and methods that will manage schema changes. 
+
+###Creating a Migration Environment

@@ -113,6 +113,7 @@ What does the __repr__() method do?
                 session.bulk_save_objects([alan_turing, albert_einstein])
 
             session.commit() #this line executes all statements in the transaction and saves any changes to the database. commit() will also update the Student object ID. 
+            #note that the commit() is essentially saving changes to the database as well as STORING INSTANCES into the session object. 
 
 ###Reading Records
     To read from the database, we will use the session's query() instance method. 
