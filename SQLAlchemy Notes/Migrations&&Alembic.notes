@@ -4,3 +4,12 @@ Why do we need to use Alembic?
     SQLAlchemy only creates MISSING tables when we use the create_all() method. It does NOT update tables to match changes we've made to columns or keys. Alembic fixes this by providing classes and methods that will manage schema changes. 
 
 ###Creating a Migration Environment
+    - alembic init migrations: creates a migration environment
+        - typically you will run this command from within the lib directory. This command will create a migrations directory and an alembic.ini file. 
+        - the migrations directory 
+            -> Within the migrations directory, you'll see the following structure:
+                ├── README
+                ├── env.py
+                ├── script.py.mako
+                └── versions
+        - alembic.ini is a file with configuration options for the environment
