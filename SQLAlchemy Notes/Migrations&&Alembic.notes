@@ -9,7 +9,74 @@ Why do we need to use Alembic?
         - the migrations directory 
             -> Within the migrations directory, you'll see the following structure:
                 ├── README
-                ├── env.py
-                ├── script.py.mako
-                └── versions
+                ├── env.py: defines and instantiates the SQLAlchemy engine, connects to the engine, starts a transaction, and calls the migration engine
+                ├── script.py.mako: is a template that is used when creating a migration and ultimately defines the basic structure of a migration.
+                └── versions: holds migration scripts
         - alembic.ini is a file with configuration options for the environment
+
+###Configuring the Migration Environment
+    - since we are using an existing database, we need to change our sqlalchemy.url in alembic.ini from a url to a local .db file. Notice how similar this is to specifying the url for creating an engine
+        #alembic.ini
+        sqlalchemy.url: sqlite3:///migrations_test.db
+
+    - after creating your models.py file, we need to configure env.py
+        Add this line to line 21 in the env.py:
+            from models import Base
+            target_metadata = Base.metadata
+
+        What this does is, point env.py at and watch the metadata attribute of our declarative_base object. That way, Alembic can use the metadata to compare the structure of the database schema to the models as they are defined in SQLAlchemy.
+
+###Generating a Migration
+    - to generate your first migration, make sure your shell is up and running and you are in the /lib file. Then run: alembic revision -m "Empty Init"
+    
+    - This will create a new migration file in the versions folder, named using the message you provided and the revision id. 
+
+    In the file you should see the following:
+
+    """Empty Init
+
+        Revision ID: b1e27001ed06
+        Revises: 
+        Create Date: 2023-01-21 08:45:23.469737
+
+        """
+        from alembic import op
+        import sqlalchemy as sa
+
+
+        # revision identifiers, used by Alembic.
+        revision = 'b1e27001ed06'
+        down_revision = None
+        branch_labels = None
+        depends_on = None
+
+
+        def upgrade() -> None:
+            pass
+
+
+        def downgrade() -> None:
+            pass
+
+
+        - The upgrade() method includes code that is necessary to change the database based on this migration
+
+        - The downgrade() method includes code that is necessary to undo this migration and return the database to its previous state.
+
+    - Next we can run the following command to generate our database
+        alembic upgrade head
+
+        You should see the following in your terminal:
+            INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+            INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+            INFO  [alembic.runtime.migration] Running upgrade  -> b1e27001ed06, Empty Init
+
+        This command will upgrade the database to the head, or the newest revision, similar to github! If you have multiple revisions that need to be migrated at the sametime, those revisions will be run in order using the down_revisions as a guide. 
+            example:
+                INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+                INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+                INFO  [alembic.runtime.migration] Running upgrade d7adc914c0d7 -> 7dca95a6011c, test1
+                INFO  [alembic.runtime.migration] Running upgrade 7dca95a6011c -> 7cecc72e8373, test2
+                INFO  [alembic.runtime.migration] Running upgrade 7cecc72e8373 -> 6ddca2c9b597, test3
+
+        As you can see the oldest revision, test1, is run first and the newest revision, test3, is run last. Therefore test3 is the current head.
