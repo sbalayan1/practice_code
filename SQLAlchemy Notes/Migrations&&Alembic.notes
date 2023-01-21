@@ -155,9 +155,13 @@ Why do we need to use Alembic?
     Run the migration
         4. alembic upgrade head
 
+        Note you can even specify which migration to upgrade to by using the revision id
+         ex: alembic upgrade 0fe787703cb4
+
 ##Downgrading Migrations
     - To downgrade a migration, we need to find the ID of the migration in the versions folder that we want to return to. Once you have the id, we can run alembic downgrade <the migration id>. 
     - After you downgrade, make sure to delete the old/unused head from the versions folder. 
+    - Note that the ID you select is the old database state or migration you want to downgrade TO. Generally you will not select the same head migration's ID if you are trying to downgrade from it. 
 
 What methods are available to the op class? 
 What is a down_revision?
