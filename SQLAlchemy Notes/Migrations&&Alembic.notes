@@ -120,7 +120,11 @@ Why do we need to use Alembic?
                     branch_labels = None
                     depends_on = None
             
-            - The upgrade() and downgrade() methods are filled out with sqlalchemy orm syntax. Alembic then executes the instructions using its own op class. 
+            - The upgrade() and downgrade() methods are filled out with sqlalchemy orm syntax. Alembic then executes the instructions using its own op class.
+
+        After you run the migration, you should be able to see two tables in your database: 
+            alembic_version: stores the migration ID for the current state of the database
+            students: table that you created in your model
 
     
 What is a down_revision?
