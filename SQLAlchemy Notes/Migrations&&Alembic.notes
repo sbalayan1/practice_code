@@ -80,3 +80,47 @@ Why do we need to use Alembic?
                 INFO  [alembic.runtime.migration] Running upgrade 7cecc72e8373 -> 6ddca2c9b597, test3
 
         As you can see the oldest revision, test1, is run first and the newest revision, test3, is run last. Therefore test3 is the current head.
+
+###Autogenerating a migration
+    Now that we have our migration base, empty migration, we can add our data model to models.py.
+
+    class Student(Base):
+        __tablename__ = 'students'
+
+        id = Column(Integer(), primary_key=True)
+        name = Column(String(), index=True)
+        email = Column(String(55))
+        grade = Column(Integer())
+        birthday = Column(DateTime())
+        enrolled_date = Column(DateTime(), default=datetime.now())
+
+        def __repr__(self):
+            return f"Student {self.id}: " \
+                + f"{self.name}, " \
+                + f"Grade {self.grade}"
+
+    The interesting thing here is that, since this is a SIMPLE migration, we can actually use Alembic to autogenerate code for us. We have the Students data model. Now we need to add the students table to our database. Let's use Alembic to autogenerate a this create_table migration for us.  
+        To generate the migration run, alembic revision ---autogenerate -m "Added Student model"
+
+        You should see the following:
+            INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+            INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+            INFO  [alembic.autogenerate.compare] Detected added table 'students'
+            INFO  [alembic.autogenerate.compare] Detected added index 'ix_students_name' on '['name']'
+            Generating /python-p3-migrations-and-alembic/app/migrations/versions/361dae855898_added_model.py ...  done
+
+        What this command does is, it inspects the metadata of Base in models.py and compares the metadata to the current state of the database. It detects that data model Student was added to models.py and an index was added to the name column. Alembic then generates the necessary migration to reflect the changes. 
+
+        What else happens?
+            - a down_revision is added. This points to the id of the previous migration so that if we ever rollback our database, Alembic knows the order of the revisions.
+                example:
+                    # revision identifiers, used by Alembic.
+                    revision = '361dae855898'
+                    down_revision = '6b9cb35ba46e'
+                    branch_labels = None
+                    depends_on = None
+            
+            - The upgrade() and downgrade() methods are filled out with sqlalchemy orm syntax. Alembic then executes the instructions using its own op class. 
+
+    
+What is a down_revision?
