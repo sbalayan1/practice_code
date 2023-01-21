@@ -126,5 +126,43 @@ Why do we need to use Alembic?
             alembic_version: stores the migration ID for the current state of the database
             students: table that you created in your model
 
+###Manual Migrations and Downgrades
+    While Alembic can do many things, there are several things Alembic needs help with. Those are:
+        - Table name changes
+        - Column name changes
+        - Adding, removing, or changing constraints without explicit names
+        - Converting Python data types that are NOT supported by the database
+
+    To help with this, we will write manual migrations and use roll backs to downgrade unnecessary and broken migrations.
+
+
+##Manual Migration
+    - The code below changes the Students table name to scholars. First we'll change the __tablename__ variable and create an empty migration.
+
+        1. class Student(Base):
+            __tablename__ = 'scholars'
+
+        2. alembic revision -m "rename students to scholars"
+
+    Now that the migration is made, let's add some code to our upgrade() and downgrade() methods
+        3. 
+            def upgrade() -> None:
+                op.rename_table('students', 'scholar')
+
+            def downgrade() -> None:
+                op.rename_table('scholars', students')
     
+    Run the migration
+        4. alembic upgrade head
+
+##Downgrading Migrations
+    - To downgrade a migration, we need to find the ID of the migration in the versions folder that we want to return to. Once you have the id, we can run alembic downgrade <the migration id>. 
+    - After you downgrade, make sure to delete the old/unused head from the versions folder. 
+
+What methods are available to the op class? 
 What is a down_revision?
+
+Other Notes:
+    Commands for the command line:
+        - alembic current: checks which migrations have already been applied and returns the ID of the current migration. 
+        - alembic history: shows you the full history of migrations to the database
