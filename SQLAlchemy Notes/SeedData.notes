@@ -1,0 +1,38 @@
+What good is a database without any data? When working with any application involving a database, it's a good idea to populate your database with some realistic data when you are working on building new features. SQLAlchemy, and many other ORMs, refer to the process of adding sample data to the database as "seeding" the database.
+
+To use the seed.py file to add data to the database, all we need to do is write code that uses SQLAlchemy methods to create new records. this code will be added after we create our session. After we add the code, we can run the file using python seed.py and view the new information in an ipdb shell via the debug.py file
+
+
+###Generating Randomized Data
+      example:
+
+        from faker import Faker
+        import random
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+
+        from models import Game
+
+        fake = Faker()
+
+        if __name__ == '__main__':
+            
+            engine = create_engine('sqlite:///seed_db.db')
+            Session = sessionmaker(bind=engine)
+            session = Session()
+            session.query(Game).delete()
+            session.commit()
+            print("Seeding Games")
+
+            games = [
+                Game(
+                    title = fake.name()
+                    genre = fake.word(),
+                    platform = fake.word(),
+                    price=random.randint(0, 60)
+                )
+                for i in range(50)]
+
+            session.bulk_save_objects(games)
+            session.commit()
+

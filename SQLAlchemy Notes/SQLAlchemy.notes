@@ -104,3 +104,4 @@ Why is the metadata_obj the second argument in Table instantiation?
 
 Other Notes:
     - chmod +x <file_name> makes the file executable as a script
+    - debug.py is run as a script and opens up an ipdb shell
