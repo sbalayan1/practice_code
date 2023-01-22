@@ -1,0 +1,36 @@
+###How do we use SQLAlchemy Relationships?
+    - Foreign Key: used to constrain and join data models. Primary and Foreign Keys are used to associate SQL tables with one another
+        - The ForeignKey() directive (noted in documentation), does....
+    - relationship() : provides a property to one model that can be used to access a related model
+    - backref(): creates the relationship() property in the related model
+
+    One To Many Example:
+        class Customer(Base):
+            __tablename__ = "customers"
+            id = Column(Integer(), primary_key=True)
+            orders = relationship("Order", backref='customer')
+
+        class Order(Base):
+            __tablename__ = 'orders'
+            id = Column(Integer(), primary_key=True)
+            customer_id = Column(Integer(), ForeignKey(''))
+
+    
+        #here, we create an orders attribute whose value is set by the relationship() method. 
+        #the backref method sets the reverse relationship, "Many to One", on the child model. 
+        #to complete the relationship, we just create a customer_id attribute and assign a Customer instance's id as the foreign key. 
+
+        #note that the above creates a bidirectional relationship between the Customer and the Order models. 
+
+        ##the below does the samething as the above but uses the back_populates parameter
+
+            class Customer(Base):
+                __tablename__ = 'customers'
+                id=Column(Integer(), primary_key=True)
+                orders=relationship('Order', backpopulates='customer')
+
+            class Order(Base):
+                __tablename__ = 'orders'
+                id=Column(Integer(), primary_key=True)
+                customer_id=Column(Integer(), ForeignKey("customer.id"))
+                customer=relationship('Customer', back_populates='orders')
