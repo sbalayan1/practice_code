@@ -13,11 +13,12 @@
         class Order(Base):
             __tablename__ = 'orders'
             id = Column(Integer(), primary_key=True)
-            customer_id = Column(Integer(), ForeignKey(''))
+            customer_id = Column(Integer(), ForeignKey('customers.id'))
 
     
         #here, we create an orders attribute whose value is set by the relationship() method. 
-        #the backref method sets the reverse relationship, "Many to One", on the child model. 
+        #the backref method sets the reverse relationship, "Many to One", on the child model.
+            - 
         #to complete the relationship, we just create a customer_id attribute and assign a Customer instance's id as the foreign key. 
 
         #note that the above creates a bidirectional relationship between the Customer and the Order models. 
@@ -34,3 +35,32 @@
                 id=Column(Integer(), primary_key=True)
                 customer_id=Column(Integer(), ForeignKey("customer.id"))
                 customer=relationship('Customer', back_populates='orders')
+
+    One to One Example:
+        ##using backref
+
+            class Order(Base):
+                __tablename__ = 'orders'
+                id = Column(Integer(), primary_key=True)
+
+            class OrderMetaData(Base):
+                __tablename__ = 'orders_metadata
+                order_id = Column(Integer(), ForeignKey('orders.id'))
+                orders = relationship('Order', backref=backref('order_metadata', uselist=False))
+
+                     ##the above reads, the Order model refers back to the OrderMetaData MODEL via an order_metadata PROPERTY that is not a list. 
+
+        ##using back_populates
+            class Order(Base):
+                __tablename__ = 'orders'
+                id=Column(Integer(), primary_key=True)
+                order_metadata = relationship('OrderMetaData', back_populates="orders", uselist=False)
+
+            class OrderMetaData(Base):
+                __tablename__ = 'orders_metadata'
+                id=Column(Integer(), primary_key=True)
+                orders
+                parent_id = Column(Integer(), ForeignKey('orders.id'))
+
+                parent=relationship("Order", back_populates="OrderMetaData")
+
