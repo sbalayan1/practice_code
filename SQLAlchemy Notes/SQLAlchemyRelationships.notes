@@ -17,6 +17,7 @@
 
     
         #here, we create an orders attribute whose value is set by the relationship() method. 
+        #The orders attribute is created in the Customer because a customer HAS MANY orders and an order BELONGS TO a customer. Therefore a Customer will have an orders attribute to hold its orders while an order will have a customer attribute to belong to a customer
         #the backref method sets the reverse relationship, "Many to One", on the child model.
             - 
         #to complete the relationship, we just create a customer_id attribute and assign a Customer instance's id as the foreign key. 
@@ -63,4 +64,50 @@
                 parent_id = Column(Integer(), ForeignKey('orders.id'))
 
                 parent=relationship("Order", back_populates="OrderMetaData")
+
+Creating a Many to Many Relationship
+    #many to many relationships in SQLAlchemy use intermediaries called association tables. These are tables that exist to only join two related tables together. There are two approaches to building these associations. These are, association objects and Table objects. 
+
+    Association object
+        - an association object is just another model. It typically will either use its own primary key or a combination of its two joined tables primary keys as a unique identifier. 
+        - Note we use back_populates in place of backref. With many to many relationships it's easy to create unnecessary fields or duplicate fields using backref.
+        - that being said, this approach is a bit wordy. Especially since the join table doesn't need any unique columns.
+
+        example of an association object:
+
+            class GameUser(Base):
+                __tablename__ = "game_users"
+
+                id = Column(Integer(), primary_key=True)
+                game_id = Column(ForeignKey('games.id'))
+                user_id = Column(ForeignKey('users.id'))
+
+                game = relationship('Game', back_populates='game_users')
+                user = relationship('User', back_populates='game_users')
+
+                def __repr__(self):
+                    return f'GameUser(game_id={self.game_id}, ' + \
+                        f'user_id={self.user_id})'
+
+        - The alternative then is to use a Table object
+    
+    Table Objects
+        - table objects are instances of the sqlalchemy.Table class. They function more or less the same as data models, with the exception of being a little more compact. This syntax visually de-emphasizes association tables in your models and is the preferred approach for simple many-to-many relationships in SQLAlchemy.
+
+        #The below creates an association table like the above. notice this is identical to creating a table. 
+        game_user = Table(
+            'game_user',
+            Base.metadata,
+            Column('game_id', ForeignKey('games.id'), primary_key=True),
+            Column('user_id', ForeignKey('users.id'), primary_key=True),
+            extend_existing = True
+        )
+
+        class Game(Base):
+            users = relationship('User', secondary=game_user, back_populates='games')
+
+        class User(Base):
+            games = relationship('Game', secondary=game_user, back_populates='users')
+
+
 
