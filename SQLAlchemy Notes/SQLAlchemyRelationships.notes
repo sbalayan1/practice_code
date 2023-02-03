@@ -95,19 +95,27 @@ Creating a Many to Many Relationship
         - table objects are instances of the sqlalchemy.Table class. They function more or less the same as data models, with the exception of being a little more compact. This syntax visually de-emphasizes association tables in your models and is the preferred approach for simple many-to-many relationships in SQLAlchemy.
 
         #The below creates an association table like the above. notice this is identical to creating a table. 
-        game_user = Table(
-            'game_user',
-            Base.metadata,
-            Column('game_id', ForeignKey('games.id'), primary_key=True),
-            Column('user_id', ForeignKey('users.id'), primary_key=True),
-            extend_existing = True
-        )
+            game_user = Table(
+                'game_user',
+                Base.metadata,
+                Column('game_id', ForeignKey('games.id'), primary_key=True),
+                Column('user_id', ForeignKey('users.id'), primary_key=True),
+                extend_existing = True
+            )
 
-        class Game(Base):
-            users = relationship('User', secondary=game_user, back_populates='games')
+            class Game(Base):
+                users = relationship('User', secondary=game_user, back_populates='games')
+                    #the game and user obj require a relationship with each other. 
+                    #the secondary argument refers to the intermediary table. 
+                    #back_populates must be placed on both sides. Because many-to-many relationships are symmetrical, use of back_populates in both models is the best way to leave readable code behind for other developers.
 
-        class User(Base):
-            games = relationship('Game', secondary=game_user, back_populates='users')
+            class User(Base):
+                games = relationship('Game', secondary=game_user, back_populates='users')
 
+        #Create the migration using => alembic revision --autogenerate -m "Add game_user Association Table"
+        #Then run => alembic upgrade head. 
+
+
+            **note we need to define the Table object first because it is being used in subsequent code. 
 
 
